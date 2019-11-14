@@ -8,4 +8,5 @@ O aplicativo será _open-source_, assim, caso você não seja do grupo e queira 
 
 ## Documentações
 
-Caso seja necessário documentação para algo no projeto, estas estarão na pasta **[/docs](/docs)**.
+Todas as documentações do projetos se encontrarão na pasta **[docs](/docs)**.
+Se for sua primeira vez no projeto, é **_altamente recomendado_** que você leia as documentações da pasta.
