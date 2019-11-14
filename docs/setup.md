@@ -1,8 +1,8 @@
 # Preparando ambiente para desenvolvimento (com emulador)
 
-Para testar e rodar o app em um emulador Android (Windows/Linux/Mac OS), siga os seguintes passos.
+Para testar e rodar o app em um emulador Android (possível em Windows/Linux/Mac OS), siga os seguintes passos.
 
-**Observação:** Esse tutorial ensina a instalar emuladores do Android Studio, que são mais performáticos que outros, porém também são mais pesados.
+**Observação:** Esse tutorial ensina a instalar emuladores do Android Studio, que são mais performáticos que outros, porém também são mais pesados. Além disso, este tutorial também focará mais no Windows, já que as partes de usar terminal são mais fáceis em Linux ou Mac OS.
 
 ## Instalando o Android Studio
 
@@ -10,7 +10,7 @@ Essa parte, obviamente a mais fácil (_não que o resto seja difícil_) consiste
 
 ## Abrindo o projeto
 
-Depois de instalar o Android Studio, selecione a opção de _abrir um projeto_ e selecione a pasta android no seguinte caminho (não é necessário, mas recomendado)
+Depois de instalar o Android Studio, selecione a opção de _abrir um projeto_ e selecione a pasta android no seguinte caminho (recomendado)
 
 ![Caminho do projeto](images/caminhoproj.png)
 
@@ -32,11 +32,11 @@ A janela de criação de um AVD é bem intuitiva, mas muito provavelmente você 
 
 ![Baixar android](images/android.png)
 
-No meu caso, criei um dispositivo Pixel 2 com o nome Pixel_2
-
-**Observação:** Também tem como criar um AVD pela linha de comando, porém a interface ajuda muito o processo
+**No meu caso, criei um dispositivo Pixel 2 com o nome Pixel_2**
 
 ![AVD](images/avd.png)
+
+**Observação:** Também tem como criar um AVD pela linha de comando, porém a interface ajuda muito o processo
 
 ## Iniciando um _AVD_
 
@@ -54,7 +54,7 @@ Para as pessoas menos psicopatas, temos o segundo método, que consiste em rodar
 
 **Observação:** Esse método não precisa de ter o Android Studio aberto, por isso é o melhor.
 
-Este arquivo se encontra (por padrão, no Windows) em `C:\Users\{user}\AppData\Local\Android\Sdk\emulator`
+Este arquivo se encontra (por padrão, no Windows) na pasta `C:\Users\{user}\AppData\Local\Android\Sdk\emulator`
 
 O arquivo se chama `emulator.exe`, assim, você pode executá-lo de duas maneiras
 
