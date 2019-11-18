@@ -94,6 +94,6 @@ No meu caso, então
 
 ## Executando o projeto
 
-Como todos já sabem, depois de ter o emulador aberto e rodando, basta rodar (em outro cmd/terminal) o comando react-native run-android dentro da pasta do projeto
+Como todos já sabem, depois de ter o emulador aberto e rodando, basta rodar (em outro cmd/terminal) o comando ```react-native run-android``` dentro da pasta do projeto
 
 Depois disso, só começar a _codar_ **_@iagod_**
