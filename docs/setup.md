@@ -92,6 +92,10 @@ No meu caso, então
 
 `emulator -avd Pixel_2`
 
+## Rodando o projeto em um dispositivo (físico)
+
+Caso você prefira esse método por algum motivo (como não conseguir rodar um emulador), clique [neste link](https://facebook.github.io/react-native/docs/running-on-device)
+
 ## Executando o projeto
 
 Como todos já sabem, depois de ter o emulador aberto e rodando, basta rodar (em outro cmd/terminal) o comando ```react-native run-android``` dentro da pasta do projeto
