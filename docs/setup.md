@@ -2,6 +2,8 @@
 
 Para testar e rodar o app em um emulador Android (possível em Windows/Linux/Mac OS), siga os seguintes passos.
 
+Caso você prefira rodar o projeto em um dispositivo físico, vá para [esta documentação](/setup-celular.md)
+
 **Observação:** Esse tutorial ensina a instalar emuladores do Android Studio, que são mais performáticos que outros, porém também são mais pesados. Além disso, este tutorial também focará mais no Windows, já que as partes de usar terminal são mais fáceis em Linux ou Mac OS.
 
 ## Instalando o Android Studio
@@ -92,12 +94,8 @@ No meu caso, então
 
 `emulator -avd Pixel_2`
 
-## Rodando o projeto em um dispositivo (físico)
-
-Caso você prefira esse método por algum motivo (como não conseguir rodar um emulador), clique [neste link](https://facebook.github.io/react-native/docs/running-on-device)
-
 ## Executando o projeto
 
-Como todos já sabem, depois de ter o emulador aberto e rodando, basta rodar (em outro cmd/terminal) o comando ```react-native run-android``` dentro da pasta do projeto
+Como todos já sabem, depois de ter o emulador aberto e rodando, basta rodar (em outro cmd/terminal) um dos comandos: `react-native run-android`, `yarn start` ou `react-native start` dentro da pasta do projeto
 
 Depois disso, só começar a _codar_ **_@iagod_**
