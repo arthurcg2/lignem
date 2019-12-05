@@ -8,9 +8,10 @@ const Logo = ({ type = 'secondary' }) => {
 		<Image
 			source={lignem}
 			style={{
-				width: type == 'primary' ? 50 : 35,
-				height: type == 'primary' ? 50 : 35,
-				alignSelf: type == 'primary' ? 'flex-end' : 'center',
+				width: 35,
+				height: 35,
+				marginRight: type == 'secondary' ? 10 : 0,
+				alignSelf: 'center',
 			}}
 		/>
 	);

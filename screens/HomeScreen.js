@@ -1,8 +1,7 @@
 import React from 'react';
-import { View, Button, Text, StyleSheet } from 'react-native';
+import { View, Button, StyleSheet } from 'react-native';
 
 import Logo from '../components/Logo';
-import Lottie from 'lottie-react-native';
 
 const Home = ({ navigation }) => {
 	return (
