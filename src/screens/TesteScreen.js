@@ -1,16 +1,12 @@
 import React from 'react';
-import { View, Text } from 'react-native';
+import { View } from 'react-native';
 
 const Teste = () => {
-	return (
-		<View>
-			<Text>EAEAEAE</Text>
-		</View>
-	);
+	return <View />;
 };
 
 Teste.navigationOptions = {
-	title: 'Salve',
+	title: 'Teste',
 };
 
 export default Teste;
