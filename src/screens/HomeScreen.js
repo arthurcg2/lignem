@@ -19,7 +19,7 @@ const Home = ({ navigation }) => {
 };
 
 Home.navigationOptions = {
-	headerTitle: <Logo type="primary" />,
+	headerTitle: <Logo />,
 	headerRight: <View />,
 };
 
