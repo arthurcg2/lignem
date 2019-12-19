@@ -33,7 +33,6 @@ const Home = ({ navigation }) => {
 
 Home.navigationOptions = {
 	headerTitle: <Logo />,
-	headerRight: <View />,
 };
 
 const styles = StyleSheet.create({
