@@ -1,0 +1,3 @@
+{
+	"teste": "## Markdown in react-native is so cool!\n\nYou can **emphasize** what you want, or just _suggest it_\n\nYou can even [**link your website**](https://google.com) or if you prefer: [email somebody](mailto:email@somebody.com)\n\n| Number | Second Col |\n| ------ | ---------- |\n| 1      | TESTE      |\n| 2      | NAO SEI    |\n| 3      | ALO        |\n"
+}
