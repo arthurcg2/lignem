@@ -4,8 +4,6 @@ import Markdown from 'react-native-simple-markdown';
 import { teste } from '../../contents/contents';
 import images from '../../contents/images';
 
-console.log(images);
-
 const TesteScreen = () => {
 	return (
 		<ScrollView>
