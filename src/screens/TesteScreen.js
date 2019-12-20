@@ -1,12 +1,18 @@
 import React from 'react';
-import { ScrollView } from 'react-native';
+import { ScrollView, Linking } from 'react-native';
 import Markdown from 'react-native-markdown-package';
 import { teste } from '../../contents/contents';
 
 const TesteScreen = () => {
 	return (
 		<ScrollView>
-			<Markdown>{teste}</Markdown>
+			<Markdown
+				onLink={url => {
+					Linking.openURL(url);
+				}}
+			>
+				{teste}
+			</Markdown>
 		</ScrollView>
 	);
 };
