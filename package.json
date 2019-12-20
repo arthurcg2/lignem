@@ -17,6 +17,7 @@
     "react-native-markdown-package": "^1.5.4",
     "react-native-reanimated": "^1.4.0",
     "react-native-screens": "^2.0.0-alpha.17",
+    "react-native-simple-markdown": "^1.1.0",
     "react-native-vector-icons": "^6.6.0",
     "react-navigation": "^4.0.10",
     "react-navigation-stack": "^1.10.3"
