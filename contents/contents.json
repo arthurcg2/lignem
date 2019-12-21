@@ -1,3 +1,3 @@
 {
-	"teste": "## Markdown in react-native is so cool!\n\nYou can **emphasize** what you want, or just _suggest it_\n\n![TESTE](hidreletrica.jpg) or if you prefer: [email somebody](mailto:email@somebody.com)\n\n"
+	"teste": "## Markdown in react-native is so cool!\n\nYou can **emphasize** what you want, or just _suggest it_\n\n![TESTE](hidreletrica.jpg)\n\n or if you prefer: [email somebody](mailto:email@somebody.com)\n\n"
 }
