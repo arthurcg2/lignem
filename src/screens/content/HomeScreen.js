@@ -2,14 +2,12 @@ import React from 'react';
 import { View, Text, StyleSheet, Button, ScrollView } from 'react-native';
 import { Card } from 'react-native-elements';
 
-import Logo from '../components/Logo';
-
 const Home = ({ navigation }) => {
 	return (
 		<View style={styles.container}>
 			<ScrollView style={styles.cardsList}>
 				<Card
-					image={require('../../assets/hidreletrica.jpg')}
+					image={require('../../../assets/hidreletrica.jpg')}
 					title="Exemplo"
 					titleStyle={styles.title}
 				>
@@ -29,10 +27,6 @@ const Home = ({ navigation }) => {
 			</ScrollView>
 		</View>
 	);
-};
-
-Home.navigationOptions = {
-	headerTitle: <Logo />,
 };
 
 const styles = StyleSheet.create({

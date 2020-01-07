@@ -1,24 +1,50 @@
+import React from 'react';
 import { createAppContainer } from 'react-navigation';
-import { createStackNavigator } from 'react-navigation-stack';
+import { createBottomTabNavigator } from 'react-navigation-tabs';
+import Icon from 'react-native-vector-icons/MaterialIcons';
 
-import Home from './screens/HomeScreen';
-import Teste from './screens/TesteScreen';
+import Conteudo from './screens/content/routes';
+import Settings from './screens/settings/routes';
+import Interativos from './screens/interactives/routes';
 
-const Router = createStackNavigator(
-	{
-		Home,
-		Teste,
-	},
-	{
-		headerLayoutPreset: 'center',
-		defaultNavigationOptions: {
-			title: 'Título',
-			headerTintColor: '#7159C1',
-			headerTitleStyle: {
-				fontWeight: 'bold',
+export default createAppContainer(
+	createBottomTabNavigator(
+		{
+			Conteudo: {
+				screen: Conteudo,
+				navigationOptions: {
+					tabBarLabel: 'Conteudo',
+					tabBarIcon: ({ tintColor }) => (
+						<Icon name="chrome-reader-mode" color={tintColor} size={24} />
+					),
+				},
+			},
+			Configuracoes: {
+				screen: Settings,
+				navigationOptions: {
+					tabBarLabel: 'Configurações',
+					tabBarIcon: ({ tintColor }) => (
+						<Icon name="settings" color={tintColor} size={24} />
+					),
+				},
+			},
+			Interativo: {
+				screen: Interativos,
+				navigationOptions: {
+					tabBarLabel: 'Jogos',
+					tabBarIcon: ({ tintColor }) => (
+						<Icon name="gamepad" color={tintColor} size={24} />
+					),
+				},
 			},
 		},
-	},
+		{
+			order: ['Interativo', 'Conteudo', 'Configuracoes'],
+			initialRouteName: 'Conteudo',
+			tabBarOptions: {
+				activeTintColor: '#7159C1',
+				inactiveTintColor: 'grey',
+			},
+		},
+	),
 );
-
-export default createAppContainer(Router);

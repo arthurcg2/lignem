@@ -2,8 +2,8 @@ import React from 'react';
 import { ScrollView, Image } from 'react-native';
 import Markdown from 'react-native-simple-markdown';
 
-import { teste } from '../../contents/contents';
-import images from '../../contents/images';
+import { teste } from '../../../contents/contents';
+import images from '../../../contents/images';
 import { markdownStyles } from './styles';
 
 const TesteScreen = () => {
