@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { View, ScrollView, Switch, Text, StyleSheet } from 'react-native';
 import { ListItem, Divider } from 'react-native-elements';
 import Logo from '../../components/Logo';
@@ -8,13 +8,20 @@ const options = [
 		title: 'Tema escuro',
 		sub: 'Tons mais escuros para o Lignem',
 		icon: 'brightness-3',
-		rightElement: (
-			<Switch
-				value={false}
-				trackColor={{ true: '#937BE3' }}
-				thumbColor="#FFF"
-			/>
-		),
+		rightElement: () => {
+			const [state, setState] = useState(false);
+
+			return (
+				<Switch
+					value={state}
+					onValueChange={() => {
+						setState(!state);
+					}}
+					trackColor={{ true: '#937BE3' }}
+					thumbColor="#FFF"
+				/>
+			);
+		},
 		chevron: false,
 	},
 	{
