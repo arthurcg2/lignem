@@ -1,5 +1,5 @@
 import React from 'react';
-import { ScrollView, Image } from 'react-native';
+import { ScrollView, Image, View, Text } from 'react-native';
 import Markdown from 'react-native-simple-markdown';
 
 import { teste } from '../../../contents/contents';

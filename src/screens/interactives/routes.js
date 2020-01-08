@@ -1,8 +1,6 @@
-import React from 'react';
 import { createAppContainer } from 'react-navigation';
 import { createStackNavigator } from 'react-navigation-stack';
 
-import Logo from '../../components/Logo';
 import InterativoTeste from './InterativoTesteScreen';
 
 const Router = createStackNavigator(
@@ -17,7 +15,6 @@ const Router = createStackNavigator(
 			headerTitleStyle: {
 				fontWeight: 'bold',
 			},
-			headerTitle: <Logo />,
 		},
 	},
 );
