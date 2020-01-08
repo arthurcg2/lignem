@@ -2,61 +2,73 @@ import React, { useState } from 'react';
 import { View, StyleSheet, Switch } from 'react-native';
 import { ListItem } from 'react-native-elements';
 
-const list = [
-	{
-		title: 'Protanopia',
-		sub: 'Deficiência total nos cones vermelhos',
-	},
-	{
-		title: 'Protanomalia',
-		sub: 'Deficiência parcial nos cones vermelhos',
-	},
-	{
-		title: 'Deuteranopia',
-		sub: 'Deficiência total nos cones verdes',
-	},
-	{
-		title: 'Deuteranomalia',
-		sub: 'Deficiência parcial nos cones verdes',
-	},
-	{
-		title: 'Tritanopia',
-		sub: 'Deficiência total nos cones azuis',
-	},
-	{
-		title: 'Tritanomalia',
-		sub: 'Deficiência total nos cones azuis',
-	},
-];
-
 const Daltonismo = () => {
-	const [state, setState] = useState(false);
+	const [deficiencias, setDeficiencias] = useState(new Array(6).fill(false));
 
 	return (
 		<View style={styles.container}>
-			<View>
+			<View accessibilityRole="menu">
 				{list.map((l, i) => (
 					<ListItem
 						key={i}
 						title={l.title}
+						accessible
+						accessibilityLabel={l.sub}
+						accessibilityRole="menuitem"
 						subtitle={l.sub}
+						bottomDivider
 						rightElement={
 							<Switch
-								value={state}
+								value={deficiencias[l.cod]}
 								onValueChange={() => {
-									setState(!state);
+									let newDef = new Array(6).fill(false);
+									newDef[l.cod] = !deficiencias[l.cod];
+									setDeficiencias(newDef);
 								}}
+								accessibilityRole="switch"
 								trackColor={{ true: '#937BE3' }}
 								thumbColor="#FFF"
 							/>
 						}
-						bottomDivider
 					/>
 				))}
 			</View>
 		</View>
 	);
 };
+
+const list = [
+	{
+		title: 'Protanopia',
+		sub: 'Deficiência total nos cones vermelhos',
+		cod: 0,
+	},
+	{
+		title: 'Protanomalia',
+		sub: 'Deficiência parcial nos cones vermelhos',
+		cod: 1,
+	},
+	{
+		title: 'Deuteranopia',
+		sub: 'Deficiência total nos cones verdes',
+		cod: 2,
+	},
+	{
+		title: 'Deuteranomalia',
+		sub: 'Deficiência parcial nos cones verdes',
+		cod: 3,
+	},
+	{
+		title: 'Tritanopia',
+		sub: 'Deficiência total nos cones azuis',
+		cod: 4,
+	},
+	{
+		title: 'Tritanomalia',
+		sub: 'Deficiência total nos cones azuis',
+		cod: 5,
+	},
+];
 
 Daltonismo.navigationOptions = {
 	title: 'Modo de daltonismo',
