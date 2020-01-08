@@ -4,7 +4,6 @@ import { createStackNavigator } from 'react-navigation-stack';
 
 import Home from './HomeScreen';
 import Teste from './TesteScreen';
-import Logo from '../../components/Logo';
 
 const Router = createStackNavigator(
 	{
@@ -19,7 +18,6 @@ const Router = createStackNavigator(
 			headerTitleStyle: {
 				fontWeight: 'bold',
 			},
-			headerTitle: <Logo />,
 		},
 	},
 );

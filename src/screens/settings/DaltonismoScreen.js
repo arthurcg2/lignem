@@ -29,7 +29,7 @@ const list = [
 	},
 ];
 
-export default () => {
+const Daltonismo = () => {
 	const [state, setState] = useState(false);
 
 	return (
@@ -58,9 +58,15 @@ export default () => {
 	);
 };
 
+Daltonismo.navigationOptions = {
+	title: 'Modo de daltonismo',
+};
+
 const styles = StyleSheet.create({
 	container: {
 		flex: 1,
 		backgroundColor: '#FFF',
 	},
 });
+
+export default Daltonismo;

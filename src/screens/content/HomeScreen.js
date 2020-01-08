@@ -1,6 +1,7 @@
 import React from 'react';
 import { View, Text, StyleSheet, Button, ScrollView } from 'react-native';
 import { Card } from 'react-native-elements';
+import Logo from '../../components/Logo';
 
 const Home = ({ navigation }) => {
 	return (
@@ -27,6 +28,10 @@ const Home = ({ navigation }) => {
 			</ScrollView>
 		</View>
 	);
+};
+
+Home.navigationOptions = {
+	headerTitle: <Logo />,
 };
 
 const styles = StyleSheet.create({

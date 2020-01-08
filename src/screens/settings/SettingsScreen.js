@@ -1,27 +1,27 @@
 import React from 'react';
-import { View, StyleSheet, Text } from 'react-native';
+import { View, StyleSheet } from 'react-native';
 import { ListItem } from 'react-native-elements';
+import Logo from '../../components/Logo';
 
 const options = [
 	{
-		title: 'Daltonismo',
+		title: 'Modo de daltonismo',
 		sub: 'Configurações de daltonismo',
 		screenName: 'Daltonismo',
 		icon: 'colorize',
 	},
 	{
-		title: 'Geral',
+		title: 'Acessibilidade',
 		sub: 'Configurações gerais de acessiblidade',
 		screenName: 'Geral',
 		icon: 'accessibility',
 	},
 ];
 
-export default ({ navigation }) => {
+const Settings = ({ navigation }) => {
 	return (
 		<View style={styles.container}>
 			<View>
-				<Text style={styles.sectionTitle}>Acessibilidade</Text>
 				{options.map((item, i) => (
 					<ListItem
 						title={item.title}
@@ -40,14 +40,15 @@ export default ({ navigation }) => {
 	);
 };
 
+Settings.navigationOptions = {
+	headerTitle: <Logo />,
+};
+
 const styles = StyleSheet.create({
 	container: {
 		flex: 1,
 		backgroundColor: '#FFF',
 	},
-	sectionTitle: {
-		fontSize: 20,
-		marginHorizontal: 5,
-		marginTop: 10,
-	},
 });
+
+export default Settings;

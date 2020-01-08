@@ -21,7 +21,6 @@ const Router = createStackNavigator(
 			headerTitleStyle: {
 				fontWeight: 'bold',
 			},
-			headerTitle: <Logo />,
 		},
 	},
 );
