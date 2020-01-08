@@ -4,10 +4,14 @@ import { createStackNavigator } from 'react-navigation-stack';
 
 import Logo from '../../components/Logo';
 import Settings from './SettingsScreen';
+import Daltonismo from './DaltonismoScreen';
+import Geral from './GeralScreen';
 
 const Router = createStackNavigator(
 	{
 		Settings,
+		Daltonismo,
+		Geral,
 	},
 	{
 		headerLayoutPreset: 'center',
