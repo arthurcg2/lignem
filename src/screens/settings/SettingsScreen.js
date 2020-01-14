@@ -1,23 +1,11 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { View, ScrollView, Switch, Text, StyleSheet } from 'react-native';
 import { ListItem, Divider } from 'react-native-elements';
 import Logo from '../../components/Logo';
 
+import { useThemeValue } from '../../states/ThemeState';
+
 const options = [
-	{
-		title: 'Tema escuro',
-		sub: 'Tons mais escuros para o Lignem',
-		icon: 'brightness-3',
-		rightElement: (
-			<Switch
-				value={false}
-				disabled={true}
-				trackColor={{ true: '#937BE3' }}
-				thumbColor="#FFF"
-			/>
-		),
-		chevron: false,
-	},
 	{
 		title: 'Sobre',
 		sub: 'Informações sobre o app',
@@ -45,11 +33,38 @@ const accessibilityOptions = [
 ];
 
 const Settings = ({ navigation }) => {
+	const [darkmode, setDarkmode] = useState(false);
+	const [, dispatch] = useThemeValue();
+
+	function handleChange() {
+		dispatch({
+			type: !darkmode ? 'enableDarkMode' : 'disableDarkMode',
+		});
+		setDarkmode(!darkmode);
+	}
+
 	return (
 		<ScrollView style={styles.container}>
 			<Text style={styles.title}>Geral</Text>
 			<View>
 				<Divider />
+				<ListItem
+					title="Tema escuro"
+					subtitle="Tons mais escuros para o Lignem"
+					style={styles.listItem}
+					accessible
+					accessibilityLabel="Tons mais escuros para o Lignem"
+					leftIcon={{ name: 'brightness-3' }}
+					rightElement={
+						<Switch
+							value={darkmode}
+							onValueChange={handleChange}
+							trackColor={{ true: '#937BE3' }}
+							thumbColor="#FFF"
+						/>
+					}
+					bottomDivider
+				/>
 				{options.map((item, i) => (
 					<ListItem
 						title={item.title}
