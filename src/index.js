@@ -26,7 +26,7 @@ export default function Index() {
 					...state,
 					theme: darkTheme,
 				};
-			case 'disableDarkMode':
+			case 'enableLightMode':
 				updateStorage('false');
 				return {
 					...state,

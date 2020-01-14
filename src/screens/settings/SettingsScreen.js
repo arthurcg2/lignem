@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { View, ScrollView, Switch, Text, StyleSheet } from 'react-native';
 import { ListItem, Divider } from 'react-native-elements';
+import AsyncStorage from '@react-native-community/async-storage';
 import Logo from '../../components/Logo';
 
 import { useThemeValue } from '../../states/ThemeState';
@@ -36,9 +37,23 @@ const Settings = ({ navigation }) => {
 	const [darkmode, setDarkmode] = useState(false);
 	const [, dispatch] = useThemeValue();
 
+	useEffect(() => {
+		async function getInitialState() {
+			const state = await AsyncStorage.getItem('darkmode');
+			if (state === 'true') {
+				setDarkmode(true);
+				return;
+			}
+
+			setDarkmode(false);
+		}
+
+		getInitialState();
+	}, []);
+
 	function handleChange() {
 		dispatch({
-			type: !darkmode ? 'enableDarkMode' : 'disableDarkMode',
+			type: !darkmode ? 'enableDarkMode' : 'enableLightMode',
 		});
 		setDarkmode(!darkmode);
 	}

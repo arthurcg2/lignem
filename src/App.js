@@ -19,7 +19,7 @@ export default function App() {
 				return;
 			}
 			dispatch({
-				type: 'disableDarkMode',
+				type: 'enableLightMode',
 			});
 		}
 
