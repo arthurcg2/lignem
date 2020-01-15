@@ -1,9 +1,17 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { View, Text, StyleSheet, Button, ScrollView } from 'react-native';
 import { Card } from 'react-native-elements';
 import Logo from '../../components/Logo';
+import { useThemeValue } from '../../states/ThemeState';
 
 const Home = ({ navigation }) => {
+	const [{ theme }] = useThemeValue();
+	const [styles, setStyles] = useState({});
+
+	useEffect(() => {
+		setStyles(generateStyles(theme));
+	}, [theme]);
+
 	return (
 		<View style={styles.container}>
 			<ScrollView style={styles.cardsList}>
@@ -18,7 +26,7 @@ const Home = ({ navigation }) => {
 					</Text>
 					<Button
 						title="Ir para a página!"
-						color="#7159C1"
+						color={theme.foreground}
 						style={styles.button}
 						onPress={() => {
 							navigation.navigate('Teste');
@@ -34,25 +42,27 @@ Home.navigationOptions = {
 	headerTitle: <Logo />,
 };
 
-const styles = StyleSheet.create({
-	container: {
-		backgroundColor: 'white',
-		justifyContent: 'center',
-		alignItems: 'center',
-	},
-	cardsList: {
-		marginVertical: 10,
-	},
-	button: {
-		fontWeight: 'bold',
-	},
-	description: {
-		color: '#555',
-		marginBottom: 10,
-	},
-	title: {
-		color: '#7159C1',
-	},
-});
+const generateStyles = theme => {
+	return StyleSheet.create({
+		container: {
+			backgroundColor: theme.background,
+			justifyContent: 'center',
+			alignItems: 'center',
+		},
+		cardsList: {
+			marginVertical: 10,
+		},
+		button: {
+			fontWeight: 'bold',
+		},
+		description: {
+			color: '#555',
+			marginBottom: 10,
+		},
+		title: {
+			color: theme.foreground,
+		},
+	});
+};
 
 export default Home;
