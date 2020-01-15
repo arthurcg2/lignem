@@ -74,6 +74,7 @@ const Settings = ({ navigation }) => {
 					rightElement={
 						<Switch
 							value={darkmode}
+							disabled
 							onValueChange={handleChange}
 							trackColor={{ true: '#937BE3' }}
 							thumbColor="#FFF"

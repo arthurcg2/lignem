@@ -4,6 +4,7 @@ import { ThemeProvider } from './states/ThemeState';
 
 import lightTheme from './themes/default';
 import darkTheme from './themes/dark';
+import daltonismoThemes from './themes/daltonismo';
 
 import App from './App';
 
@@ -33,7 +34,12 @@ export default function Index() {
 					theme: lightTheme,
 				};
 			default:
-				return state;
+				const type = action.type.substr(6, action.type.lastIndexOf('Mode') - 6);
+				updateStorage(type);
+				return {
+					...state,
+					theme: daltonismoThemes(type.toLowerCase()),
+				};
 		}
 	};
 

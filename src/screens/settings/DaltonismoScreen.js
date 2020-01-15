@@ -1,11 +1,46 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { View, StyleSheet, Switch } from 'react-native';
 import { ListItem } from 'react-native-elements';
 import { useThemeValue } from '../../states/ThemeState';
+import AsyncStorage from '@react-native-community/async-storage';
 
 const Daltonismo = () => {
 	const [deficiencias, setDeficiencias] = useState(new Array(6).fill(false));
 	const [theme, dispatch] = useThemeValue();
+
+	function handleChange(item) {
+		let newDef = new Array(6).fill(false);
+		newDef[item.cod] = !deficiencias[item.cod];
+
+		let defType = item.title;
+
+		if (defType.endsWith('lia')) defType = defType.replace('ia', 'y');
+
+		dispatch({
+			type: newDef[item.cod] ? `enable${defType}Mode` : 'enableLightMode',
+		});
+
+		setDeficiencias(newDef);
+	}
+
+	useEffect(() => {
+		async function getType() {
+			let type = await AsyncStorage.getItem('theme');
+			if (type.endsWith('ly')) type = type.replace('y', 'ia');
+
+			if (type != 'light' && type != 'dark') {
+				list.forEach(el => {
+					if (el.title == type) {
+						let newDef = new Array(6).fill(false);
+						newDef[el.cod] = !deficiencias[el.cod];
+						setDeficiencias(newDef);
+					}
+				});
+			}
+		}
+
+		getType();
+	}, []);
 
 	return (
 		<View style={styles.container}>
@@ -23,9 +58,7 @@ const Daltonismo = () => {
 							<Switch
 								value={deficiencias[l.cod]}
 								onValueChange={() => {
-									let newDef = new Array(6).fill(false);
-									newDef[l.cod] = !deficiencias[l.cod];
-									setDeficiencias(newDef);
+									handleChange(l);
 								}}
 								accessibilityRole="switch"
 								trackColor={{ true: '#937BE3' }}

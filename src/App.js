@@ -17,17 +17,19 @@ export default function App() {
 					type: 'enableDarkMode',
 				});
 				return;
-			} else {
+			} else if (themeKey === 'light') {
 				dispatch({
 					type: 'enableLightMode',
+				});
+			} else {
+				dispatch({
+					type: `enable${themeKey}Mode`,
 				});
 			}
 		}
 
 		getStorageDarkMode();
 	}, []);
-
-	console.log(state.theme);
 
 	return (
 		<>
