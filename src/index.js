@@ -4,6 +4,7 @@ import { ThemeProvider } from './states/ThemeState';
 
 import lightTheme from './themes/default';
 import darkTheme from './themes/dark';
+import tomatoTheme from './themes/tomato';
 import daltonismoThemes from './themes/daltonismo';
 
 import App from './App';
@@ -20,6 +21,8 @@ export default function Index() {
 	}
 
 	const reducer = (state, action) => {
+		const type = action.type.substr(6, action.type.lastIndexOf('Mode') - 6);
+
 		switch (action.type) {
 			case 'enableDarkMode':
 				updateStorage('dark');
@@ -33,8 +36,14 @@ export default function Index() {
 					...state,
 					theme: lightTheme,
 				};
+			case 'enableTritanopiaMode':
+			case 'enableTritanomalyMode':
+				updateStorage(type);
+				return {
+					...state,
+					theme: tomatoTheme,
+				};
 			default:
-				const type = action.type.substr(6, action.type.lastIndexOf('Mode') - 6);
 				updateStorage(type);
 				return {
 					...state,
