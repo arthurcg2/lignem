@@ -56,6 +56,7 @@ const Daltonismo = () => {
 						bottomDivider
 						rightElement={
 							<Switch
+								disabled
 								value={deficiencias[l.cod]}
 								onValueChange={() => {
 									handleChange(l);
