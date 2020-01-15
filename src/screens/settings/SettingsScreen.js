@@ -39,8 +39,9 @@ const Settings = ({ navigation }) => {
 
 	useEffect(() => {
 		async function getInitialState() {
-			const state = await AsyncStorage.getItem('darkmode');
-			if (state === 'true') {
+			const themeKey = await AsyncStorage.getItem('theme');
+
+			if (themeKey === 'dark') {
 				setDarkmode(true);
 				return;
 			}

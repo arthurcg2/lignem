@@ -10,17 +10,18 @@ export default function App() {
 
 	useEffect(() => {
 		async function getStorageDarkMode() {
-			const darkModeKey = await AsyncStorage.getItem('darkmode');
+			const themeKey = await AsyncStorage.getItem('theme');
 
-			if (darkModeKey === 'true') {
+			if (themeKey === 'dark') {
 				dispatch({
 					type: 'enableDarkMode',
 				});
 				return;
+			} else {
+				dispatch({
+					type: 'enableLightMode',
+				});
 			}
-			dispatch({
-				type: 'enableLightMode',
-			});
 		}
 
 		getStorageDarkMode();

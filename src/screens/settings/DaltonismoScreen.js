@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
 import { View, StyleSheet, Switch } from 'react-native';
 import { ListItem } from 'react-native-elements';
+import { useThemeValue } from '../../states/ThemeState';
 
 const Daltonismo = () => {
 	const [deficiencias, setDeficiencias] = useState(new Array(6).fill(false));
+	const [theme, dispatch] = useThemeValue();
 
 	return (
 		<View style={styles.container}>

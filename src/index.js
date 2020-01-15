@@ -12,7 +12,7 @@ export default function Index() {
 
 	async function updateStorage(theme) {
 		try {
-			await AsyncStorage.setItem('darkmode', theme);
+			await AsyncStorage.setItem('theme', theme);
 		} catch (err) {
 			console.error('Erro ao salvar tema: ' + err);
 		}
@@ -21,13 +21,13 @@ export default function Index() {
 	const reducer = (state, action) => {
 		switch (action.type) {
 			case 'enableDarkMode':
-				updateStorage('true');
+				updateStorage('dark');
 				return {
 					...state,
 					theme: darkTheme,
 				};
 			case 'enableLightMode':
-				updateStorage('false');
+				updateStorage('light');
 				return {
 					...state,
 					theme: lightTheme,
