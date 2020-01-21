@@ -10,7 +10,10 @@ export default function App() {
 
 	useEffect(() => {
 		async function getStorageDarkMode() {
-			const themeKey = await AsyncStorage.getItem('theme');
+			let themeKey = await AsyncStorage.getItem('theme');
+			if(!themeKey){
+				themeKey = 'light'
+			}			
 
 			if (themeKey === 'dark') {
 				dispatch({
