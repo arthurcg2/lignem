@@ -30,7 +30,25 @@ const list = [
 ];
 
 const Daltonismo = () => {
-	const [state, setState] = useState(false);
+	const [state, setState] = useState([
+		false,
+		false,
+		false,
+		false,
+		false,
+		false,
+	]);
+
+	function fill(st, i) {
+		const newAr = [];
+		for (let j = 0; j < st.length; j++) {
+			newAr[j] = false;
+			if (j === i) {
+				newAr[j] = !st[j];
+			}
+		}
+		setState(newAr);
+	}
 
 	return (
 		<View style={styles.container}>
@@ -42,9 +60,9 @@ const Daltonismo = () => {
 						subtitle={l.sub}
 						rightElement={
 							<Switch
-								value={state}
+								value={state[i]}
 								onValueChange={() => {
-									setState(!state);
+									fill(state, i);
 								}}
 								trackColor={{ true: '#937BE3' }}
 								thumbColor="#FFF"
