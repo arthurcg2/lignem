@@ -1,17 +1,17 @@
-import React from 'react';
 import { createAppContainer } from 'react-navigation';
 import { createStackNavigator } from 'react-navigation-stack';
 
-import Logo from '../../components/Logo';
 import Settings from './SettingsScreen';
 import Daltonismo from './DaltonismoScreen';
-import Geral from './GeralScreen';
+import Outros from './OutrosScreen';
+import Sobre from './SobreScreen';
 
 const Router = createStackNavigator(
 	{
 		Settings,
 		Daltonismo,
-		Geral,
+		Outros,
+		Sobre,
 	},
 	{
 		headerLayoutPreset: 'center',
