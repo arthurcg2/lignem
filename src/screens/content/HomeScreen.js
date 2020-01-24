@@ -43,7 +43,6 @@ const Home = ({ navigation }) => {
 							color={theme.foreground}
 							style={styles.button}
 							onPress={() => {
-								console.log(card.targetPageSettings);
 								navigation.navigate('Content', {
 									contentJSONName: card.targetPageSettings.contentJSONName,
 									contentPageTitle: card.targetPageSettings.contentPageTitle,
