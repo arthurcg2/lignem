@@ -4,6 +4,21 @@ import { Card } from 'react-native-elements';
 import Logo from '../../components/Logo';
 import { useThemeValue } from '../../states/ThemeState';
 
+const cards = [
+	{
+		id: 1,
+		title: 'Exemplo',
+		image: require('../../../assets/hidreletrica.jpg'),
+		description:
+			'Exercitation officia exercitation anim nostrud aliqua aliquip qui anim.',
+		buttonTitle: 'Ir para a página!',
+		targetPageSettings: {
+			contentJSONName: 'teste',
+			contentPageTitle: 'Teste!',
+		},
+	},
+];
+
 const Home = ({ navigation }) => {
 	const [{ theme }] = useThemeValue();
 	const [styles, setStyles] = useState({});
@@ -15,24 +30,28 @@ const Home = ({ navigation }) => {
 	return (
 		<View style={styles.container}>
 			<ScrollView style={styles.cardsList}>
-				<Card
-					image={require('../../../assets/hidreletrica.jpg')}
-					title="Exemplo"
-					titleStyle={styles.title}
-				>
-					<Text style={styles.description}>
-						Exercitation officia exercitation anim nostrud aliqua aliquip qui
-						anim.
-					</Text>
-					<Button
-						title="Ir para a página!"
-						color={theme.foreground}
-						style={styles.button}
-						onPress={() => {
-							navigation.navigate('Teste');
-						}}
-					/>
-				</Card>
+				{cards.map(card => (
+					<Card
+						image={card.image}
+						title={card.title}
+						titleStyle={styles.title}
+						key={card.id}
+					>
+						<Text style={styles.description}>{card.description}</Text>
+						<Button
+							title={card.buttonTitle}
+							color={theme.foreground}
+							style={styles.button}
+							onPress={() => {
+								console.log(card.targetPageSettings);
+								navigation.navigate('Content', {
+									contentJSONName: card.targetPageSettings.contentJSONName,
+									contentPageTitle: card.targetPageSettings.contentPageTitle,
+								});
+							}}
+						/>
+					</Card>
+				))}
 			</ScrollView>
 		</View>
 	);
@@ -46,8 +65,6 @@ const generateStyles = theme => {
 	return StyleSheet.create({
 		container: {
 			backgroundColor: theme.background,
-			justifyContent: 'center',
-			alignItems: 'center',
 		},
 		cardsList: {
 			marginVertical: 10,
