@@ -6,21 +6,21 @@ import Draggable from 'react-native-draggable';
 import Logo from '../../components/Logo';
 
 const InterativoMain = () => {
-	const drSz = Dimensions.get('window').width - 100;
-	const stY = 50;
-	const stX = -40;
+	const dragSize = Dimensions.get('window').width - 100;
+	const stableY = 50;
+	const stableX = -40;
 	const [color, setColor] = useState('#cfbb80');
 	const [score, setScore] = useState(0);
 	const changeableDist = 47;
 
-	var inX = 0;
+	var startX = 0;
 
-	function prog(afX) {
+	function prog(modifiedX) {
 		setTimeout(() => setColor('#cfbb80'), 250);
-		if (afX - inX > changeableDist) {
+		if (modifiedX - startX > changeableDist) {
 			setScore(score + 100);
 			setColor('green');
-		} else if (afX - inX < changeableDist * -1) {
+		} else if (modifiedX - startX < changeableDist * -1) {
 			score > 0 ? setScore(score - 100) : null;
 			setColor('red');
 		}
@@ -29,17 +29,17 @@ const InterativoMain = () => {
 	return (
 		<View style={{ flex: 1, justifyContent: 'flex-end', alignItems: 'center' }}>
 			<Draggable
-				renderSize={drSz}
+				renderSize={dragSize}
 				renderColor={color}
-				x={Dimensions.get('window').width / 2 - drSz / 2}
-				y={stY}
-				minY={stY}
-				maxY={drSz + stY}
+				x={Dimensions.get('window').width / 2 - dragSize / 2}
+				y={stableY}
+				minY={stableY}
+				maxY={dragSize + stableY}
 				renderText=""
 				shouldReverse={true}
-				minX={stX}
-				maxX={Dimensions.get('window').width - stX}
-				onPressIn={evt => (inX = evt.nativeEvent.pageX)}
+				mstartX={stableX}
+				maxX={Dimensions.get('window').width - stableX}
+				onPressIn={evt => (startX = evt.nativeEvent.pageX)}
 				onDragRelease={evt => prog(evt.nativeEvent.pageX)}
 			/>
 			<Text style={{ fontSize: 60 }}>{score}</Text>
