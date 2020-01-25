@@ -11,7 +11,7 @@ const InterativoMain = () => {
 	const stableX = -40;
 	const [color, setColor] = useState('#ebe3cc');
 	const [score, setScore] = useState(0);
-	const [stats, setStats] = useState(new Array(3).fill(0))
+	const [stats, setStats] = useState(new Array(3).fill(0));
 
 	const questions = [
 		{
@@ -62,41 +62,43 @@ const InterativoMain = () => {
 
 		return array;
 	}
-	const [cont, setCont] = useState(questions.length);
 
 	const [questionStack, setQuestionStack] = useState(shuffle(questions));
 
 	const changeableDist = 47;
 	var startX = 0;
 
-	const [questionTitle, setQuestTitle] = useState(
-		questionStack[questionStack.length - 1].statement,
-	);
+	const [questionTitle, setQuestTitle] = useState(questionStack[0].statement);
+	const [cont, setCont] = useState(1);
 
 	//console.log(questionStack);
 
 	function progress(modifiedX) {
 		setTimeout(() => setColor('#ebe3cc'), 250);
 		if (modifiedX - startX > changeableDist) {
-			stats[0] < 10 ? setStats([stats[0] + 1, stats[1] + 1, stats[2] + 1]) : null
+			stats[0] < 10
+				? setStats([stats[0] + 1, stats[1] + 1, stats[2] + 1])
+				: null;
 			setScore(score + 100);
 			setColor('green');
 		} else if (modifiedX - startX < changeableDist * -1) {
-			stats[0] > 0 ? setStats([stats[0] - 1, stats[1] - 1, stats[2] - 1]) : null
+			stats[0] > 0
+				? setStats([stats[0] - 1, stats[1] - 1, stats[2] - 1])
+				: null;
 			score > 0 ? setScore(score - 100) : null;
 			setColor('red');
 		} else {
 			return;
 		}
-		if (cont === 0) {
+		if (cont === questionStack.length) {
 			setQuestTitle('Acabou as perguntas.');
 		} else {
-			setQuestTitle(questionStack[questionStack.length - 1].statement);
-			setCont(cont - 1);
+			setCont(cont + 1);
+			setQuestTitle(questionStack[cont].statement);
 		}
 	}
 
-	const MAX_STAT_VALUE = 10
+	const MAX_STAT_VALUE = 10;
 
 	let gameStats = [
 		{
@@ -114,7 +116,7 @@ const InterativoMain = () => {
 			icon: require('../../../assets/gameIcons/dinheiro_icon.png'),
 			value: stats[2],
 		},
-	]
+	];
 
 	return (
 		<View style={styles.container}>
@@ -132,9 +134,6 @@ const InterativoMain = () => {
 					onPressIn={evt => (startX = evt.nativeEvent.pageX)}
 					onDragRelease={evt => {
 						progress(evt.nativeEvent.pageX);
-						if (cont > 1) {
-							setQuestionStack(questionStack.slice(0, -1));
-						}
 					}}
 					style={{}}
 				>
@@ -166,19 +165,24 @@ const InterativoMain = () => {
 				</Draggable>
 			</View>
 			<View style={styles.textContainer}>
-				<Text style={{...styles.generalText, paddingTop: 22, fontSize: 30}}>SCORE</Text>
-				<Text style={{...styles.generalText, fontSize: 60}}>{score}</Text>
+				<Text style={{ ...styles.generalText, paddingTop: 22, fontSize: 30 }}>
+					SCORE
+				</Text>
+				<Text style={{ ...styles.generalText, fontSize: 60 }}>{score}</Text>
 			</View>
 			<View style={styles.statsContainer}>
 				{gameStats.map((stat, i) => (
-					<View 
-						key={i}
-						style={styles.stat}
-					>
+					<View key={i} style={styles.stat}>
 						<View style={styles.statBar}>
-							<View style={{width: '100%', height: (stats[0] / MAX_STAT_VALUE * 100) + '%', backgroundColor: color}}></View>
+							<View
+								style={{
+									width: '100%',
+									height: (stats[0] / MAX_STAT_VALUE) * 100 + '%',
+									backgroundColor: color,
+								}}
+							/>
 						</View>
-						<Image style={styles.icon} source={stat.icon}/>
+						<Image style={styles.icon} source={stat.icon} />
 					</View>
 				))}
 			</View>
@@ -188,7 +192,7 @@ const InterativoMain = () => {
 
 const styles = StyleSheet.create({
 	container: {
-		flex: 1, 
+		flex: 1,
 		alignItems: 'center',
 		justifyContent: 'space-between',
 		paddingTop: 40,
@@ -216,7 +220,7 @@ const styles = StyleSheet.create({
 		height: '25%',
 		width: '100%',
 		flexDirection: 'row',
-		justifyContent: 'space-around'
+		justifyContent: 'space-around',
 	},
 	stat: {
 		width: '30%',
@@ -231,12 +235,12 @@ const styles = StyleSheet.create({
 		padding: 2,
 		alignItems: 'center',
 		justifyContent: 'flex-end',
-	},	
+	},
 	icon: {
 		width: 32,
 		height: 32,
 	},
-})
+});
 
 InterativoMain.navigationOptions = {
 	headerTitle: <Logo />,
