@@ -102,16 +102,14 @@ const InterativoMain = () => {
 
 		return array;
 	}
-	const [cont, setCont] = useState(questions.length);
 
 	const [questionStack, setQuestionStack] = useState(shuffle(questions));
 
 	const changeableDist = 80;
 	var startX = 0;
 
-	const [questionTitle, setQuestTitle] = useState(
-		questionStack[questionStack.length - 1].statement,
-	);
+	const [questionTitle, setQuestTitle] = useState(questionStack[0].statement);
+	const [cont, setCont] = useState(1);
 
 	function calculateScore(){
 		let scr = 0
@@ -181,9 +179,6 @@ const InterativoMain = () => {
 					onPressIn={evt => (startX = evt.nativeEvent.pageX)}
 					onDragRelease={evt => {
 						progress(evt.nativeEvent.pageX);
-						if (cont > 1) {
-							setQuestionStack(questionStack.slice(0, -1));
-						}
 					}}
 				>
 					<Text
@@ -215,14 +210,11 @@ const InterativoMain = () => {
 			</View>
 			<View style={styles.statsContainer}>
 				{gameStats.map((stat, i) => (
-					<View 
-						key={i}
-						style={styles.stat}
-					>
+					<View key={i} style={styles.stat}>
 						<View style={styles.statBar}>
 							<View style={{width: '100%', height: (gameStats[i].value / gameStats[i].maxValue * 100) + '%', backgroundColor: colors[i]}}></View>
 						</View>
-						<Image style={styles.icon} source={stat.icon}/>
+						<Image style={styles.icon} source={stat.icon} />
 					</View>
 				))}
 			</View>
@@ -232,7 +224,7 @@ const InterativoMain = () => {
 
 const styles = StyleSheet.create({
 	container: {
-		flex: 1, 
+		flex: 1,
 		alignItems: 'center',
 		justifyContent: 'space-between',
 	},
@@ -263,7 +255,7 @@ const styles = StyleSheet.create({
 		height: '25%',
 		width: '100%',
 		flexDirection: 'row',
-		justifyContent: 'space-around'
+		justifyContent: 'space-around',
 	},
 	stat: {
 		width: '30%',
@@ -278,7 +270,7 @@ const styles = StyleSheet.create({
 		padding: 2,
 		alignItems: 'center',
 		justifyContent: 'flex-end',
-	},	
+	},
 	icon: {
 		width: 32,
 		height: 32,
