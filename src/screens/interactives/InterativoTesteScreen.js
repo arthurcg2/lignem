@@ -108,8 +108,10 @@ const InterativoMain = () => {
 	const changeableDist = 80;
 	var startX = 0;
 
-	const [questionTitle, setQuestTitle] = useState(questionStack[0].statement);
-	const [cont, setCont] = useState(1);
+	const [questionTitle, setQuestTitle] = useState(
+		questionStack[questionStack.length - 1].statement,
+	);
+	const [cont, setCont] = useState(questions.length);
 
 	function calculateScore(){
 		let scr = 0
@@ -179,6 +181,9 @@ const InterativoMain = () => {
 					onPressIn={evt => (startX = evt.nativeEvent.pageX)}
 					onDragRelease={evt => {
 						progress(evt.nativeEvent.pageX);
+						if (cont > 1) {
+							setQuestionStack(questionStack.slice(0, -1));
+						}
 					}}
 				>
 					<Text
