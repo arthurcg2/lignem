@@ -1,6 +1,6 @@
 /* eslint-disable react-native/no-inline-styles */
 import React, { useState } from 'react';
-import { View, Text, Dimensions, StyleSheet, Image } from 'react-native';
+import { View, Text, Dimensions, StyleSheet, Image, findNodeHandle } from 'react-native';
 import Draggable from 'react-native-draggable';
 
 import Logo from '../../components/Logo';
@@ -8,40 +8,80 @@ import Logo from '../../components/Logo';
 const InterativoMain = () => {
 	const dragSize = Dimensions.get('window').width - 100;
 	const stableY = 0;
-	const stableX = -40;
+	const stableX = 0;
 	const [color, setColor] = useState('#ebe3cc');
+	const [colors, setColors] = useState(new Array(4).fill('#e6cd7e'))
 	const [score, setScore] = useState(0);
-	const [stats, setStats] = useState(new Array(3).fill(0))
+	const [stats, setStats] = useState(new Array(4).fill(0))
 
 	const questions = [
 		{
 			id: 1,
 			statement:
 				'Bolsonaro pedes para colocar uma Usina Hidrelétrica na foz do rio Amazonas. Colocas?',
+			yes: [1, -1, 1, -1],
+			no: [-1, 2, -1, 3],
 		},
 		{
 			id: 2,
 			statement:
 				'Bolsonaro começa a dormir. Colocas uma termelétrica no interior de Minas?',
+			yes: [2, 2, 2, 2],
+			no: [-2, -2, -2, -2],
 		},
 		{
 			id: 3,
 			statement: 'Pgt Teste',
+			yes: [1, 0, 1, 0],
+			no: [0, -2, 0, 0],
 		},
 		{
 			id: 5,
 			statement: 'YYYYYYYYYYYYYYYYYYYEEEEEEEEEEEEEYYYYYYYYYYYYYYY',
+			yes: [0, 0, 0, 1],
+			no: [0, -1, 0, 0],
 		},
 		{
 			id: 8,
 			statement:
 				'MMMMMMMMMMMMMMMMMMMMIIIIIIIIIIIIIIIIIIIIIIAAAAAAAAAAAAAAAAAAUUUUUUUUUUUUUUUU',
+			yes: [1, 2, 3, 4],
+			no: [-4, -3, -2, -1],
 		},
 		{
 			id: 11,
 			statement: 'Não era isso que querias Bolsonaro, uma menina pescotapa?',
+			yes: [-10, -10, -10, -10],
+			no: [0, 1, 0, 0],
 		},
 	];
+
+	let gameStats = [
+		{
+			name: 'sustentabilidade',
+			icon: require('../../../assets/gameIcons/sustentabilidade_icon.png'),
+			value: stats[0],
+			maxValue: 20,
+		},
+		{
+			name: 'popularidade',
+			icon: require('../../../assets/gameIcons/popularidade_icon.png'),
+			value: stats[1],
+			maxValue: 20,
+		},
+		{
+			name: 'finanças',
+			icon: require('../../../assets/gameIcons/dinheiro_icon.png'),
+			value: stats[2],
+			maxValue: 20,
+		},
+		{
+			name: 'energia',
+			icon: require('../../../assets/gameIcons/energia_icon.png'),
+			value: stats[3],
+			maxValue: 20,
+		},
+	]
 
 	function shuffle(array) {
 		var currentIndex = array.length,
@@ -66,58 +106,67 @@ const InterativoMain = () => {
 
 	const [questionStack, setQuestionStack] = useState(shuffle(questions));
 
-	const changeableDist = 47;
+	const changeableDist = 80;
 	var startX = 0;
 
 	const [questionTitle, setQuestTitle] = useState(
 		questionStack[questionStack.length - 1].statement,
 	);
 
-	//console.log(questionStack);
+	function calculateScore(){
+		let scr = 0
+		for(let i = 0; i < stats.length; i++){
+			scr += 20 * stats[i]
+		}
+		return scr
+	}
 
 	function progress(modifiedX) {
-		setTimeout(() => setColor('#ebe3cc'), 250);
-		if (modifiedX - startX > changeableDist) {
-			stats[0] < 10 ? setStats([stats[0] + 1, stats[1] + 1, stats[2] + 1]) : null
-			setScore(score + 100);
-			setColor('green');
-		} else if (modifiedX - startX < changeableDist * -1) {
-			stats[0] > 0 ? setStats([stats[0] - 1, stats[1] - 1, stats[2] - 1]) : null
-			score > 0 ? setScore(score - 100) : null;
-			setColor('red');
-		} else {
-			return;
-		}
-		if (cont === 0) {
-			setQuestTitle('Acabou as perguntas.');
-		} else {
-			setQuestTitle(questionStack[questionStack.length - 1].statement);
+		setTimeout(() => {setColor('#ebe3cc'), setColors(new Array(4).fill('#e6cd7e'))}, 250);
+		let statsArr = stats
+		let colorsArr = colors
+		let values
+
+		if (cont !== 0) {
+			if (modifiedX - startX > changeableDist) {
+				values = questionStack[questionStack.length - 1].yes
+				for(let i = 0; i < gameStats.length; i++){
+					if(values[i] > 0) colorsArr[i] = 'green'
+					else if(values[i] < 0) colorsArr[i] = 'red'
+					statsArr[i] += values[i]
+					if(statsArr[i] < 0) statsArr[i] = 0
+					if(statsArr[i] > gameStats[i].maxValue) statsArr[i] = gameStats[i].maxValue
+				}
+				setStats(statsArr)
+				setScore(calculateScore());
+				setColors(colorsArr)
+				setColor('green');
+			} else if (modifiedX - startX < changeableDist * -1) {
+				values = questionStack[questionStack.length - 1].no
+				for(let i = 0; i < gameStats.length; i++){
+					if(values[i] > 0) colorsArr[i] = 'green'
+					else if(values[i] < 0) colorsArr[i] = 'red'
+					statsArr[i] += values[i]
+					if(statsArr[i] < 0) statsArr[i] = 0
+					if(statsArr[i] > gameStats[i].maxValue) statsArr[i] = gameStats[i].maxValue
+				}
+				setStats(statsArr)
+				setScore(calculateScore());
+				setColors(colorsArr)
+				setColor('red');
+			} else {
+				return;
+			}
+			if(questionStack.length > 1) setQuestTitle(questionStack[questionStack.length - 2].statement);
+			else setQuestTitle('Acabou as perguntas.');
 			setCont(cont - 1);
 		}
 	}
 
-	const MAX_STAT_VALUE = 10
-
-	let gameStats = [
-		{
-			name: 'sustentabilidade',
-			icon: require('../../../assets/gameIcons/sustentabilidade_icon.png'),
-			value: stats[0], // máximo: 10 (MAX_STAT_VALUE)
-		},
-		{
-			name: 'popularidade',
-			icon: require('../../../assets/gameIcons/popularidade_icon.png'),
-			value: stats[1],
-		},
-		{
-			name: 'finanças',
-			icon: require('../../../assets/gameIcons/dinheiro_icon.png'),
-			value: stats[2],
-		},
-	]
-
 	return (
 		<View style={styles.container}>
+			<View style={styles.header}>
+			</View>
 			<View style={styles.draggableContainer}>
 				<Draggable
 					renderColor={color}
@@ -127,8 +176,8 @@ const InterativoMain = () => {
 					maxY={dragSize + stableY}
 					renderText={questionTitle}
 					shouldReverse={true}
-					minX={stableX}
-					maxX={Dimensions.get('window').width - stableX}
+					minX={stableX - 40}
+					maxX={Dimensions.get('window').width - stableX + 40}
 					onPressIn={evt => (startX = evt.nativeEvent.pageX)}
 					onDragRelease={evt => {
 						progress(evt.nativeEvent.pageX);
@@ -136,7 +185,6 @@ const InterativoMain = () => {
 							setQuestionStack(questionStack.slice(0, -1));
 						}
 					}}
-					style={{}}
 				>
 					<Text
 						style={{
@@ -155,10 +203,6 @@ const InterativoMain = () => {
 							shadowOpacity: 0.8,
 							//shadowRadius: 200,
 							elevation: 7,
-							marginRight: -5,
-							marginTop: -8,
-							marginBottom: 3,
-							marginLeft: 2,
 						}}
 					>
 						{questionTitle}
@@ -166,7 +210,7 @@ const InterativoMain = () => {
 				</Draggable>
 			</View>
 			<View style={styles.textContainer}>
-				<Text style={{...styles.generalText, paddingTop: 22, fontSize: 30}}>SCORE</Text>
+				<Text style={{...styles.generalText, paddingTop: 22, fontSize: 30}}>PONTUAÇÃO </Text>
 				<Text style={{...styles.generalText, fontSize: 60}}>{score}</Text>
 			</View>
 			<View style={styles.statsContainer}>
@@ -176,7 +220,7 @@ const InterativoMain = () => {
 						style={styles.stat}
 					>
 						<View style={styles.statBar}>
-							<View style={{width: '100%', height: (stats[0] / MAX_STAT_VALUE * 100) + '%', backgroundColor: color}}></View>
+							<View style={{width: '100%', height: (gameStats[i].value / gameStats[i].maxValue * 100) + '%', backgroundColor: colors[i]}}></View>
 						</View>
 						<Image style={styles.icon} source={stat.icon}/>
 					</View>
@@ -191,7 +235,10 @@ const styles = StyleSheet.create({
 		flex: 1, 
 		alignItems: 'center',
 		justifyContent: 'space-between',
-		paddingTop: 40,
+	},
+	header: {
+		width: '100%',
+		height: 40,
 	},
 	draggableContainer: {
 		display: 'flex',
@@ -209,7 +256,7 @@ const styles = StyleSheet.create({
 		width: '50%',
 		display: 'flex',
 		flexDirection: 'row',
-		justifyContent: 'space-between',
+		justifyContent: 'center',
 		alignItems: 'center',
 	},
 	statsContainer: {
@@ -235,6 +282,32 @@ const styles = StyleSheet.create({
 	icon: {
 		width: 32,
 		height: 32,
+	},
+	greenArrow: {
+		position: 'absolute',
+		left: 3.5,
+		bottom: 30,
+		width: 0,
+		height: 0,
+		borderLeftWidth: 10,
+		borderLeftColor: 'transparent',
+		borderRightWidth: 10,
+		borderRightColor: 'transparent',
+		borderBottomWidth: 15,
+		borderBottomColor: 'green',
+	},
+	redArrow: {
+		position: 'absolute',
+		left: 3.5,
+		bottom: 30,
+		width: 0,
+		height: 0,
+		borderLeftWidth: 10,
+		borderLeftColor: 'transparent',
+		borderRightWidth: 10,
+		borderRightColor: 'transparent',
+		borderTopWidth: 15,
+		borderTopColor: 'red',
 	},
 })
 
