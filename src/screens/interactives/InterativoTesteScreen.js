@@ -74,27 +74,28 @@ const InterativoMain = () => {
 	//console.log(questionStack);
 
 	function progress(modifiedX) {
-		setTimeout(() => setColor('#ebe3cc'), 250);
-		if (modifiedX - startX > changeableDist) {
-			stats[0] < 10
-				? setStats([stats[0] + 1, stats[1] + 1, stats[2] + 1])
-				: null;
-			setScore(score + 100);
-			setColor('green');
-		} else if (modifiedX - startX < changeableDist * -1) {
-			stats[0] > 0
-				? setStats([stats[0] - 1, stats[1] - 1, stats[2] - 1])
-				: null;
-			score > 0 ? setScore(score - 100) : null;
-			setColor('red');
-		} else {
-			return;
-		}
 		if (cont === questionStack.length) {
 			setQuestTitle('Acabou as perguntas.');
 		} else {
+			setTimeout(() => setColor('#ebe3cc'), 250);
+			if (modifiedX - startX > changeableDist) {
+				stats[0] < 10
+					? setStats([stats[0] + 1, stats[1] + 1, stats[2] + 1])
+					: null;
+				setScore(score + 100);
+				setColor('green');
+			} else if (modifiedX - startX < changeableDist * -1) {
+				stats[0] > 0
+					? setStats([stats[0] - 1, stats[1] - 1, stats[2] - 1])
+					: null;
+				score > 0 ? setScore(score - 100) : null;
+				setColor('red');
+			} else {
+				return;
+			}
+
+			setTimeout(() => setQuestTitle(questionStack[cont].statement), 250);
 			setCont(cont + 1);
-			setQuestTitle(questionStack[cont].statement);
 		}
 	}
 
