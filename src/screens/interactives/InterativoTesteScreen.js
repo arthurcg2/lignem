@@ -185,7 +185,7 @@ const InterativoMain = () => {
 						<View style={styles.statBar}>
 							<View style={{width: '100%', height: (gameStats[i].value / gameStats[i].maxValue * 100) + '%', backgroundColor: colors[i]}}></View>
 						</View>
-						<Icon name={gameStats[i].icon} size={32} color="#7159c1" />
+						<Icon name={gameStats[i].icon} size={32} color="#6048b0" />
 					</View>
 				))}
 			</View>
@@ -213,7 +213,7 @@ const styles = StyleSheet.create({
 		height: Dimensions.get('window').width - 100,
 	},
 	generalText: {
-		color: '#7159c1',
+		color: '#6048b0',
 	},
 	textContainer: {
 		width: '50%',
@@ -238,6 +238,7 @@ const styles = StyleSheet.create({
 		height: 75,
 		marginBottom: 10,
 		borderWidth: 2,
+		borderColor: '#6048b0',
 		padding: 2,
 		alignItems: 'center',
 		justifyContent: 'flex-end',
