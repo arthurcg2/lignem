@@ -3,6 +3,8 @@ import React, { useState } from 'react';
 import { View, Text, Dimensions, StyleSheet, Image, findNodeHandle } from 'react-native';
 import Draggable from 'react-native-draggable';
 
+import Icon from 'react-native-vector-icons/FontAwesome'
+import questions from './questions'
 import Logo from '../../components/Logo';
 
 const InterativoMain = () => {
@@ -14,70 +16,28 @@ const InterativoMain = () => {
 	const [score, setScore] = useState(0);
 	const [stats, setStats] = useState(new Array(4).fill(0))
 
-	const questions = [
-		{
-			id: 1,
-			statement:
-				'Bolsonaro pedes para colocar uma Usina Hidrelétrica na foz do rio Amazonas. Colocas?',
-			yes: [1, -1, 1, -1],
-			no: [-1, 2, -1, 3],
-		},
-		{
-			id: 2,
-			statement:
-				'Bolsonaro começa a dormir. Colocas uma termelétrica no interior de Minas?',
-			yes: [2, 2, 2, 2],
-			no: [-2, -2, -2, -2],
-		},
-		{
-			id: 3,
-			statement: 'Pgt Teste',
-			yes: [1, 0, 1, 0],
-			no: [0, -2, 0, 0],
-		},
-		{
-			id: 5,
-			statement: 'YYYYYYYYYYYYYYYYYYYEEEEEEEEEEEEEYYYYYYYYYYYYYYY',
-			yes: [0, 0, 0, 1],
-			no: [0, -1, 0, 0],
-		},
-		{
-			id: 8,
-			statement:
-				'MMMMMMMMMMMMMMMMMMMMIIIIIIIIIIIIIIIIIIIIIIAAAAAAAAAAAAAAAAAAUUUUUUUUUUUUUUUU',
-			yes: [1, 2, 3, 4],
-			no: [-4, -3, -2, -1],
-		},
-		{
-			id: 11,
-			statement: 'Não era isso que querias Bolsonaro, uma menina pescotapa?',
-			yes: [-10, -10, -10, -10],
-			no: [0, 1, 0, 0],
-		},
-	];
-
 	let gameStats = [
 		{
 			name: 'sustentabilidade',
-			icon: require('../../../assets/gameIcons/sustentabilidade_icon.png'),
+			icon: 'leaf',
 			value: stats[0],
 			maxValue: 20,
 		},
 		{
 			name: 'popularidade',
-			icon: require('../../../assets/gameIcons/popularidade_icon.png'),
+			icon: 'group',
 			value: stats[1],
 			maxValue: 20,
 		},
 		{
 			name: 'finanças',
-			icon: require('../../../assets/gameIcons/dinheiro_icon.png'),
+			icon: 'dollar',
 			value: stats[2],
 			maxValue: 20,
 		},
 		{
 			name: 'energia',
-			icon: require('../../../assets/gameIcons/energia_icon.png'),
+			icon: 'bolt',
 			value: stats[3],
 			maxValue: 20,
 		},
@@ -122,7 +82,15 @@ const InterativoMain = () => {
 	}
 
 	function progress(modifiedX) {
-		setTimeout(() => {setColor('#ebe3cc'), setColors(new Array(4).fill('#e6cd7e'))}, 250);
+		setTimeout(() => {
+			setColor('#ebe3cc')
+			let clrs = new Array(4).fill('#e6cd7e')
+			for(let i = 0; i < stats.length; i++){
+				if(stats[i] > 2 * gameStats[i].maxValue / 3) clrs[i] = '#42f55d'
+				else if(stats[i] < gameStats[i].maxValue / 3) clrs[i] = '#f54242'
+			}
+			setColors(clrs)
+		}, 250);
 		let statsArr = stats
 		let colorsArr = colors
 		let values
@@ -162,7 +130,6 @@ const InterativoMain = () => {
 			setCont(cont - 1);
 		}
 	}
-
 	return (
 		<View style={styles.container}>
 			<View style={styles.header}>
@@ -202,7 +169,6 @@ const InterativoMain = () => {
 							//shadowOffset: { width: 10, height: 20 },
 							shadowOpacity: 0.8,
 							//shadowRadius: 200,
-							elevation: 7,
 						}}
 					>
 						{questionTitle}
@@ -219,7 +185,7 @@ const InterativoMain = () => {
 						<View style={styles.statBar}>
 							<View style={{width: '100%', height: (gameStats[i].value / gameStats[i].maxValue * 100) + '%', backgroundColor: colors[i]}}></View>
 						</View>
-						<Image style={styles.icon} source={stat.icon} />
+						<Icon name={gameStats[i].icon} size={32} color="#7159c1" />
 					</View>
 				))}
 			</View>
@@ -275,10 +241,6 @@ const styles = StyleSheet.create({
 		padding: 2,
 		alignItems: 'center',
 		justifyContent: 'flex-end',
-	},
-	icon: {
-		width: 32,
-		height: 32,
 	},
 	greenArrow: {
 		position: 'absolute',
