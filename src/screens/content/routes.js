@@ -3,12 +3,12 @@ import { createAppContainer } from 'react-navigation';
 import { createStackNavigator } from 'react-navigation-stack';
 
 import Home from './HomeScreen';
-import Teste from './TesteScreen';
+import Content from './ContentsScreen';
 
 const Router = createStackNavigator(
 	{
 		Home,
-		Teste,
+		Content,
 	},
 	{
 		headerLayoutPreset: 'center',

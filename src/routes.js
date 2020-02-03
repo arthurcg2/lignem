@@ -1,11 +1,12 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { createAppContainer } from 'react-navigation';
-import { createBottomTabNavigator } from 'react-navigation-tabs';
+import { createBottomTabNavigator, BottomTabBar } from 'react-navigation-tabs';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
 import Conteudo from './screens/content/routes';
 import Settings from './screens/settings/routes';
 import Interativos from './screens/interactives/routes';
+import { useThemeValue } from './states/ThemeState';
 
 export default createAppContainer(
 	createBottomTabNavigator(
@@ -41,8 +42,12 @@ export default createAppContainer(
 		{
 			order: ['Interativo', 'Conteudo', 'Configuracoes'],
 			initialRouteName: 'Conteudo',
+			tabBarComponent: props => {
+				const [{ theme }] = useThemeValue();
+
+				return <BottomTabBar {...props} activeTintColor={theme.foreground} />;
+			},
 			tabBarOptions: {
-				activeTintColor: '#7159C1',
 				inactiveTintColor: 'grey',
 			},
 		},

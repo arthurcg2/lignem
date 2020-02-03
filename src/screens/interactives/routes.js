@@ -1,11 +1,11 @@
 import { createAppContainer } from 'react-navigation';
 import { createStackNavigator } from 'react-navigation-stack';
 
-import InterativoTeste from './InterativoTesteScreen';
+import Game from './GameScreen';
 
 const Router = createStackNavigator(
 	{
-		InterativoTeste,
+		Game,
 	},
 	{
 		headerLayoutPreset: 'center',
