@@ -17,6 +17,18 @@ const cards = [
 			contentPageTitle: 'Teste!',
 		},
 	},
+	{
+		id: 2,
+		title: 'Energia Solar',
+		image: require('../../../assets/painel-solar.jpg'),
+		description:
+			'A energia solar: sua definição, funcionamento e suas características!.',
+		buttonTitle: 'Ir para a página!',
+		targetPageSettings: {
+			contentJSONName: 'solar',
+			contentPageTitle: 'Energia Solar',
+		},
+	},
 ];
 
 const Home = ({ navigation }) => {
