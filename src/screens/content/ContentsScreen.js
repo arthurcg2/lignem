@@ -1,12 +1,12 @@
 import React from 'react';
-import { ScrollView, Image, View, Text } from 'react-native';
+import { ScrollView, Image } from 'react-native';
 import Markdown from 'react-native-simple-markdown';
 
-import { teste } from '../../../contents/contents';
+import contents from '../../../contents/contents';
 import images from '../../../contents/images';
 import { markdownStyles } from './styles';
 
-const TesteScreen = () => {
+const ContentsScreen = ({ navigation }) => {
 	return (
 		<ScrollView>
 			<Markdown
@@ -25,14 +25,16 @@ const TesteScreen = () => {
 					},
 				}}
 			>
-				{teste}
+				{contents[navigation.getParam('contentJSONName')]}
 			</Markdown>
 		</ScrollView>
 	);
 };
 
-TesteScreen.navigationOptions = {
-	title: 'Teste',
+ContentsScreen.navigationOptions = ({ navigation }) => {
+	return {
+		title: navigation.getParam('contentPageTitle'),
+	};
 };
 
-export default TesteScreen;
+export default ContentsScreen;

@@ -1,20 +1,27 @@
 /* eslint-disable react-native/no-inline-styles */
 import React, { useState } from 'react';
-import { View, Text, Dimensions, StyleSheet, Image, findNodeHandle } from 'react-native';
+import {
+	View,
+	Text,
+	Dimensions,
+	StyleSheet,
+	Image,
+	findNodeHandle,
+} from 'react-native';
 import Draggable from 'react-native-draggable';
 
-import Icon from 'react-native-vector-icons/FontAwesome'
-import questions from './questions'
+import Icon from 'react-native-vector-icons/FontAwesome';
+import questions from './questions';
 import Logo from '../../components/Logo';
 
-const InterativoMain = () => {
+const GameMain = () => {
 	const dragSize = Dimensions.get('window').width - 100;
 	const stableY = 0;
 	const stableX = 0;
 	const [color, setColor] = useState('#ebe3cc');
-	const [colors, setColors] = useState(new Array(4).fill('#e6cd7e'))
+	const [colors, setColors] = useState(new Array(4).fill('#e6cd7e'));
 	const [score, setScore] = useState(0);
-	const [stats, setStats] = useState(new Array(4).fill(0))
+	const [stats, setStats] = useState(new Array(4).fill(0));
 
 	let gameStats = [
 		{
@@ -41,7 +48,7 @@ const InterativoMain = () => {
 			value: stats[3],
 			maxValue: 20,
 		},
-	]
+	];
 
 	function shuffle(array) {
 		var currentIndex = array.length,
@@ -73,67 +80,69 @@ const InterativoMain = () => {
 	);
 	const [cont, setCont] = useState(questions.length);
 
-	function calculateScore(){
-		let scr = 0
-		for(let i = 0; i < stats.length; i++){
-			scr += 20 * stats[i]
+	function calculateScore() {
+		let scr = 0;
+		for (let i = 0; i < stats.length; i++) {
+			scr += 20 * stats[i];
 		}
-		return scr
+		return scr;
 	}
 
 	function progress(modifiedX) {
 		setTimeout(() => {
-			setColor('#ebe3cc')
-			let clrs = new Array(4).fill('#e6cd7e')
-			for(let i = 0; i < stats.length; i++){
-				if(stats[i] > 2 * gameStats[i].maxValue / 3) clrs[i] = '#42f55d'
-				else if(stats[i] < gameStats[i].maxValue / 3) clrs[i] = '#f54242'
+			setColor('#ebe3cc');
+			let clrs = new Array(4).fill('#e6cd7e');
+			for (let i = 0; i < stats.length; i++) {
+				if (stats[i] > (2 * gameStats[i].maxValue) / 3) clrs[i] = '#42f55d';
+				else if (stats[i] < gameStats[i].maxValue / 3) clrs[i] = '#f54242';
 			}
-			setColors(clrs)
+			setColors(clrs);
 		}, 250);
-		let statsArr = stats
-		let colorsArr = colors
-		let values
+		let statsArr = stats;
+		let colorsArr = colors;
+		let values;
 
 		if (cont !== 0) {
 			if (modifiedX - startX > changeableDist) {
-				values = questionStack[questionStack.length - 1].yes
-				for(let i = 0; i < gameStats.length; i++){
-					if(values[i] > 0) colorsArr[i] = 'green'
-					else if(values[i] < 0) colorsArr[i] = 'red'
-					statsArr[i] += values[i]
-					if(statsArr[i] < 0) statsArr[i] = 0
-					if(statsArr[i] > gameStats[i].maxValue) statsArr[i] = gameStats[i].maxValue
+				values = questionStack[questionStack.length - 1].yes;
+				for (let i = 0; i < gameStats.length; i++) {
+					if (values[i] > 0) colorsArr[i] = 'green';
+					else if (values[i] < 0) colorsArr[i] = 'red';
+					statsArr[i] += values[i];
+					if (statsArr[i] < 0) statsArr[i] = 0;
+					if (statsArr[i] > gameStats[i].maxValue)
+						statsArr[i] = gameStats[i].maxValue;
 				}
-				setStats(statsArr)
+				setStats(statsArr);
 				setScore(calculateScore());
-				setColors(colorsArr)
+				setColors(colorsArr);
 				setColor('green');
 			} else if (modifiedX - startX < changeableDist * -1) {
-				values = questionStack[questionStack.length - 1].no
-				for(let i = 0; i < gameStats.length; i++){
-					if(values[i] > 0) colorsArr[i] = 'green'
-					else if(values[i] < 0) colorsArr[i] = 'red'
-					statsArr[i] += values[i]
-					if(statsArr[i] < 0) statsArr[i] = 0
-					if(statsArr[i] > gameStats[i].maxValue) statsArr[i] = gameStats[i].maxValue
+				values = questionStack[questionStack.length - 1].no;
+				for (let i = 0; i < gameStats.length; i++) {
+					if (values[i] > 0) colorsArr[i] = 'green';
+					else if (values[i] < 0) colorsArr[i] = 'red';
+					statsArr[i] += values[i];
+					if (statsArr[i] < 0) statsArr[i] = 0;
+					if (statsArr[i] > gameStats[i].maxValue)
+						statsArr[i] = gameStats[i].maxValue;
 				}
-				setStats(statsArr)
+				setStats(statsArr);
 				setScore(calculateScore());
-				setColors(colorsArr)
+				setColors(colorsArr);
 				setColor('red');
 			} else {
 				return;
 			}
-			if(questionStack.length > 1) setQuestTitle(questionStack[questionStack.length - 2].statement);
+			if (questionStack.length > 1)
+				setQuestTitle(questionStack[questionStack.length - 2].statement);
 			else setQuestTitle('Acabou as perguntas.');
 			setCont(cont - 1);
 		}
 	}
 	return (
 		<View style={styles.container}>
-			<View style={styles.header}>
-			</View>
+			<View style={styles.header}></View>
 			<View style={styles.draggableContainer}>
 				<Draggable
 					renderColor={color}
@@ -176,14 +185,23 @@ const InterativoMain = () => {
 				</Draggable>
 			</View>
 			<View style={styles.textContainer}>
-				<Text style={{...styles.generalText, paddingTop: 22, fontSize: 30}}>PONTUAÇÃO </Text>
-				<Text style={{...styles.generalText, fontSize: 60}}>{score}</Text>
+				<Text style={{ ...styles.generalText, paddingTop: 22, fontSize: 30 }}>
+					PONTUAÇÃO{' '}
+				</Text>
+				<Text style={{ ...styles.generalText, fontSize: 60 }}>{score}</Text>
 			</View>
 			<View style={styles.statsContainer}>
 				{gameStats.map((stat, i) => (
 					<View key={i} style={styles.stat}>
 						<View style={styles.statBar}>
-							<View style={{width: '100%', height: (gameStats[i].value / gameStats[i].maxValue * 100) + '%', backgroundColor: colors[i]}}></View>
+							<View
+								style={{
+									width: '100%',
+									height:
+										(gameStats[i].value / gameStats[i].maxValue) * 100 + '%',
+									backgroundColor: colors[i],
+								}}
+							></View>
 						</View>
 						<Icon name={gameStats[i].icon} size={32} color="#6048b0" />
 					</View>
@@ -269,10 +287,10 @@ const styles = StyleSheet.create({
 		borderTopWidth: 15,
 		borderTopColor: 'red',
 	},
-})
+});
 
-InterativoMain.navigationOptions = {
+GameMain.navigationOptions = {
 	headerTitle: <Logo />,
 };
 
-export default InterativoMain;
+export default GameMain;
