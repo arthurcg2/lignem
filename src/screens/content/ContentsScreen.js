@@ -11,6 +11,7 @@ const ContentsScreen = ({ navigation }) => {
 		<ScrollView>
 			<Markdown
 				styles={markdownStyles}
+				errorHandler={(errors, children) => <Text>{children}</Text>}
 				rules={{
 					image: {
 						react: (node, output, state) => {
