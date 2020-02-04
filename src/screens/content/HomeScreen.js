@@ -7,14 +7,14 @@ import { useThemeValue } from '../../states/ThemeState';
 const cards = [
 	{
 		id: 1,
-		title: 'Exemplo',
+		title: 'Usinas Hidrelétricas',
 		image: require('../../../assets/hidreletrica.jpg'),
 		description:
-			'Exercitation officia exercitation anim nostrud aliqua aliquip qui anim.',
+			'Conceito, funcionamento e características das usinas hidrelétricas.',
 		buttonTitle: 'Ir para a página!',
 		targetPageSettings: {
-			contentJSONName: 'teste',
-			contentPageTitle: 'Teste!',
+			contentJSONName: 'hidreletrica',
+			contentPageTitle: 'Usinas Hidrelétricas',
 		},
 	},
 	{
@@ -22,7 +22,7 @@ const cards = [
 		title: 'Energia Solar',
 		image: require('../../../assets/painel-solar.jpg'),
 		description:
-			'A energia solar: sua definição, funcionamento e suas características!.',
+			'A energia solar: sua definição, funcionamento e suas características!',
 		buttonTitle: 'Ir para a página!',
 		targetPageSettings: {
 			contentJSONName: 'solar',
