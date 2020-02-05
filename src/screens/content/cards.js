@@ -35,4 +35,16 @@ export default [
 			contentPageTitle: 'Energia Maremotriz',
 		},
 	},
+	{
+		id: 4,
+		title: 'Energia Solar',
+		image: require('../../../assets/eolica-card.jpg'),
+		description:
+			'A energia eólica: sua definição, funcionamento e suas características!',
+		buttonTitle: 'Ir para a página!',
+		targetPageSettings: {
+			contentJSONName: 'eolica',
+			contentPageTitle: 'Energia Eólica',
+		},
+	},
 ];
