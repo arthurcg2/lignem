@@ -1,13 +1,20 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Animated, Text } from 'react-native';
 import { PanGestureHandler, State } from 'react-native-gesture-handler';
 import { styles } from './styles';
 
+import questions from '../questions';
+
 const Chooser = () => {
+	const [currentQuestion, setCurrentQuestion] = useState(questions[0]);
 	const elevationBrand = new Animated.Value(10);
 	const elevationSwap = new Animated.Value(20);
 	const changeableDist = 50;
 	const translateX = new Animated.Value(0);
+
+	function updateQuestion() {
+		setCurrentQuestion(questions[Math.floor(Math.random() * questions.length)]);
+	}
 
 	const animatedEvent = Animated.event(
 		[
@@ -29,6 +36,7 @@ const Chooser = () => {
 			} else if (translationX >= changeableDist) {
 				changed = true;
 			}
+
 			if (changed) {
 				Animated.timing(elevationSwap, {
 					toValue: 15,
@@ -40,6 +48,7 @@ const Chooser = () => {
 					duration: 200,
 					useNativeDriver: true,
 				}).start();
+
 				setTimeout(() => {
 					Animated.timing(elevationSwap, {
 						toValue: 20,
@@ -51,7 +60,8 @@ const Chooser = () => {
 						duration: 250,
 						useNativeDriver: true,
 					}).start();
-				}, 500);
+					updateQuestion();
+				}, 450);
 			}
 
 			Animated.timing(translateX, {
@@ -103,6 +113,7 @@ const Chooser = () => {
 						...styles.swap,
 					}}
 				>
+					<Text>{currentQuestion.statement}</Text>
 					<Animated.View
 						style={{
 							opacity: translateX.interpolate({
@@ -113,7 +124,7 @@ const Chooser = () => {
 							...styles.yes,
 						}}
 					>
-						<Text style={styles.optionText}>Sim</Text>
+						<Text style={styles.optionText}>{currentQuestion.yesOption}</Text>
 					</Animated.View>
 					<Animated.View
 						style={{
@@ -125,7 +136,7 @@ const Chooser = () => {
 							...styles.no,
 						}}
 					>
-						<Text style={styles.optionText}>Não</Text>
+						<Text style={styles.optionText}>{currentQuestion.noOption}</Text>
 					</Animated.View>
 				</Animated.View>
 			</Animated.View>
