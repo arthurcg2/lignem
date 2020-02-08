@@ -106,19 +106,10 @@ const Chooser = () => {
 					<Animated.View
 						style={{
 							opacity: translateX.interpolate({
-								inputRange: [0, 40, 70],
-								outputRange: [0, 0, 0.5],
+								inputRange: [0, 20, 70],
+								outputRange: [0, 0.4, 0.6],
 								extrapolate: 'clamp',
 							}),
-							transform: [
-								{
-									scale: translateX.interpolate({
-										inputRange: [40, 50],
-										outputRange: [0, 1],
-										extrapolate: 'clamp',
-									}),
-								},
-							],
 							...styles.yes,
 						}}
 					>
@@ -127,19 +118,10 @@ const Chooser = () => {
 					<Animated.View
 						style={{
 							opacity: translateX.interpolate({
-								inputRange: [-70, -40, 0],
-								outputRange: [0.5, 0, 0],
+								inputRange: [-70, -20, 0],
+								outputRange: [0.6, 0.4, 0],
 								extrapolate: 'clamp',
 							}),
-							transform: [
-								{
-									scale: translateX.interpolate({
-										inputRange: [-50, -40],
-										outputRange: [1, 0],
-										extrapolate: 'clamp',
-									}),
-								},
-							],
 							...styles.no,
 						}}
 					>

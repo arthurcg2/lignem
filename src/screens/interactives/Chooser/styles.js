@@ -33,7 +33,7 @@ export const styles = StyleSheet.create({
 		borderTopLeftRadius: 10,
 		borderTopRightRadius: 10,
 		justifyContent: 'center',
-		alignItems: 'center',
+		alignItems: 'flex-start',
 		position: 'absolute',
 	},
 	yes: {
@@ -43,12 +43,13 @@ export const styles = StyleSheet.create({
 		borderTopLeftRadius: 10,
 		borderTopRightRadius: 10,
 		justifyContent: 'center',
-		alignItems: 'center',
+		alignItems: 'flex-end',
 		position: 'absolute',
 	},
 	optionText: {
 		color: 'white',
 		fontSize: 25,
 		fontWeight: 'bold',
+		padding: 20,
 	},
 });
