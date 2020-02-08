@@ -1,66 +1,54 @@
-import React from 'react';
-import { Animated } from 'react-native';
-import styled from 'styled-components';
+import { StyleSheet, Dimensions } from 'react-native';
 
-export const Container = styled(Animated.View)`
-	align-items: center;
-	justify-content: center;
-	width: 100%;
-	margin: 0;
-`;
-
-export const Brand = styled(Animated.View)`
-	height: 320px;
-	border-radius: 10px;
-	width: 280px;
-	margin: auto;
-	background-color: rgba(248, 229, 92, 1);
-	align-self: center;
-	position: absolute;
-`;
-
-export const Swap = styled(Animated.View)`
-	background-color: rgba(248, 241, 193, 1);
-	box-shadow: 2px 2px;
-	height: 320px;
-	border-radius: 10px;
-	width: 280px;
-	margin: auto;
-	align-items: flex-start;
-	justify-content: space-between;
-	flex-direction: row;
-`;
-
-export const No = styled(Animated.View)`
-	height: 50px;
-	width: 280px;
-	background-color: red;
-	/* border-bottom-left-radius: 100px; */
-	border-top-right-radius: 10px;
-	border-top-left-radius: 10px;
-	justify-content: center;
-	align-items: center;
-	/* padding-bottom: 20px; */
-	/* padding-left: 20px; */
-	position: absolute;
-`;
-
-export const Yes = styled(Animated.View)`
-	height: 50px;
-	width: 280px;
-	background-color: green;
-	/* border-bottom-left-radius: 100px; */
-	border-top-right-radius: 10px;
-	border-top-left-radius: 10px;
-	justify-content: center;
-	align-items: center;
-	/* padding-bottom: 20px; */
-	/* padding-left: 20px; */
-	position: absolute;
-`;
-
-export const OptionText = styled.Text`
-	color: white;
-	font-size: 25px;
-	font-weight: bold;
-`;
+export const styles = StyleSheet.create({
+	container: {
+		alignItems: 'center',
+		justifyContent: 'center',
+		width: Dimensions.get('window').width,
+		margin: 0,
+	},
+	brand: {
+		height: 320,
+		borderRadius: 10,
+		width: 280,
+		margin: 'auto',
+		backgroundColor: 'rgba(248, 229, 92, 1)',
+		alignSelf: 'center',
+		position: 'absolute',
+	},
+	swap: {
+		backgroundColor: 'rgba(248, 241, 193, 1)',
+		height: 320,
+		borderRadius: 10,
+		width: 280,
+		margin: 'auto',
+		alignItems: 'flex-start',
+		justifyContent: 'space-between',
+		flexDirection: 'row',
+	},
+	no: {
+		height: 50,
+		width: 280,
+		backgroundColor: 'red',
+		borderTopLeftRadius: 10,
+		borderTopRightRadius: 10,
+		justifyContent: 'center',
+		alignItems: 'center',
+		position: 'absolute',
+	},
+	yes: {
+		height: 50,
+		width: 280,
+		backgroundColor: 'green',
+		borderTopLeftRadius: 10,
+		borderTopRightRadius: 10,
+		justifyContent: 'center',
+		alignItems: 'center',
+		position: 'absolute',
+	},
+	optionText: {
+		color: 'white',
+		fontSize: 25,
+		fontWeight: 'bold',
+	},
+});
