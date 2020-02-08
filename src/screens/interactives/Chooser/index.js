@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
-import { View, Animated } from 'react-native';
+import React from 'react';
+import { Animated, Text } from 'react-native';
 import { PanGestureHandler, State } from 'react-native-gesture-handler';
-import { Swap, Yes, No, Brand, Container, OptionText } from './styles';
+import { styles } from './styles';
 
 const Chooser = () => {
 	const elevationBrand = new Animated.Value(10);
@@ -67,8 +67,8 @@ const Chooser = () => {
 			onGestureEvent={animatedEvent}
 			onHandlerStateChange={onHandlerStateChanged}
 		>
-			<Container>
-				<Brand
+			<Animated.View style={styles.container}>
+				<Animated.View
 					style={{
 						elevation: 5,
 						elevation: elevationBrand.interpolate({
@@ -76,9 +76,10 @@ const Chooser = () => {
 							outputRange: [10, 20],
 							extrapolate: 'clamp',
 						}),
+						...styles.brand,
 					}}
 				/>
-				<Swap
+				<Animated.View
 					style={{
 						transform: [
 							{
@@ -99,9 +100,10 @@ const Chooser = () => {
 							outputRange: [10, 20],
 							extrapolate: 'clamp',
 						}),
+						...styles.swap,
 					}}
 				>
-					<Yes
+					<Animated.View
 						style={{
 							opacity: translateX.interpolate({
 								inputRange: [0, 40, 70],
@@ -117,11 +119,12 @@ const Chooser = () => {
 									}),
 								},
 							],
+							...styles.yes,
 						}}
 					>
-						<OptionText>Sim</OptionText>
-					</Yes>
-					<No
+						<Text style={styles.optionText}>Sim</Text>
+					</Animated.View>
+					<Animated.View
 						style={{
 							opacity: translateX.interpolate({
 								inputRange: [-70, -40, 0],
@@ -137,12 +140,13 @@ const Chooser = () => {
 									}),
 								},
 							],
+							...styles.no,
 						}}
 					>
-						<OptionText>Não</OptionText>
-					</No>
-				</Swap>
-			</Container>
+						<Text style={styles.optionText}>Não</Text>
+					</Animated.View>
+				</Animated.View>
+			</Animated.View>
 		</PanGestureHandler>
 	);
 };
