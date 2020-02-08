@@ -5,7 +5,7 @@ import { styles } from './styles';
 
 import questions from '../questions';
 
-const Chooser = () => {
+const Chooser = ({ onQuestionAnswered }) => {
 	const [currentQuestion, setCurrentQuestion] = useState(questions[0]);
 	const elevationBrand = new Animated.Value(10);
 	const elevationSwap = new Animated.Value(20);
@@ -31,10 +31,13 @@ const Chooser = () => {
 		let changed = false;
 		const { translationX } = event.nativeEvent;
 		if (event.nativeEvent.oldState === State.ACTIVE) {
+			let option;
 			if (translationX <= -changeableDist) {
 				changed = true;
+				option = 'no';
 			} else if (translationX >= changeableDist) {
 				changed = true;
+				option = 'yes';
 			}
 
 			if (changed) {
@@ -60,6 +63,8 @@ const Chooser = () => {
 						duration: 250,
 						useNativeDriver: true,
 					}).start();
+
+					onQuestionAnswered(currentQuestion[option]);
 					updateQuestion();
 				}, 450);
 			}
