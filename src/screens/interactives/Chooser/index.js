@@ -107,18 +107,9 @@ const Chooser = () => {
 						style={{
 							opacity: translateX.interpolate({
 								inputRange: [0, 20, 70],
-								outputRange: [0, 0.4, 0.7],
+								outputRange: [0, 0.4, 0.6],
 								extrapolate: 'clamp',
 							}),
-							transform: [
-								{
-									scaleX: translateX.interpolate({
-										inputRange: [0, 20, 50],
-										outputRange: [0, 0.001, 1],
-										extrapolate: 'clamp',
-									}),
-								},
-							],
 							...styles.yes,
 						}}
 					>
@@ -128,18 +119,9 @@ const Chooser = () => {
 						style={{
 							opacity: translateX.interpolate({
 								inputRange: [-70, -20, 0],
-								outputRange: [0.7, 0.4, 0],
+								outputRange: [0.6, 0.4, 0],
 								extrapolate: 'clamp',
 							}),
-							transform: [
-								{
-									scaleX: translateX.interpolate({
-										inputRange: [-50, -20, 0],
-										outputRange: [1, 0.001, 0],
-										extrapolate: 'clamp',
-									}),
-								},
-							],
 							...styles.no,
 						}}
 					>
