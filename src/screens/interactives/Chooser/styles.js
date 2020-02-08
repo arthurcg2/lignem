@@ -23,7 +23,6 @@ export const styles = StyleSheet.create({
 		width: 280,
 		margin: 'auto',
 		alignItems: 'flex-start',
-		justifyContent: 'space-between',
 		flexDirection: 'row',
 	},
 	no: {
@@ -32,6 +31,7 @@ export const styles = StyleSheet.create({
 		backgroundColor: 'red',
 		borderTopLeftRadius: 10,
 		borderTopRightRadius: 10,
+		marginRight: 20,
 		justifyContent: 'center',
 		alignItems: 'center',
 		position: 'absolute',
