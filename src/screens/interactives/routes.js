@@ -2,9 +2,11 @@ import { createAppContainer } from 'react-navigation';
 import { createStackNavigator } from 'react-navigation-stack';
 
 import Game from './GameScreen';
+import Tutorial from './TutorialScreen'
 
 const Router = createStackNavigator(
 	{
+		Tutorial,
 		Game,
 	},
 	{
