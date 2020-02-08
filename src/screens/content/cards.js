@@ -47,4 +47,16 @@ export default [
 			contentPageTitle: 'Energia Eólica',
 		},
 	},
+	{
+		id: 5,
+		title: 'Eficiência Energética',
+		image: require('../../../assets/eficiencia-energetica.png'),
+		description:
+			'A eficiência energética: sua definição, como alcançar e dicas!',
+		buttonTitle: 'Ir para a página!',
+		targetPageSettings: {
+			contentJSONName: 'eficienciaEnergetica',
+			contentPageTitle: 'Eficiência Energética',
+		},
+	},
 ];
