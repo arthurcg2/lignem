@@ -4,7 +4,7 @@ export const styles = StyleSheet.create({
 	container: {
 		alignItems: 'center',
 		justifyContent: 'center',
-		width: Dimensions.get('window').width,
+		width: '100%',
 		margin: 0,
 	},
 	brand: {
