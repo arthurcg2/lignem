@@ -6,7 +6,7 @@ export default StyleSheet.create({
 		borderRadius: 10,
 		alignItems: 'center',
 		justifyContent: 'flex-end',
-		backgroundColor: '#652118',
+		backgroundColor: '#b79732',
 	},
 	labelContainer: {
 		width: '100%',
