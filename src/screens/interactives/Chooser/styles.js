@@ -12,12 +12,9 @@ export const styles = StyleSheet.create({
 		borderRadius: 10,
 		width: 280,
 		margin: 'auto',
-		backgroundColor: '#2D0900',
-		alignSelf: 'center',
 		position: 'absolute',
 	},
 	swap: {
-		backgroundColor: 'rgba(248, 241, 193, 1)',
 		height: 320,
 		borderRadius: 10,
 		width: 280,
