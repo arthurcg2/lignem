@@ -124,7 +124,7 @@ const Chooser = ({ onQuestionAnswered }) => {
 						style={{
 							opacity: translateX.interpolate({
 								inputRange: [0, 20, 70],
-								outputRange: [0, 0.4, 0.7],
+								outputRange: [0, 0.4, 0.8],
 								extrapolate: 'clamp',
 							}),
 							...styles.yes,
@@ -136,7 +136,7 @@ const Chooser = ({ onQuestionAnswered }) => {
 						style={{
 							opacity: translateX.interpolate({
 								inputRange: [-70, -20, 0],
-								outputRange: [0.7, 0.4, 0],
+								outputRange: [0.8, 0.4, 0],
 								extrapolate: 'clamp',
 							}),
 							...styles.no,
