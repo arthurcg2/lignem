@@ -18,11 +18,10 @@ export default Stats = ({ currentStats }) => {
 			else newColors[i] = '#e6cd7e';
 		});
 
-		console.log(newColors);
 		setColors(newColors);
 	}, [currentStats]);
 
-	let gameStats = [
+	const gameStats = [
 		{
 			name: 'sustentabilidade',
 			icon: 'leaf',

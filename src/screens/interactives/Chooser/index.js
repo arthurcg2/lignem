@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import { Animated, Text } from 'react-native';
+import { Animated, Text, View } from 'react-native';
 import { PanGestureHandler, State } from 'react-native-gesture-handler';
 import { styles } from './styles';
 
 import questions from '../questions';
+import Card from '../Card';
 
 const Chooser = ({ onQuestionAnswered }) => {
 	const [currentQuestion, setCurrentQuestion] = useState(questions[0]);
@@ -118,12 +119,12 @@ const Chooser = ({ onQuestionAnswered }) => {
 						...styles.swap,
 					}}
 				>
-					<Text>{currentQuestion.statement}</Text>
+					<Card text={currentQuestion.statement} />
 					<Animated.View
 						style={{
 							opacity: translateX.interpolate({
 								inputRange: [0, 20, 70],
-								outputRange: [0, 0.4, 0.6],
+								outputRange: [0, 0.4, 0.7],
 								extrapolate: 'clamp',
 							}),
 							...styles.yes,
@@ -135,7 +136,7 @@ const Chooser = ({ onQuestionAnswered }) => {
 						style={{
 							opacity: translateX.interpolate({
 								inputRange: [-70, -20, 0],
-								outputRange: [0.6, 0.4, 0],
+								outputRange: [0.7, 0.4, 0],
 								extrapolate: 'clamp',
 							}),
 							...styles.no,

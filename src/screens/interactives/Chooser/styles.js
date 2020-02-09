@@ -12,7 +12,7 @@ export const styles = StyleSheet.create({
 		borderRadius: 10,
 		width: 280,
 		margin: 'auto',
-		backgroundColor: 'rgba(248, 229, 92, 1)',
+		backgroundColor: '#2D0900',
 		alignSelf: 'center',
 		position: 'absolute',
 	},
@@ -22,8 +22,6 @@ export const styles = StyleSheet.create({
 		borderRadius: 10,
 		width: 280,
 		margin: 'auto',
-		alignItems: 'flex-start',
-		justifyContent: 'space-between',
 		flexDirection: 'row',
 	},
 	no: {
