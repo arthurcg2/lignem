@@ -44,7 +44,7 @@ const Chooser = ({ onQuestionAnswered }) => {
 			if (changed) {
 				Animated.timing(elevationSwap, {
 					toValue: 15,
-					duration: 200,
+					duration: 2,
 					useNativeDriver: true,
 				}).start();
 				Animated.timing(elevationBrand, {
@@ -67,12 +67,12 @@ const Chooser = ({ onQuestionAnswered }) => {
 
 					onQuestionAnswered(currentQuestion[option]);
 					updateQuestion();
-				}, 450);
+				}, 300);
 			}
 
 			Animated.timing(translateX, {
 				toValue: 0,
-				duration: 250,
+				duration: 300,
 				useNativeDriver: true,
 			}).start();
 		}
