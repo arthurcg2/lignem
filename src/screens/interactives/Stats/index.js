@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { View } from 'react-native';
 
 import styles from './styles';
@@ -7,7 +7,21 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 export default Stats = ({ currentStats }) => {
 	const [colors, setColors] = useState(new Array(4).fill('#e6cd7e'));
 
-	let gameStats = [
+	useEffect(() => {
+		let newColors = new Array(4).fill('#e6cd7e');
+
+		newColors.map((color, i) => {
+			if (currentStats[i] > (2 * gameStats[i].maxValue) / 3)
+				newColors[i] = '#42f55d';
+			else if (currentStats[i] < gameStats[i].maxValue / 3)
+				newColors[i] = '#f54242';
+			else newColors[i] = '#e6cd7e';
+		});
+
+		setColors(newColors);
+	}, [currentStats]);
+
+	const gameStats = [
 		{
 			name: 'sustentabilidade',
 			icon: 'leaf',

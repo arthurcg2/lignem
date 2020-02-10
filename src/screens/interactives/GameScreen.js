@@ -8,16 +8,24 @@ import Chooser from './Chooser';
 import Stats from './Stats';
 
 const GameMain = () => {
-	const [statsState, setStatsState] = useState(new Array(4).fill(0));
+	const [stats, setStats] = useState(new Array(4).fill(10));
 
-	function handleQuestionAnswered(question, answer) {
-		// setStats({stats})
+	function handleQuestionAnswered(optionStats) {
+		let newStats = new Array(4).fill(0);
+		newStats.map((stat, i) => {
+			const sum = stats[i] + optionStats[i];
+
+			if (sum > 20) newStats[i] = 20;
+			else if (sum < 0) newStats[i] = 0;
+			else newStats[i] = sum;
+		});
+		setStats(newStats);
 	}
 
 	return (
 		<View style={styles.container}>
 			<Chooser onQuestionAnswered={handleQuestionAnswered} />
-			<Stats currentStats={statsState} />
+			<Stats currentStats={stats} />
 		</View>
 	);
 };

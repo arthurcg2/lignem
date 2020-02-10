@@ -1,13 +1,23 @@
-import React from 'react';
-import { Animated, Text } from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { Animated, Text, View, Image } from 'react-native';
 import { PanGestureHandler, State } from 'react-native-gesture-handler';
 import { styles } from './styles';
 
-const Chooser = () => {
+import questions from '../questions';
+import Card from '../Card';
+
+import backgroundImage from '../../../../assets/game/background.png';
+
+const Chooser = ({ onQuestionAnswered }) => {
+	const [currentQuestion, setCurrentQuestion] = useState(questions[0]);
 	const elevationBrand = new Animated.Value(10);
 	const elevationSwap = new Animated.Value(20);
 	const changeableDist = 50;
 	const translateX = new Animated.Value(0);
+
+	function updateQuestion() {
+		setCurrentQuestion(questions[Math.floor(Math.random() * questions.length)]);
+	}
 
 	const animatedEvent = Animated.event(
 		[
@@ -24,15 +34,19 @@ const Chooser = () => {
 		let changed = false;
 		const { translationX } = event.nativeEvent;
 		if (event.nativeEvent.oldState === State.ACTIVE) {
+			let option;
 			if (translationX <= -changeableDist) {
 				changed = true;
+				option = 'no';
 			} else if (translationX >= changeableDist) {
 				changed = true;
+				option = 'yes';
 			}
+
 			if (changed) {
 				Animated.timing(elevationSwap, {
 					toValue: 15,
-					duration: 200,
+					duration: 2,
 					useNativeDriver: true,
 				}).start();
 				Animated.timing(elevationBrand, {
@@ -40,6 +54,7 @@ const Chooser = () => {
 					duration: 200,
 					useNativeDriver: true,
 				}).start();
+
 				setTimeout(() => {
 					Animated.timing(elevationSwap, {
 						toValue: 20,
@@ -51,12 +66,15 @@ const Chooser = () => {
 						duration: 250,
 						useNativeDriver: true,
 					}).start();
-				}, 500);
+
+					onQuestionAnswered(currentQuestion[option]);
+					updateQuestion();
+				}, 300);
 			}
 
 			Animated.timing(translateX, {
 				toValue: 0,
-				duration: 250,
+				duration: 300,
 				useNativeDriver: true,
 			}).start();
 		}
@@ -78,7 +96,9 @@ const Chooser = () => {
 						}),
 						...styles.brand,
 					}}
-				/>
+				>
+					<Image borderRadius={10} source={backgroundImage} />
+				</Animated.View>
 				<Animated.View
 					style={{
 						transform: [
@@ -103,29 +123,30 @@ const Chooser = () => {
 						...styles.swap,
 					}}
 				>
+					<Card text={currentQuestion.statement} />
 					<Animated.View
 						style={{
 							opacity: translateX.interpolate({
 								inputRange: [0, 20, 70],
-								outputRange: [0, 0.4, 0.6],
+								outputRange: [0, 0.4, 0.8],
 								extrapolate: 'clamp',
 							}),
 							...styles.yes,
 						}}
 					>
-						<Text style={styles.optionText}>Sim</Text>
+						<Text style={styles.optionText}>{currentQuestion.yesOption}</Text>
 					</Animated.View>
 					<Animated.View
 						style={{
 							opacity: translateX.interpolate({
 								inputRange: [-70, -20, 0],
-								outputRange: [0.6, 0.4, 0],
+								outputRange: [0.8, 0.4, 0],
 								extrapolate: 'clamp',
 							}),
 							...styles.no,
 						}}
 					>
-						<Text style={styles.optionText}>Não</Text>
+						<Text style={styles.optionText}>{currentQuestion.noOption}</Text>
 					</Animated.View>
 				</Animated.View>
 			</Animated.View>

@@ -11,9 +11,9 @@ export default function App() {
 	useEffect(() => {
 		async function getStorageDarkMode() {
 			let themeKey = await AsyncStorage.getItem('theme');
-			if(!themeKey){
-				themeKey = 'light'
-			}			
+			if (!themeKey) {
+				themeKey = 'light';
+			}
 
 			if (themeKey === 'dark') {
 				dispatch({
@@ -38,7 +38,7 @@ export default function App() {
 		<>
 			<StatusBar
 				barStyle={state.theme.statusBarStyle}
-				backgroundColor={state.theme.background}
+				backgroundColor="#EFEFEF"
 			/>
 			<Router />
 		</>
