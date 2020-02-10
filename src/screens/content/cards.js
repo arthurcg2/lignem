@@ -1,9 +1,9 @@
 function compare(a, b) {
-	if ( a.title < b.title ){
-	  return -1;
+	if (a.title < b.title) {
+		return -1;
 	}
-	if ( a.title > b.title ){
-	  return 1;
+	if (a.title > b.title) {
+		return 1;
 	}
 	return 0;
 }
@@ -69,4 +69,28 @@ export default [
 			contentPageTitle: 'Eficiência Energética',
 		},
 	},
-].sort(compare)
+	{
+		id: 6,
+		title: 'Energia Termoelétrica',
+		image: require('../../../assets/termo-eletrica.jpg'),
+		description:
+			'A energia termelétrica: sua definição, funcionamento e suas características!',
+		buttonTitle: 'Ir para a página!',
+		targetPageSettings: {
+			contentJSONName: 'termoeletrica',
+			contentPageTitle: 'A Energia Termoelétrica',
+		},
+	},
+	{
+		id: 7,
+		title: 'Energia Nuclear',
+		image: require('../../../assets/nuclear-energica.jpg'),
+		description:
+			'A energia nuclear: sua definição, funcionamento e suas características!',
+		buttonTitle: 'Ir para a página!',
+		targetPageSettings: {
+			contentJSONName: 'nuclear',
+			contentPageTitle: 'Energia Nuclear',
+		},
+	},
+].sort(compare);
