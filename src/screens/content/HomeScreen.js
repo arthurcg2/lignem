@@ -4,20 +4,7 @@ import { Card } from 'react-native-elements';
 import Logo from '../../components/Logo';
 import { useThemeValue } from '../../states/ThemeState';
 
-const cards = [
-	{
-		id: 1,
-		title: 'Exemplo',
-		image: require('../../../assets/hidreletrica.jpg'),
-		description:
-			'Exercitation officia exercitation anim nostrud aliqua aliquip qui anim.',
-		buttonTitle: 'Ir para a página!',
-		targetPageSettings: {
-			contentJSONName: 'teste',
-			contentPageTitle: 'Teste!',
-		},
-	},
-];
+import cards from './cards';
 
 const Home = ({ navigation }) => {
 	const [{ theme }] = useThemeValue();
