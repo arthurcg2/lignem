@@ -1,19 +1,19 @@
 import React, { useState, useEffect } from 'react';
-import { View } from 'react-native';
+import { Animated, View } from 'react-native';
 
 import styles from './styles';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
-export default Stats = ({ currentStats }) => {
+export default Stats = ({ currentStats, oldValues }) => {
 	const [colors, setColors] = useState(new Array(4).fill('#e6cd7e'));
 
 	useEffect(() => {
 		let newColors = new Array(4).fill('#e6cd7e');
 
 		newColors.map((color, i) => {
-			if (currentStats[i] > (2 * gameStats[i].maxValue) / 3)
+			if (currentStats[i].value > (2 * currentStats[i].maxValue) / 3)
 				newColors[i] = '#42f55d';
-			else if (currentStats[i] < gameStats[i].maxValue / 3)
+			else if (currentStats[i].value < currentStats[i].maxValue / 3)
 				newColors[i] = '#f54242';
 			else newColors[i] = '#e6cd7e';
 		});
@@ -21,49 +21,39 @@ export default Stats = ({ currentStats }) => {
 		setColors(newColors);
 	}, [currentStats]);
 
-	const gameStats = [
-		{
-			name: 'sustentabilidade',
-			icon: 'leaf',
-			value: currentStats[0],
-			maxValue: 20,
-		},
-		{
-			name: 'popularidade',
-			icon: 'group',
-			value: currentStats[1],
-			maxValue: 20,
-		},
-		{
-			name: 'finanças',
-			icon: 'dollar',
-			value: currentStats[2],
-			maxValue: 20,
-		},
-		{
-			name: 'energia',
-			icon: 'bolt',
-			value: currentStats[3],
-			maxValue: 20,
-		},
-	];
-
 	return (
 		<View style={styles.statsContainer}>
-			{gameStats.map((stat, i) => (
-				<View key={i} style={styles.stat}>
-					<View style={styles.statBar}>
-						<View
-							style={{
-								width: '100%',
-								height: (stat.value / stat.maxValue) * 100 + '%',
-								backgroundColor: colors[i],
-							}}
-						/>
+			{currentStats.map((stat, i) => {
+			
+				const statValue = new Animated.Value(oldValues[i])
+
+				Animated.timing(statValue, {
+					toValue: stat.value,
+					duration: 100
+				}).start()
+
+				return (
+					<View key={i} style={styles.stat}>
+						<View style={styles.statBar}>
+							<Animated.View
+								style={{
+									width: '100%',
+									height: statValue.interpolate({
+										inputRange: [0, stat.maxValue],
+										outputRange: ['0%', '100%'],
+										extrapolate: 'clamp',
+									}),
+									backgroundColor: statValue.interpolate({
+										inputRange: [0, stat.maxValue / 2, stat.maxValue],
+										outputRange: ['rgb(255, 0, 0)', 'rgb(230, 205, 126)', 'rgb(0, 255, 0)'],
+										extrapolate: 'clamp',
+									}),
+								}}
+							/>
+						</View>
+						<Icon name={stat.icon} size={32} color="#6048b0" />
 					</View>
-					<Icon name={stat.icon} size={32} color="#6048b0" />
-				</View>
-			))}
+			)})}
 		</View>
 	);
 };

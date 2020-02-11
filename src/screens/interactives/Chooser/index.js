@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import { Animated, Text, View } from 'react-native';
+import { Animated, Text, View, Image } from 'react-native';
 import { PanGestureHandler, State } from 'react-native-gesture-handler';
 import { styles } from './styles';
 
 import questions from '../questions';
 import Card from '../Card';
+
+import backgroundImage from '../../../../assets/game/background.png';
 
 const Chooser = ({ onQuestionAnswered }) => {
 	const [currentQuestion, setCurrentQuestion] = useState(questions[0]);
@@ -94,7 +96,9 @@ const Chooser = ({ onQuestionAnswered }) => {
 						}),
 						...styles.brand,
 					}}
-				/>
+				>
+					<Image borderRadius={10} source={backgroundImage} />
+				</Animated.View>
 				<Animated.View
 					style={{
 						transform: [
