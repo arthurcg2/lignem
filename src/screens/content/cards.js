@@ -60,7 +60,7 @@ export default [
 	{
 		id: 5,
 		title: 'Eficiência Energética',
-		image: require('../../../assets/eficiencia-energetica.png'),
+		image: require('../../../assets/eficiencia-energetica.jpg'),
 		description:
 			'A eficiência energética: sua definição, como alcançar e dicas!',
 		buttonTitle: 'Ir para a página!',
