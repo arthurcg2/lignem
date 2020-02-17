@@ -1,11 +1,13 @@
 import { createAppContainer } from 'react-navigation';
 import { createStackNavigator } from 'react-navigation-stack';
 
-import InterativoTeste from './InterativoTesteScreen';
+import Game from './GameScreen';
+import Tutorial from './TutorialScreen'
 
 const Router = createStackNavigator(
 	{
-		InterativoTeste,
+		Tutorial,
+		Game,
 	},
 	{
 		headerLayoutPreset: 'center',
@@ -14,6 +16,9 @@ const Router = createStackNavigator(
 			headerTintColor: '#7159C1',
 			headerTitleStyle: {
 				fontWeight: 'bold',
+			},
+			headerStyle: {
+				backgroundColor: '#FAFAFA',
 			},
 		},
 	},

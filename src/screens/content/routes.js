@@ -18,6 +18,9 @@ const Router = createStackNavigator(
 			headerTitleStyle: {
 				fontWeight: 'bold',
 			},
+			headerStyle: {
+				backgroundColor: '#FAFAFA',
+			},
 		},
 	},
 );
