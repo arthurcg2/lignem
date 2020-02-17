@@ -1,5 +1,5 @@
 export default {
 	background: '#FFF',
-	foreground: '#FF585D',
+	foreground: '#4285F4',
 	statusBarStyle: 'dark-content',
 };

@@ -5,7 +5,8 @@ import { ThemeProvider } from './states/ThemeState';
 import lightTheme from './themes/default';
 import darkTheme from './themes/dark';
 import tomatoTheme from './themes/tomato';
-import daltonismoThemes from './themes/daltonismo';
+import blueTheme from './themes/blueTheme';
+import redTheme from './themes/redTheme';
 
 import App from './App';
 
@@ -22,32 +23,44 @@ export default function Index() {
 
 	const reducer = (state, action) => {
 		const type = action.type.substr(6, action.type.lastIndexOf('Mode') - 6);
+		updateStorage(type);
 
 		switch (action.type) {
 			case 'enableDarkMode':
-				updateStorage('dark');
 				return {
 					...state,
 					theme: darkTheme,
 				};
 			case 'enableLightMode':
-				updateStorage('light');
 				return {
 					...state,
 					theme: lightTheme,
 				};
 			case 'enableTritanopiaMode':
 			case 'enableTritanomalyMode':
-				updateStorage(type);
 				return {
 					...state,
 					theme: tomatoTheme,
 				};
-			default:
-				updateStorage(type);
+			case 'enableProtanopiaMode':
+			case 'enableProtanomalyMode':
 				return {
 					...state,
-					theme: daltonismoThemes(type.toLowerCase()),
+					theme: blueTheme,
+				};
+			case 'enableDeuteranopiaMode':
+			case 'enableDeuteranomalyMode':
+				return {
+					...state,
+					theme: redTheme,
+				};
+			default:
+				updateStorage('light');
+				console.err(`Color mode '${type}' not found.`);
+
+				return {
+					...state,
+					theme: lightTheme,
 				};
 		}
 	};
