@@ -36,6 +36,7 @@ const accessibilityOptions = [
 const Settings = ({ navigation }) => {
 	const [darkmode, setDarkmode] = useState(false);
 	const [, dispatch] = useThemeValue();
+	const isSwitchDisabled = true;
 
 	useEffect(() => {
 		async function getInitialState() {
@@ -71,10 +72,11 @@ const Settings = ({ navigation }) => {
 					accessible
 					accessibilityLabel="Tons mais escuros para o Lignem"
 					leftIcon={{ name: 'brightness-3' }}
+					onPress={!isSwitchDisabled ? handleChange : () => {}}
 					rightElement={
 						<Switch
 							value={darkmode}
-							disabled
+							disabled={isSwitchDisabled}
 							onValueChange={handleChange}
 							trackColor={{ true: '#937BE3' }}
 							thumbColor="#FFF"

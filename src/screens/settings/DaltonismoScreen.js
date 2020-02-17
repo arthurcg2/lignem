@@ -7,6 +7,7 @@ import AsyncStorage from '@react-native-community/async-storage';
 const Daltonismo = () => {
 	const [deficiencias, setDeficiencias] = useState(new Array(6).fill(false));
 	const [theme, dispatch] = useThemeValue();
+	const isSwitchDisabled = false;
 
 	function handleChange(item) {
 		let newDef = new Array(6).fill(false);
@@ -54,9 +55,12 @@ const Daltonismo = () => {
 						accessibilityRole="menuitem"
 						subtitle={l.sub}
 						bottomDivider
+						onPress={() => {
+							if (!isSwitchDisabled) handleChange(l);
+						}}
 						rightElement={
 							<Switch
-								disabled
+								disabled={isSwitchDisabled}
 								value={deficiencias[l.cod]}
 								onValueChange={() => {
 									handleChange(l);
