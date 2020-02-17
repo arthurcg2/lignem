@@ -22,6 +22,9 @@ const Home = ({ navigation }) => {
 						image={card.image}
 						title={card.title}
 						titleStyle={styles.title}
+						containerStyle={
+							cards[cards.length - 1] == card ? { marginBottom: 20 } : {}
+						}
 						key={card.id}
 					>
 						<Text style={styles.description}>{card.description}</Text>
@@ -53,14 +56,14 @@ const generateStyles = theme => {
 			backgroundColor: theme.background,
 		},
 		cardsList: {
-			marginVertical: 10,
+			paddingTop: 10,
 		},
 		button: {
 			fontWeight: 'bold',
 		},
 		description: {
 			color: '#555',
-			marginBottom: 10,
+			paddingBottom: 10,
 		},
 		title: {
 			color: theme.foreground,
