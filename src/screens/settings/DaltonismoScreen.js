@@ -110,10 +110,6 @@ const list = [
 	},
 ];
 
-Daltonismo.navigationOptions = {
-	title: 'Modo de daltonismo',
-};
-
 const styles = StyleSheet.create({
 	container: {
 		flex: 1,

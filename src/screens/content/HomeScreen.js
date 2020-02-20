@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { View, Text, StyleSheet, Button, ScrollView } from 'react-native';
+import { CommonActions } from '@react-navigation/native';
 import { Card } from 'react-native-elements';
-import Logo from '../../components/Logo';
 import { useThemeValue } from '../../states/ThemeState';
 
 import cards from './cards';
@@ -33,10 +33,16 @@ const Home = ({ navigation }) => {
 							color={theme.foreground}
 							style={styles.button}
 							onPress={() => {
-								navigation.navigate('Content', {
-									contentJSONName: card.targetPageSettings.contentJSONName,
-									contentPageTitle: card.targetPageSettings.contentPageTitle,
-								});
+								navigation.dispatch(
+									CommonActions.navigate({
+										name: 'Content',
+										params: {
+											contentJSONName: card.targetPageSettings.contentJSONName,
+											contentPageTitle:
+												card.targetPageSettings.contentPageTitle,
+										},
+									}),
+								);
 							}}
 						/>
 					</Card>
@@ -44,10 +50,6 @@ const Home = ({ navigation }) => {
 			</ScrollView>
 		</View>
 	);
-};
-
-Home.navigationOptions = {
-	headerTitle: <Logo />,
 };
 
 const generateStyles = theme => {

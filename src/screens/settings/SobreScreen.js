@@ -5,8 +5,4 @@ const Sobre = () => {
 	return <View />;
 };
 
-Sobre.navigationOptions = {
-	title: 'Sobre',
-};
-
 export default Sobre;

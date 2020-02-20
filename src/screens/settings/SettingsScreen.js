@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import { View, ScrollView, Switch, Text, StyleSheet } from 'react-native';
 import { ListItem, Divider } from 'react-native-elements';
 import AsyncStorage from '@react-native-community/async-storage';
-import Logo from '../../components/Logo';
 
 import { useThemeValue } from '../../states/ThemeState';
 
@@ -133,10 +132,6 @@ const Settings = ({ navigation }) => {
 			</View>
 		</ScrollView>
 	);
-};
-
-Settings.navigationOptions = {
-	headerTitle: <Logo />,
 };
 
 const styles = StyleSheet.create({

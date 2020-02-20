@@ -6,7 +6,11 @@ import contents from '../../../contents/contents';
 import images from '../../../contents/images';
 import { markdownStyles } from './styles';
 
-const ContentsScreen = ({ navigation }) => {
+const ContentsScreen = ({ navigation, route }) => {
+	navigation.setOptions({
+		title: route.params.contentPageTitle,
+	});
+
 	return (
 		<ScrollView>
 			<Markdown
@@ -26,16 +30,10 @@ const ContentsScreen = ({ navigation }) => {
 					},
 				}}
 			>
-				{contents[navigation.getParam('contentJSONName')]}
+				{contents[route.params.contentJSONName]}
 			</Markdown>
 		</ScrollView>
 	);
-};
-
-ContentsScreen.navigationOptions = ({ navigation }) => {
-	return {
-		title: navigation.getParam('contentPageTitle'),
-	};
 };
 
 export default ContentsScreen;
