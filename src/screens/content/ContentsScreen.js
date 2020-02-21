@@ -12,7 +12,10 @@ const ContentsScreen = ({ navigation, route }) => {
 	});
 
 	return (
-		<ScrollView>
+		<ScrollView style={{
+			padding: 5,
+			backgroundColor: '#5947A9',
+		}}>
 			<Markdown
 				styles={markdownStyles}
 				errorHandler={(errors, children) => <Text>{children}</Text>}
