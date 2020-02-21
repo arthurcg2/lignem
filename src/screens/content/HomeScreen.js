@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { View, Text, StyleSheet, Button, ScrollView } from 'react-native';
 import { Card } from 'react-native-elements';
+import { useTheme } from '@react-navigation/native';
 
 import cards from './cards';
-import theme from '../../themes/default';
 
 const Home = ({ navigation }) => {
 	const [styles, setStyles] = useState({});
+	const theme = useTheme();
 
 	useEffect(() => {
 		setStyles(generateStyles(theme));
@@ -20,15 +21,21 @@ const Home = ({ navigation }) => {
 						image={card.image}
 						title={card.title}
 						titleStyle={styles.title}
-						containerStyle={
-							cards[cards.length - 1] == card ? { marginBottom: 20 } : {}
-						}
+						containerStyle={(() => {
+							const marginVal = cards[cards.length - 1] == card ? 20 : 0;
+
+							return {
+								marginBottom: marginVal,
+								backgroundColor: theme.colors.background,
+								borderColor: theme.colors.background,
+							};
+						})()}
 						key={card.id}
 					>
 						<Text style={styles.description}>{card.description}</Text>
 						<Button
 							title={card.buttonTitle}
-							color={'#7159C1'}
+							color={theme.colors.primary}
 							style={styles.button}
 							onPress={() => {
 								navigation.navigate({
@@ -50,7 +57,7 @@ const Home = ({ navigation }) => {
 const generateStyles = theme => {
 	return StyleSheet.create({
 		container: {
-			backgroundColor: '#FFF',
+			backgroundColor: theme.colors.background,
 		},
 		cardsList: {
 			paddingTop: 10,
@@ -63,7 +70,7 @@ const generateStyles = theme => {
 			paddingBottom: 10,
 		},
 		title: {
-			color: '#7159C1',
+			color: theme.colors.primary,
 		},
 	});
 };

@@ -3,6 +3,7 @@ import {
 	createBottomTabNavigator,
 	BottomTabBar,
 } from '@react-navigation/bottom-tabs';
+import { useTheme } from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
 import Conteudo from './screens/content/routes';
@@ -12,13 +13,17 @@ import Interativos from './screens/interactives/routes';
 const Tab = createBottomTabNavigator();
 
 const Router = () => {
+	const theme = useTheme();
+
 	return (
 		<Tab.Navigator
 			tabBarOptions={{
-				activeTintColor: '#7159C1',
+				activeTintColor: theme.colors.primary,
 				inactiveTintColor: 'grey',
 			}}
-			tabBar={props => <BottomTabBar {...props} activeTintColor={'#7159C1'} />}
+			tabBar={props => (
+				<BottomTabBar {...props} activeTintColor={theme.colors.primary} />
+			)}
 			initialRouteName="Conteudo"
 		>
 			<Tab.Screen
