@@ -2,44 +2,31 @@ import React, { useEffect } from 'react';
 import { StatusBar } from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
 
+import { useSwitchTheme } from './states/ThemeSwitchContext';
+
 import Router from './routes';
-import { useThemeValue } from './states/ThemeState';
 
 export default function App() {
-	const [state, dispatch] = useThemeValue();
+	const switchTheme = useSwitchTheme();
 
 	useEffect(() => {
-		async function getStorageDarkMode() {
+		async function getStorageTheme() {
 			let themeKey = await AsyncStorage.getItem('theme');
 			if (!themeKey) {
 				themeKey = 'light';
 			}
 
-			if (themeKey === 'dark') {
-				dispatch({
-					type: 'enableDarkMode',
-				});
-				return;
-			} else if (themeKey === 'light') {
-				dispatch({
-					type: 'enableLightMode',
-				});
-			} else {
-				dispatch({
-					type: `enable${themeKey}Mode`,
-				});
-			}
+			switchTheme({
+				type: themeKey,
+			});
 		}
 
-		getStorageDarkMode();
+		getStorageTheme();
 	}, []);
 
 	return (
 		<>
-			<StatusBar
-				barStyle={state.theme.statusBarStyle}
-				backgroundColor="#EFEFEF"
-			/>
+			<StatusBar barStyle={'dark-content'} backgroundColor="#EFEFEF" />
 			<Router />
 		</>
 	);

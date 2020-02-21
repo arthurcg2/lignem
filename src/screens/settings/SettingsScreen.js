@@ -3,7 +3,7 @@ import { View, ScrollView, Switch, Text, StyleSheet } from 'react-native';
 import { ListItem, Divider } from 'react-native-elements';
 import AsyncStorage from '@react-native-community/async-storage';
 
-import { useThemeValue } from '../../states/ThemeState';
+import { useSwitchTheme } from '../../states/ThemeSwitchContext';
 
 const options = [
 	{
@@ -34,8 +34,8 @@ const accessibilityOptions = [
 
 const Settings = ({ navigation }) => {
 	const [darkmode, setDarkmode] = useState(false);
-	const [, dispatch] = useThemeValue();
-	const isSwitchDisabled = true;
+	const switchTheme = useSwitchTheme();
+	const isSwitchDisabled = false;
 
 	useEffect(() => {
 		async function getInitialState() {
@@ -53,8 +53,8 @@ const Settings = ({ navigation }) => {
 	}, []);
 
 	function handleChange() {
-		dispatch({
-			type: !darkmode ? 'enableDarkMode' : 'enableLightMode',
+		switchTheme({
+			type: !darkmode ? 'dark' : 'light',
 		});
 		setDarkmode(!darkmode);
 	}

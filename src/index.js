@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useState } from 'react';
 import AsyncStorage from '@react-native-community/async-storage';
-import { ThemeProvider } from './states/ThemeState';
+import { NavigationContainer, ThemeProvider } from '@react-navigation/native';
+import { ThemeSwitchProvider } from './states/ThemeSwitchContext';
 
 import lightTheme from './themes/default';
 import darkTheme from './themes/dark';
@@ -11,63 +12,54 @@ import redTheme from './themes/redTheme';
 import App from './App';
 
 export default function Index() {
-	const initialState = { theme: lightTheme };
+	const [theme, setTheme] = useState(lightTheme);
 
-	async function updateStorage(theme) {
+	async function updateStorage(themeName) {
 		try {
-			await AsyncStorage.setItem('theme', theme);
+			await AsyncStorage.setItem('theme', themeName);
 		} catch (err) {
 			console.error('Erro ao salvar tema: ' + err);
 		}
 	}
 
 	const reducer = (state, action) => {
-		const type = action.type.substr(6, action.type.lastIndexOf('Mode') - 6);
-		updateStorage(type);
+		updateStorage(action.type);
 
 		switch (action.type) {
-			case 'enableDarkMode':
-				return {
-					...state,
-					theme: darkTheme,
-				};
-			case 'enableLightMode':
-				return {
-					...state,
-					theme: lightTheme,
-				};
-			case 'enableTritanopiaMode':
-			case 'enableTritanomalyMode':
-				return {
-					...state,
-					theme: tomatoTheme,
-				};
-			case 'enableProtanopiaMode':
-			case 'enableProtanomalyMode':
-				return {
-					...state,
-					theme: blueTheme,
-				};
-			case 'enableDeuteranopiaMode':
-			case 'enableDeuteranomalyMode':
-				return {
-					...state,
-					theme: redTheme,
-				};
+			case 'dark':
+				setTheme(darkTheme);
+				break;
+			case 'light':
+				setTheme(lightTheme);
+				break;
+			case 'tritanopia':
+			case 'tritanomaly':
+				setTheme(tomatoTheme);
+				break;
+			case 'protanopia':
+			case 'protanomaly':
+				setTheme(blueTheme);
+				break;
+			case 'deuteranopia':
+			case 'deuteranomaly':
+				setTheme(redTheme);
+				break;
 			default:
 				updateStorage('light');
-				console.err(`Color mode '${type}' not found.`);
+				console.error(`Color mode ${action.type} not found.`);
 
-				return {
-					...state,
-					theme: lightTheme,
-				};
+				setTheme(lightTheme);
+				break;
 		}
 	};
 
 	return (
-		<ThemeProvider initialState={initialState} reducer={reducer}>
-			<App />
-		</ThemeProvider>
+		<NavigationContainer>
+			<ThemeSwitchProvider reducer={reducer} initialState={lightTheme}>
+				<ThemeProvider value={theme}>
+					<App />
+				</ThemeProvider>
+			</ThemeSwitchProvider>
+		</NavigationContainer>
 	);
 }

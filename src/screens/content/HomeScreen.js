@@ -1,12 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { View, Text, StyleSheet, Button, ScrollView } from 'react-native';
 import { Card } from 'react-native-elements';
-import { useThemeValue } from '../../states/ThemeState';
 
 import cards from './cards';
+import theme from '../../themes/default';
 
 const Home = ({ navigation }) => {
-	const [{ theme }] = useThemeValue();
 	const [styles, setStyles] = useState({});
 
 	useEffect(() => {
@@ -29,7 +28,7 @@ const Home = ({ navigation }) => {
 						<Text style={styles.description}>{card.description}</Text>
 						<Button
 							title={card.buttonTitle}
-							color={theme.foreground}
+							color={'#7159C1'}
 							style={styles.button}
 							onPress={() => {
 								navigation.navigate({
@@ -51,7 +50,7 @@ const Home = ({ navigation }) => {
 const generateStyles = theme => {
 	return StyleSheet.create({
 		container: {
-			backgroundColor: theme.background,
+			backgroundColor: '#FFF',
 		},
 		cardsList: {
 			paddingTop: 10,
@@ -64,7 +63,7 @@ const generateStyles = theme => {
 			paddingBottom: 10,
 		},
 		title: {
-			color: theme.foreground,
+			color: '#7159C1',
 		},
 	});
 };

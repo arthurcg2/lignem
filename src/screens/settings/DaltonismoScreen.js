@@ -1,24 +1,25 @@
 import React, { useEffect, useState } from 'react';
 import { View, StyleSheet, Switch } from 'react-native';
 import { ListItem } from 'react-native-elements';
-import { useThemeValue } from '../../states/ThemeState';
 import AsyncStorage from '@react-native-community/async-storage';
+
+import { useSwitchTheme } from '../../states/ThemeSwitchContext';
 
 const Daltonismo = () => {
 	const [deficiencias, setDeficiencias] = useState(new Array(6).fill(false));
-	const [theme, dispatch] = useThemeValue();
+	const switchTheme = useSwitchTheme();
 	const isSwitchDisabled = false;
 
 	function handleChange(item) {
 		let newDef = new Array(6).fill(false);
 		newDef[item.cod] = !deficiencias[item.cod];
 
-		let defType = item.title;
+		let defType = item.title.toLowerCase();
 
 		if (defType.endsWith('lia')) defType = defType.replace('ia', 'y');
 
-		dispatch({
-			type: newDef[item.cod] ? `enable${defType}Mode` : 'enableLightMode',
+		switchTheme({
+			type: newDef[item.cod] ? defType : 'light',
 		});
 
 		setDeficiencias(newDef);

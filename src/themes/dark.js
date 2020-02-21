@@ -1,5 +1,12 @@
 export default {
-	background: '#232931',
-	foreground: '#3dbb92',
+	name: 'dark',
+	dark: true,
+	colors: {
+		primary: '#3dbb92',
+		background: '#232931',
+		card: '#232931',
+		text: '#EFEFEF',
+		border: '#333',
+	},
 	statusBarStyle: 'light-content',
 };
