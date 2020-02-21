@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import { View, Text, StyleSheet, Button, ScrollView } from 'react-native';
-import { CommonActions } from '@react-navigation/native';
 import { Card } from 'react-native-elements';
 import { useThemeValue } from '../../states/ThemeState';
 
@@ -33,16 +32,13 @@ const Home = ({ navigation }) => {
 							color={theme.foreground}
 							style={styles.button}
 							onPress={() => {
-								navigation.dispatch(
-									CommonActions.navigate({
-										name: 'Content',
-										params: {
-											contentJSONName: card.targetPageSettings.contentJSONName,
-											contentPageTitle:
-												card.targetPageSettings.contentPageTitle,
-										},
-									}),
-								);
+								navigation.navigate({
+									name: 'Content',
+									params: {
+										contentJSONName: card.targetPageSettings.contentJSONName,
+										contentPageTitle: card.targetPageSettings.contentPageTitle,
+									},
+								});
 							}}
 						/>
 					</Card>
