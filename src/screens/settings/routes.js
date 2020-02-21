@@ -14,7 +14,6 @@ const Router = () => (
 	<Stack.Navigator
 		screenOptions={{
 			title: 'Título',
-			headerLayoutPreset: 'center',
 			headerTitleAlign: 'center',
 			headerTintColor: '#7159C1',
 			headerTitleStyle: {
@@ -28,9 +27,7 @@ const Router = () => (
 		<Stack.Screen
 			name="Settings"
 			component={Settings}
-			options={{
-				headerTitle: <Logo />,
-			}}
+			options={{ headerTitle: props => <Logo {...props} /> }}
 		/>
 		<Stack.Screen
 			name="Daltonismo"
