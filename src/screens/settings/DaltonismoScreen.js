@@ -3,12 +3,19 @@ import { View, StyleSheet, Switch } from 'react-native';
 import { ListItem } from 'react-native-elements';
 import AsyncStorage from '@react-native-community/async-storage';
 
+import { useTheme } from '@react-navigation/native'
 import { useSwitchTheme } from '../../states/ThemeSwitchContext';
 
 const Daltonismo = () => {
 	const [deficiencias, setDeficiencias] = useState(new Array(6).fill(false));
+	const [styles, setStyles] = useState({})
 	const switchTheme = useSwitchTheme();
 	const isSwitchDisabled = false;
+	const theme = useTheme()
+
+	useEffect(() => {
+		setStyles(generateStyles(theme))
+	}, [theme])
 
 	function handleChange(item) {
 		let newDef = new Array(6).fill(false);
@@ -50,6 +57,9 @@ const Daltonismo = () => {
 				{list.map((l, i) => (
 					<ListItem
 						key={i}
+						containerStyle={{backgroundColor: theme.colors.background}}
+						titleStyle={{color: theme.colors.text}}
+						subtitleStyle={{color: theme.colors.text}}
 						title={l.title}
 						accessible
 						accessibilityLabel={l.sub}
@@ -67,7 +77,7 @@ const Daltonismo = () => {
 									handleChange(l);
 								}}
 								accessibilityRole="switch"
-								trackColor={{ true: '#937BE3' }}
+								trackColor={{ true: theme.colors.primary }}
 								thumbColor="#FFF"
 							/>
 						}
@@ -111,11 +121,13 @@ const list = [
 	},
 ];
 
-const styles = StyleSheet.create({
-	container: {
-		flex: 1,
-		backgroundColor: '#FFF',
-	},
-});
+const generateStyles = theme => {
+	return StyleSheet.create({
+		container: {
+			flex: 1,
+			backgroundColor: theme.colors.background,
+		},
+	});
+}
 
 export default Daltonismo;

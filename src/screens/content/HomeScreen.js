@@ -66,7 +66,7 @@ const generateStyles = theme => {
 			fontWeight: 'bold',
 		},
 		description: {
-			color: '#555',
+			color: theme.colors.text,
 			paddingBottom: 10,
 		},
 		title: {

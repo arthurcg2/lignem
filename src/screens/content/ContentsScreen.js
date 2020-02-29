@@ -1,12 +1,20 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { ScrollView, Image, Text } from 'react-native';
 import Markdown from 'react-native-simple-markdown';
 
+import { generateStyles } from './styles'
 import contents from '../../../contents/contents';
 import images from '../../../contents/images';
-import { markdownStyles } from './styles';
+import { useTheme } from '@react-navigation/native'
 
 const ContentsScreen = ({ navigation, route }) => {
+	const [markdownStyles, setMarkdownStyles] = useState({});
+	const theme = useTheme();
+
+	useEffect(() => {
+		setMarkdownStyles(generateStyles(theme));
+	}, [theme]);
+
 	navigation.setOptions({
 		title: route.params.contentPageTitle,
 	});
@@ -14,7 +22,7 @@ const ContentsScreen = ({ navigation, route }) => {
 	return (
 		<ScrollView style={{
 			padding: 5,
-			backgroundColor: '#5947A9',
+			backgroundColor: theme.colors.primary,
 		}}>
 			<Markdown
 				styles={markdownStyles}
