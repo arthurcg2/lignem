@@ -57,8 +57,6 @@ export const generateStyles = theme => {
             paddingHorizontal: 10,
             marginVertical: 10,
             width: '100%',
-            borderColor: theme.colors.primary,
-            borderBottomWidth: 2,
         },
         heading3: {
             fontSize: 20,
