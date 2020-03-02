@@ -18,10 +18,18 @@ export const generateStyles = theme => {
             flexWrap: 'wrap',
             paddingVertical: 6,
             paddingHorizontal: 15,
+            textAlign: 'justify',
+        },
+        plainText: {
+            color: theme.colors.text,
+        },
+        text: {
+            color: theme.colors.text,
         },
         list: {
             paddingVertical: 6,
             paddingLeft: 6,
+            color: theme.colors.text,
         },
         heading1: {
             fontSize: 32,
