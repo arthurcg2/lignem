@@ -5,7 +5,6 @@ import Logo from '../../components/Logo';
 
 import Settings from './SettingsScreen';
 import Daltonismo from './DaltonismoScreen';
-import Outros from './OutrosScreen';
 import Sobre from './SobreScreen';
 import { useTheme } from '@react-navigation/native';
 
@@ -37,11 +36,6 @@ const Router = () => {
 				name="Daltonismo"
 				component={Daltonismo}
 				options={{ headerTitle: 'Modo de daltonismo' }}
-			/>
-			<Stack.Screen
-				name="Outros"
-				component={Outros}
-				options={{ headerTitle: 'Acessibilidade' }}
 			/>
 			<Stack.Screen
 				name="Sobre"

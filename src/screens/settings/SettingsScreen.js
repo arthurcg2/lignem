@@ -24,20 +24,13 @@ const accessibilityOptions = [
 		navigate: 'Daltonismo',
 		chevron: true,
 	},
-	{
-		title: 'Outros',
-		sub: 'Configurações gerais de acessiblidade',
-		navigate: 'Outros',
-		icon: 'accessibility',
-		chevron: true,
-	},
 ];
 
 const Settings = ({ navigation }) => {
 	const [styles, setStyles] = useState({});
 	const [darkmode, setDarkmode] = useState(false);
 	const switchTheme = useSwitchTheme();
-	const isSwitchDisabled = false;
+	const isSwitchDisabled = true;
 	const theme = useTheme()
 
 	useEffect(() => {

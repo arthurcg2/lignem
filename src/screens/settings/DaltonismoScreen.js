@@ -10,7 +10,7 @@ const Daltonismo = () => {
 	const [deficiencias, setDeficiencias] = useState(new Array(6).fill(false));
 	const [styles, setStyles] = useState({})
 	const switchTheme = useSwitchTheme();
-	const isSwitchDisabled = false;
+	const isSwitchDisabled = true;
 	const theme = useTheme()
 
 	useEffect(() => {
