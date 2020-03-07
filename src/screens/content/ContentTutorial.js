@@ -45,7 +45,8 @@ const ContentTutorial = ({ navigation }) => {
 						backgroundColor: theme.colors.primary,
 						image: (
 							<Image
-								source={require('../../../assets/tutorial/lignem_small_white.png')}
+								source={require('../../../assets/tutorial/lignem_white.png')}
+								style={styles.image}
 							/>
 						),
 						title: (
@@ -61,7 +62,8 @@ const ContentTutorial = ({ navigation }) => {
 						backgroundColor: theme.colors.primary,
 						image: (
 							<Image
-								source={require('../../../assets/tutorial/lignem_small_white.png')}
+							source={require('../../../assets/tutorial/lignem_white.png')}
+								style={styles.image}
 							/>
 						),
 						title: (
@@ -77,7 +79,8 @@ const ContentTutorial = ({ navigation }) => {
 						backgroundColor: theme.colors.primary,
 						image: (
 							<Image
-								source={require('../../../assets/tutorial/lignem_small_white.png')}
+								source={require('../../../assets/tutorial/lignem_white.png')}
+								style={styles.image}
 							/>
 						),
 						title: (
@@ -93,7 +96,8 @@ const ContentTutorial = ({ navigation }) => {
 						backgroundColor: theme.colors.primary,
 						image: (
 							<Image
-								source={require('../../../assets/tutorial/lignem_small_white.png')}
+								source={require('../../../assets/tutorial/lignem_white.png')}
+								style={styles.image}
 							/>
 						),
 						title: (
@@ -109,7 +113,8 @@ const ContentTutorial = ({ navigation }) => {
 						backgroundColor: theme.colors.primary,
 						image: (
 							<Image
-								source={require('../../../assets/tutorial/lignem_small_white.png')}
+								source={require('../../../assets/tutorial/lignem_white.png')}
+								style={styles.image}
 							/>
 						),
 						title: (
@@ -171,6 +176,10 @@ const generateStyles = theme => {
 			color: theme.colors.background,
 			fontWeight: 'bold',
 		},
+		image: {
+			height: 175,
+			width: 175,
+		},	
 	});
 };
 
