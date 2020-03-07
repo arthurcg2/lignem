@@ -10,7 +10,6 @@ import { generateStyles } from './styles';
 const ContentsScreen = ({ navigation, route }) => {
 	const [markdownStyles, setMarkdownStyles] = useState({});
 	const [content, setContent] = useState(null);
-	const [fonts, setFonts] = useState(null);
 	const theme = useTheme();
 
 	useEffect(() => {
@@ -18,18 +17,12 @@ const ContentsScreen = ({ navigation, route }) => {
 	}, []);
 
 	useEffect(() => {
-		let str = contents[route.params.contentJSONName]
-		setTimeout(() => setContent(str.slice(0, findFonts(str))), 1);
-		setTimeout(() => setFonts(str.slice(findFonts(str), (str.length - 1))), 1);
+		setTimeout(() => setContent(contents[route.params.contentJSONName]), 1);
 	}, [content]);
 
 	navigation.setOptions({
 		title: route.params.contentPageTitle,
 	});
-
-	const findFonts = str => {
-		return str.indexOf('### Fontes')
-	}
 
 	return (
 		<ScrollView
@@ -39,7 +32,6 @@ const ContentsScreen = ({ navigation, route }) => {
 			contentContainerStyle={{ flexGrow: 1 }}
 		>
 			{content ? (
-				<>
 				<Markdown
 					styles={markdownStyles}
 					errorHandler={(errors, children) => <Text>{children}</Text>}
@@ -59,13 +51,6 @@ const ContentsScreen = ({ navigation, route }) => {
 				>
 					{content}
 				</Markdown>
-				<Markdown
-					styles={markdownStyles}
-					errorHandler={(errors, children) => <Text>{children}</Text>}
-				>
-					{fonts}
-				</Markdown>
-				</>
 			) : (
 				<View
 					style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}
