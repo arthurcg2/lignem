@@ -142,7 +142,6 @@ const ContentTutorial = ({ navigation }) => {
 				)}
 				pageIndexCallback={index => {
 					setCurrent(index);
-					console.log(index);
 				}}
 				DoneButtonComponent={props => (
 					<Icon
