@@ -7,6 +7,7 @@ import AsyncStorage from '@react-native-community/async-storage';
 
 const GameTutorial = ({ navigation }) => {
 	const [styles, setStyles] = useState({});
+	const [current, setCurrent] = useState(0);
 	const theme = useTheme();
 
 	useEffect(() => {
@@ -120,10 +121,15 @@ const GameTutorial = ({ navigation }) => {
 						subTitleStyles: { color: theme.colors.background },
 					},
 				]}
+				nextLabel={'Próximo'}
+				skipLabel={'Anterior'}
+				pageIndexCallback={index => {
+					setCurrent(index);
+					console.log(index);
+				}}
 				onDone={onEnd}
-				onSkip={onEnd}
-				nextLabel="Próximo"
-				skipLabel="Pular"
+				showSkip={current > 0}
+				skipToPage={current - 1}
 			/>
 		</>
 	);
