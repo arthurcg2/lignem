@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react';
-import { Animated, Text, View, Image } from 'react-native';
+import React, { useState } from 'react';
+import { Animated, Text, Image } from 'react-native';
 import { PanGestureHandler, State } from 'react-native-gesture-handler';
 import { styles } from './styles';
 
@@ -97,7 +97,7 @@ const Chooser = ({ onQuestionAnswered }) => {
 						...styles.brand,
 					}}
 				>
-					<Image borderRadius={10} source={backgroundImage} />
+					<Image borderRadius={10} source={backgroundImage} style={styles.image} />
 				</Animated.View>
 				<Animated.View
 					style={{
@@ -123,7 +123,10 @@ const Chooser = ({ onQuestionAnswered }) => {
 						...styles.swap,
 					}}
 				>
-					<Card text={currentQuestion.statement} />
+					<Card
+						text={currentQuestion.statement}
+						character={currentQuestion.char}
+					/>
 					<Animated.View
 						style={{
 							opacity: translateX.interpolate({
