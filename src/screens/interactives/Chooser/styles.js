@@ -22,7 +22,7 @@ export const styles = StyleSheet.create({
 		flexDirection: 'row',
 	},
 	no: {
-		height: 50,
+		paddingVertical: 10,
 		width: 280,
 		backgroundColor: 'red',
 		borderTopLeftRadius: 10,

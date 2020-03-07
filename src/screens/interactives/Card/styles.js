@@ -8,9 +8,15 @@ export default StyleSheet.create({
 		justifyContent: 'flex-end',
 		backgroundColor: '#b79732',
 	},
+	image: {
+		position: 'relative',
+		width: '100%',
+		height: '100%',
+	},
 	labelContainer: {
 		width: '100%',
 		alignSelf: 'flex-end',
+		position: 'absolute',
 		borderBottomLeftRadius: 10,
 		borderBottomRightRadius: 10,
 		backgroundColor: 'rgba(106, 66, 46, 0.6)',
