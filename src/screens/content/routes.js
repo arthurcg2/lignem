@@ -6,6 +6,7 @@ import Logo from '../../components/Logo';
 import Home from './HomeScreen';
 import Content from './ContentsScreen';
 import { useTheme } from '@react-navigation/native'
+import ContentTutorial from './ContentTutorial';
 
 const Stack = createStackNavigator();
 
@@ -32,6 +33,11 @@ const Router = () => {
 				options={{ headerTitle: props => <Logo {...props} /> }}
 			/>
 			<Stack.Screen name="Content" component={Content} />
+			<Stack.Screen
+				name="Tutorial"
+				component={ContentTutorial}
+				options={{ headerShown: false }}
+			/>
 		</Stack.Navigator>
 	)
 }

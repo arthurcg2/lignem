@@ -5,6 +5,8 @@ import { useTheme } from '@react-navigation/native';
 
 import cards from './cards';
 
+import AsyncStorage from '@react-native-community/async-storage';
+
 const Home = ({ navigation }) => {
 	const [styles, setStyles] = useState({});
 	const theme = useTheme();
@@ -12,6 +14,14 @@ const Home = ({ navigation }) => {
 	useEffect(() => {
 		setStyles(generateStyles(theme));
 	}, [theme]);
+
+	useEffect(() => {
+		const loadData = async () => {
+			let str = await AsyncStorage.getItem('isContentTutorialDone')
+			if(str !== 'true') navigation.navigate('Tutorial')
+		}
+		loadData()
+	}, [])
 
 	return (
 		<View style={styles.container}>
