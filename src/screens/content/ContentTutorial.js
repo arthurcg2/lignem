@@ -4,10 +4,11 @@ import Onboarding from 'react-native-onboarding-swiper';
 
 import AsyncStorage from '@react-native-community/async-storage';
 import { useTheme } from '@react-navigation/native';
+import Icon from 'react-native-vector-icons/MaterialIcons';
 
 const ContentTutorial = ({ navigation }) => {
 	const [styles, setStyles] = useState({});
-	const [current, setCurrent] = useState(0)
+	const [current, setCurrent] = useState(0);
 	const theme = useTheme();
 
 	useEffect(() => {
@@ -121,12 +122,37 @@ const ContentTutorial = ({ navigation }) => {
 						subTitleStyles: { color: theme.colors.background },
 					},
 				]}
-				nextLabel={'Próximo'}
-				skipLabel={'Anterior'}
+				NextButtonComponent={props => (
+					<Icon
+						name="chevron-right"
+						size={32}
+						color={theme.colors.background}
+						style={{ right: 15 }}
+						{...props}
+					/>
+				)}
+				SkipButtonComponent={props => (
+					<Icon
+						name="chevron-left"
+						size={32}
+						color={theme.colors.background}
+						style={{ left: 15 }}
+						{...props}
+					/>
+				)}
 				pageIndexCallback={index => {
-					setCurrent(index)
-					console.log(index)
+					setCurrent(index);
+					console.log(index);
 				}}
+				DoneButtonComponent={props => (
+					<Icon
+						name="check-circle"
+						size={32}
+						color={theme.colors.background}
+						style={{ marginRight: 15 }}
+						{...props}
+					/>
+				)}
 				onDone={onEnd}
 				showSkip={current > 0}
 				skipToPage={current - 1}

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Text, StyleSheet, Image, StatusBar } from 'react-native';
 
 import Onboarding from 'react-native-onboarding-swiper';
+import Icon from 'react-native-vector-icons/MaterialIcons';
 import { useTheme } from '@react-navigation/native';
 import AsyncStorage from '@react-native-community/async-storage';
 
@@ -121,12 +122,37 @@ const GameTutorial = ({ navigation }) => {
 						subTitleStyles: { color: theme.colors.background },
 					},
 				]}
-				nextLabel={'Próximo'}
-				skipLabel={'Anterior'}
+				NextButtonComponent={props => (
+					<Icon
+						name="chevron-right"
+						size={32}
+						color={theme.colors.background}
+						style={{ right: 15 }}
+						{...props}
+					/>
+				)}
+				SkipButtonComponent={props => (
+					<Icon
+						name="chevron-left"
+						size={32}
+						color={theme.colors.background}
+						style={{ left: 15 }}
+						{...props}
+					/>
+				)}
 				pageIndexCallback={index => {
 					setCurrent(index);
 					console.log(index);
 				}}
+				DoneButtonComponent={props => (
+					<Icon
+						name="done"
+						size={32}
+						color={theme.colors.background}
+						style={{ marginRight: 15 }}
+						{...props}
+					/>
+				)}
 				onDone={onEnd}
 				showSkip={current > 0}
 				skipToPage={current - 1}
