@@ -40,7 +40,7 @@ const Router = ({ navigation }) => {
 							style={{ marginRight: 15 }}
 							name="help-outline"
 							onPress={() => {
-								navigation.navigate('Tutorial');
+								navigation.navigate('TutorialLignem');
 							}}
 							{...props}
 						/>
@@ -49,7 +49,7 @@ const Router = ({ navigation }) => {
 			/>
 			<Stack.Screen name="Content" component={Content} />
 			<Stack.Screen
-				name="Tutorial"
+				name="TutorialLignem"
 				component={ContentTutorial}
 				options={{ headerShown: false }}
 			/>
