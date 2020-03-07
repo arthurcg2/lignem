@@ -48,7 +48,7 @@ export const generateStyles = theme => {
             backgroundColor: theme.colors.primary,
             width: '100%',
             textAlign: 'center',
-            position: 'absolute',
+            position: 'relative',
             top: 0,
         },
         heading2: {
