@@ -7,6 +7,7 @@ import { useTheme } from '@react-navigation/native';
 
 const ContentTutorial = ({ navigation }) => {
 	const [styles, setStyles] = useState({});
+	const [current, setCurrent] = useState(0)
 	const theme = useTheme();
 
 	useEffect(() => {
@@ -121,9 +122,14 @@ const ContentTutorial = ({ navigation }) => {
 					},
 				]}
 				nextLabel={'Próximo'}
-				skipLabel={'Pular'}
+				skipLabel={'Anterior'}
+				pageIndexCallback={index => {
+					setCurrent(index)
+					console.log(index)
+				}}
 				onDone={onEnd}
-				onSkip={onEnd}
+				showSkip={current > 0}
+				skipToPage={current - 1}
 			/>
 		</>
 	);
