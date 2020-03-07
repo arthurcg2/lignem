@@ -103,6 +103,22 @@ const GameTutorial = ({ navigation }) => {
 							'Quando algum de seus atributos chegar a 0, você perderá. Portanto, seja cauteloso!',
 						subTitleStyles: { color: theme.colors.background },
 					},
+					{
+						backgroundColor: theme.colors.primary,
+						image: (
+							<Image
+								source={require('../../../assets/tutorial/lignem_small_white.png')}
+							/>
+						),
+						title: (
+							<Text style={styles.text}>
+								<Text style={styles.bold}>Importante</Text>!
+							</Text>
+						),
+						subtitle:
+							'Nenhum nome/localização utilizada nesse jogo é real. Qualquer semelhança é mera coincidência.',
+						subTitleStyles: { color: theme.colors.background },
+					},
 				]}
 				onDone={onEnd}
 				onSkip={onEnd}
