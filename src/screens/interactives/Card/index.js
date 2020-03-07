@@ -9,11 +9,11 @@ export default function Card({ text, character }) {
 	useEffect(() => {
 		if (character === 'pop') {
 			setCharacterImage(
-				require('../../../../assets/game/characters/jonathan.png'),
+				require('../../../../assets/game/characters/populacao.png'),
 			);
 		} else if (character === 'car') {
 			setCharacterImage(
-				require('../../../../assets/game/characters/jonathan.png'),
+				require('../../../../assets/game/characters/carlos_joaquim.png'),
 			);
 		} else if (character === 'jon') {
 			setCharacterImage(
