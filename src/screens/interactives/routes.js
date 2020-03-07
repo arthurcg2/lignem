@@ -4,7 +4,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 import Logo from '../../components/Logo';
 
 import Game from './GameScreen';
-import Tutorial from './TutorialScreen';
+import Tutorial from './GameTutorial';
 
 const Stack = createStackNavigator();
 
@@ -23,14 +23,14 @@ const Router = () => (
 		}}
 	>
 		<Stack.Screen
-			name="Tutorial"
-			component={Tutorial}
-			options={{ headerTitle: props => <Logo {...props} /> }}
-		/>
-		<Stack.Screen
 			name="Game"
 			component={Game}
 			options={{ headerTitle: props => <Logo {...props} /> }}
+		/>
+		<Stack.Screen
+			name="Tutorial"
+			component={Tutorial}
+			options={{ headerShown: false, tabBarVisible: false}}
 		/>
 	</Stack.Navigator>
 );

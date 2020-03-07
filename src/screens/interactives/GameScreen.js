@@ -5,7 +5,9 @@ import { View, StyleSheet } from 'react-native';
 import Chooser from './Chooser';
 import Stats from './Stats';
 
-const GameMain = () => {
+import AsyncStorage from '@react-native-community/async-storage' 
+
+const GameMain = ({ navigation }) => {
 	const [stats, setStats] = useState(new Array(4).fill(0));
 	const [oldValues, setOldValues] = useState(new Array(4).fill(0));
 
@@ -42,6 +44,12 @@ const GameMain = () => {
 			newStats[i] = gameStats[i].maxValue / 2;
 		}
 		setStats(newStats);
+
+		const loadData = async () => {
+			let str = await AsyncStorage.getItem('isGameTutorialDone')
+			if(str !== 'true') navigation.navigate('Tutorial')
+		}
+		loadData()
 	}, []);
 
 	function handleQuestionAnswered(optionStats) {
