@@ -1,15 +1,18 @@
 /* eslint-disable react-native/no-inline-styles */
 import React, { useState, useEffect } from 'react';
+import AsyncStorage from '@react-native-community/async-storage';
 
-import { View, StyleSheet } from 'react-native';
+import { View, Button, Text, StyleSheet } from 'react-native';
+import { Overlay } from 'react-native-elements';
+import { useTheme } from '@react-navigation/native';
 import Chooser from './Chooser';
 import Stats from './Stats';
-
-import AsyncStorage from '@react-native-community/async-storage' 
 
 const GameMain = ({ navigation }) => {
 	const [stats, setStats] = useState(new Array(4).fill(0));
 	const [oldValues, setOldValues] = useState(new Array(4).fill(0));
+	const [overlayVisible, setOverlayVisible] = useState(false);
+	const theme = useTheme();
 
 	const gameStats = [
 		{
@@ -39,18 +42,25 @@ const GameMain = ({ navigation }) => {
 	];
 
 	useEffect(() => {
+		const loadData = async () => {
+			const str = await AsyncStorage.getItem('isGameTutorialDone');
+			if (str !== 'true') navigation.navigate('Tutorial');
+		};
+		loadData();
+
 		let newStats = new Array(gameStats.length).fill(0);
 		for (let i = 0; i < gameStats.length; i++) {
 			newStats[i] = gameStats[i].maxValue / 2;
 		}
 		setStats(newStats);
-
-		const loadData = async () => {
-			let str = await AsyncStorage.getItem('isGameTutorialDone')
-			if(str !== 'true') navigation.navigate('Tutorial')
-		}
-		loadData()
 	}, []);
+
+	useEffect(() => {
+		if (stats.includes(0) && !oldValues.includes(0)) {
+			// perdeu o jogo
+			setOverlayVisible(true);
+		}
+	}, [stats]);
 
 	function handleQuestionAnswered(optionStats) {
 		let newStats = new Array(4).fill(0);
@@ -67,6 +77,25 @@ const GameMain = ({ navigation }) => {
 
 	return (
 		<View style={styles.container}>
+			<Overlay isVisible={overlayVisible} height={100}>
+				<View style={styles.overlayContainer}>
+					<Text style={styles.text}>Você perdeu o jogo!</Text>
+					<Button
+						title="Reiniciar!"
+						color={theme.colors.primary}
+						style={styles.button}
+						onPress={() => {
+							let newStats = new Array(gameStats.length).fill(0);
+							for (let i = 0; i < gameStats.length; i++) {
+								newStats[i] = gameStats[i].maxValue / 2;
+							}
+
+							setStats(newStats);
+							setOverlayVisible(false);
+						}}
+					/>
+				</View>
+			</Overlay>
 			<Chooser onQuestionAnswered={handleQuestionAnswered} />
 			<Stats currentStats={gameStats} oldValues={oldValues} />
 		</View>
@@ -79,6 +108,16 @@ const styles = StyleSheet.create({
 		alignItems: 'center',
 		justifyContent: 'space-between',
 		padding: 25,
+	},
+	button: {
+		fontWeight: 'bold',
+	},
+	text: {
+		fontSize: 24,
+	},
+	overlayContainer: {
+		flex: 1,
+		justifyContent: 'space-between',
 	},
 });
 
