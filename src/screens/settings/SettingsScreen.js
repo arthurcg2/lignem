@@ -2,9 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { View, ScrollView, Switch, Text, StyleSheet } from 'react-native';
 import { ListItem, Divider } from 'react-native-elements';
 import AsyncStorage from '@react-native-community/async-storage';
-import Logo from '../../components/Logo';
 
-import { useThemeValue } from '../../states/ThemeState';
+import { useSwitchTheme } from '../../states/ThemeSwitchContext';
 
 const options = [
 	{
@@ -35,7 +34,8 @@ const accessibilityOptions = [
 
 const Settings = ({ navigation }) => {
 	const [darkmode, setDarkmode] = useState(false);
-	const [, dispatch] = useThemeValue();
+	const switchTheme = useSwitchTheme();
+	const isSwitchDisabled = false;
 
 	useEffect(() => {
 		async function getInitialState() {
@@ -53,8 +53,8 @@ const Settings = ({ navigation }) => {
 	}, []);
 
 	function handleChange() {
-		dispatch({
-			type: !darkmode ? 'enableDarkMode' : 'enableLightMode',
+		switchTheme({
+			type: !darkmode ? 'dark' : 'light',
 		});
 		setDarkmode(!darkmode);
 	}
@@ -71,10 +71,11 @@ const Settings = ({ navigation }) => {
 					accessible
 					accessibilityLabel="Tons mais escuros para o Lignem"
 					leftIcon={{ name: 'brightness-3' }}
+					onPress={!isSwitchDisabled ? handleChange : () => {}}
 					rightElement={
 						<Switch
 							value={darkmode}
-							disabled
+							disabled={isSwitchDisabled}
 							onValueChange={handleChange}
 							trackColor={{ true: '#937BE3' }}
 							thumbColor="#FFF"
@@ -131,10 +132,6 @@ const Settings = ({ navigation }) => {
 			</View>
 		</ScrollView>
 	);
-};
-
-Settings.navigationOptions = {
-	headerTitle: <Logo />,
 };
 
 const styles = StyleSheet.create({

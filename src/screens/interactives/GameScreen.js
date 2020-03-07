@@ -2,8 +2,6 @@
 import React, { useState, useEffect } from 'react';
 
 import { View, StyleSheet } from 'react-native';
-import Logo from '../../components/Logo';
-
 import Chooser from './Chooser';
 import Stats from './Stats';
 
@@ -39,16 +37,16 @@ const GameMain = () => {
 	];
 
 	useEffect(() => {
-		let newStats = new Array(gameStats.length).fill(0)
-		for(let i = 0; i < gameStats.length; i++){
-			newStats[i] = gameStats[i].maxValue / 2
+		let newStats = new Array(gameStats.length).fill(0);
+		for (let i = 0; i < gameStats.length; i++) {
+			newStats[i] = gameStats[i].maxValue / 2;
 		}
-		setStats(newStats)
-	}, [])
+		setStats(newStats);
+	}, []);
 
 	function handleQuestionAnswered(optionStats) {
 		let newStats = new Array(4).fill(0);
-		setOldValues(stats)
+		setOldValues(stats);
 		newStats.map((stat, i) => {
 			const sum = stats[i] + optionStats[i];
 
@@ -62,7 +60,7 @@ const GameMain = () => {
 	return (
 		<View style={styles.container}>
 			<Chooser onQuestionAnswered={handleQuestionAnswered} />
-			<Stats currentStats={gameStats} oldValues={oldValues}/>
+			<Stats currentStats={gameStats} oldValues={oldValues} />
 		</View>
 	);
 };
@@ -75,9 +73,5 @@ const styles = StyleSheet.create({
 		padding: 25,
 	},
 });
-
-GameMain.navigationOptions = {
-	headerTitle: <Logo />,
-};
 
 export default GameMain;

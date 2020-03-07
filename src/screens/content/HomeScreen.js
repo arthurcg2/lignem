@@ -1,14 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { View, Text, StyleSheet, Button, ScrollView } from 'react-native';
 import { Card } from 'react-native-elements';
-import Logo from '../../components/Logo';
-import { useThemeValue } from '../../states/ThemeState';
+import { useTheme } from '@react-navigation/native';
 
 import cards from './cards';
 
 const Home = ({ navigation }) => {
-	const [{ theme }] = useThemeValue();
 	const [styles, setStyles] = useState({});
+	const theme = useTheme();
 
 	useEffect(() => {
 		setStyles(generateStyles(theme));
@@ -22,17 +21,29 @@ const Home = ({ navigation }) => {
 						image={card.image}
 						title={card.title}
 						titleStyle={styles.title}
+						containerStyle={(() => {
+							const marginVal = cards[cards.length - 1] == card ? 20 : 0;
+
+							return {
+								marginBottom: marginVal,
+								backgroundColor: theme.colors.background,
+								borderColor: theme.colors.background,
+							};
+						})()}
 						key={card.id}
 					>
 						<Text style={styles.description}>{card.description}</Text>
 						<Button
 							title={card.buttonTitle}
-							color={theme.foreground}
+							color={theme.colors.primary}
 							style={styles.button}
 							onPress={() => {
-								navigation.navigate('Content', {
-									contentJSONName: card.targetPageSettings.contentJSONName,
-									contentPageTitle: card.targetPageSettings.contentPageTitle,
+								navigation.navigate({
+									name: 'Content',
+									params: {
+										contentJSONName: card.targetPageSettings.contentJSONName,
+										contentPageTitle: card.targetPageSettings.contentPageTitle,
+									},
 								});
 							}}
 						/>
@@ -43,27 +54,23 @@ const Home = ({ navigation }) => {
 	);
 };
 
-Home.navigationOptions = {
-	headerTitle: <Logo />,
-};
-
 const generateStyles = theme => {
 	return StyleSheet.create({
 		container: {
-			backgroundColor: theme.background,
+			backgroundColor: theme.colors.background,
 		},
 		cardsList: {
-			marginVertical: 10,
+			paddingTop: 10,
 		},
 		button: {
 			fontWeight: 'bold',
 		},
 		description: {
 			color: '#555',
-			marginBottom: 10,
+			paddingBottom: 10,
 		},
 		title: {
-			color: theme.foreground,
+			color: theme.colors.primary,
 		},
 	});
 };

@@ -9,8 +9,4 @@ const Acessibilidade = () => {
 	);
 };
 
-Acessibilidade.navigationOptions = {
-	title: 'Acessibilidade',
-};
-
 export default Acessibilidade;
