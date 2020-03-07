@@ -97,7 +97,7 @@ const Chooser = ({ onQuestionAnswered }) => {
 						...styles.brand,
 					}}
 				>
-					<Image borderRadius={10} source={backgroundImage} />
+					<Image borderRadius={10} source={backgroundImage} style={styles.image} />
 				</Animated.View>
 				<Animated.View
 					style={{
