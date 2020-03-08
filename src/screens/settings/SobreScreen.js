@@ -1,45 +1,52 @@
 import React from 'react';
 import { View, Text, StyleSheet, ScrollView, Linking } from 'react-native';
-import { ListItem, SocialIcon, Icon } from 'react-native-elements';
+import { ListItem, SocialIcon } from 'react-native-elements';
 
 const Sobre = () => {
 	return (
 		<ScrollView style={styles.container}>
 			<View>
-				<Text style={styles.title}> Sobre o Projeto </Text>
 				<Text style={styles.normalText}>
-					Nós somos a equipe Lignem, finalista da Maratona Brasil Mais TI 2019.
-					Nossos integrantes são Arthur Carvalho Guerra, Gabriel Castilho, Iago
-					Gabino, Pedro Henrique Madeira e Sandro Renato Dias, do CEFET-MG.
-					Nosso aplicativo tem foco nas matérias de Geografia e Física, além de
-					uma aplicação prática baseada no jogo Reigns. {'\n\n'}Para
-					críticas/sugestões, entre em contato: equipelignem@gmail.com
+					Nós somos a equipe <Text style={{ fontWeight: 'bold' }}>Lignem</Text>,
+					finalista da Maratona Brasil Mais TI 2019. Nossos integrantes são do
+					CEFET-MG. O aplicativo tem foco nas matérias de Geografia e Física,
+					além de uma aplicação prática baseada no jogo{' '}
+					<Text style={{ fontStyle: 'italic' }}>Reigns</Text>. {'\n\n'}
+					Para críticas/sugestões, entre em contato:{' '}
+					<Text
+						style={{ textDecorationLine: 'underline' }}
+						onPress={() =>
+							Linking.openURL(
+								'mailto:equipelignem@gmail.com?subject=Crítica/Sugestão do aplicativo Lignem',
+							)
+						}
+					>
+						equipelignem@gmail.com
+					</Text>
 				</Text>
-				<Text style={styles.title}> Quem somos? </Text>
+				<Text style={styles.title}>Quem somos?</Text>
 
 				{list.map((item, i) => (
 					<ListItem
 						key={i}
-						//leftAvatar={{ source: { uri: item.avatar_url } }}
-						title={item.name}
-						leftIcon={<Icon name="person-outline" />}
-						rightIcon={
-							<SocialIcon
-								type="github"
-								style={styles.icon}
-								onPress={() => Linking.openURL('https://github.com/' + item.gh)}
-							/>
-						}
+						leftAvatar={{
+							source: item.avatar,
+						}}
 						rightElement={
-							<SocialIcon
-								type="instagram"
-								style={styles.icon}
-								onPress={() =>
-									Linking.openURL('https://instagram.com/' + item.ig)
-								}
-							/>
+							<View style={{ flexDirection: 'row' }}>
+								{item.sites.types.map((type, i) => (
+									<SocialIcon
+										key={i}
+										type={type}
+										style={styles.icon}
+										iconSize={20}
+										onPress={() => Linking.openURL(item.sites.urls[i])}
+									/>
+								))}
+							</View>
 						}
-						pad={7}
+						title={item.name}
+						pad={15}
 						bottomDivider
 					/>
 				))}
@@ -51,67 +58,76 @@ const Sobre = () => {
 const list = [
 	{
 		name: 'Arthur Carvalho Guerra',
-		avatar_url: '',
-		ig: 'arthur_cg2',
-		gh: 'arthurcg2',
+		avatar: require('../../../assets/sobre/guerra.jpg'),
+		sites: {
+			types: ['instagram', 'github'],
+			urls: [
+				'https://instagram.com/arthur_cg2',
+				'https://github.com/arthurcg2',
+			],
+		},
 	},
 	{
 		name: 'Gabriel Castilho Mazzeu',
-		avatar_url: '',
-		// icon: 'person',
-		ig: '',
-		gh: '',
+		avatar: require('../../../assets/sobre/gabriel.jpg'),
+		sites: {
+			types: ['github'],
+			urls: ['https://github.com/GzinSocker'],
+		},
 	},
 	{
 		name: 'Iago Gabino Gonçalves',
-		avatar_url: '',
-		// icon: 'person',
-		ig: 'iagogabino',
-		gh: 'IagoGabino',
+		avatar: require('../../../assets/sobre/iagogabino.jpg'),
+		sites: {
+			types: ['instagram', 'github'],
+			urls: [
+				'https://instagram.com/iagogabino',
+				'https://github.com/IagoGabino',
+			],
+		},
 	},
 	{
 		name: 'Pedro Henrique Madeira',
-		avatar_url: '',
-		// icon: 'person',
-		ig: '',
-		gh: '',
+		avatar: require('../../../assets/sobre/pedrin.jpg'),
+		sites: {
+			types: ['github'],
+			urls: ['https://github.com/pedrohenriquemop'],
+		},
 	},
 	{
 		name: 'Sandro Renato Dias',
-		avatar_url: '',
-		// icon: 'person',
-		ig: '',
-		gh: '',
+		avatar: require('../../../assets/sobre/sandroRD.jpeg'),
+		sites: {
+			types: [],
+			urls: [],
+		},
 	},
 ];
-
-Sobre.navigationOptions = {
-	title: 'Sobre',
-};
 
 const styles = StyleSheet.create({
 	container: {
 		flex: 1,
 		backgroundColor: '#FFF',
+		paddingVertical: 10,
+		paddingHorizontal: 5,
 	},
 	title: {
 		textAlign: 'center',
 		fontSize: 25,
 		color: '#333',
-		marginLeft: 18,
-		marginTop: 10,
-		marginBottom: 20,
+		marginTop: 20,
+		marginBottom: 10,
 	},
 	normalText: {
 		textAlign: 'justify',
 		fontSize: 20,
 		margin: 10,
-		marginTop: 0,
+		marginTop: 10,
 		marginBottom: 0,
 	},
 	icon: {
-		height: 40,
-		width: 40,
+		height: 30,
+		width: 30,
 		borderRadius: 100,
 	},
 });
