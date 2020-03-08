@@ -1,0 +1,515 @@
+[33mcommit 1bf1cca4e67f955241d1023680189ea3e557665e[m[33m ([m[1;36mHEAD -> [m[1;32mfeature/conteudos[m[33m)[m
+Author: Iago Gabino <iagogabinogoncalves@gmail.com>
+Date:   Wed Feb 19 20:42:40 2020 -0300
+
+    adicionando import para Text
+
+[33mcommit d66201a64647d6e2e9b23b9783896d7205f9430d[m
+Merge: eea40a8 2b6ad42
+Author: Arthur Guerra <conta.acg2002@gmail.com>
+Date:   Mon Feb 17 13:16:20 2020 -0300
+
+    merge feature/conteudos
+
+[33mcommit eea40a82f70dc9bffd9a32ec0774a8c5be114cfe[m
+Merge: 73dadbe 4f2a9e1
+Author: Arthur Guerra <conta.acg2002@gmail.com>
+Date:   Mon Feb 17 13:14:22 2020 -0300
+
+    merge feature/game
+
+[33mcommit 73dadbe4f6c6b540fa1d0416cff119a122b9b246[m
+Merge: 50dd041 38a5b65
+Author: Arthur Guerra <conta.acg2002@gmail.com>
+Date:   Mon Feb 17 13:10:52 2020 -0300
+
+    Merge remote-tracking branch 'origin/feature/configuracoes'
+
+[33mcommit 38a5b65f7df8821d67d08c6accec067bd1333da7[m
+Author: Arthur Guerra <conta.acg2002@gmail.com>
+Date:   Mon Feb 17 00:33:21 2020 -0300
+
+    adicionado temas e switches com maior area clicavel
+
+[33mcommit 2b6ad42dcfebb7d4d01c643a65b433bc84dc031c[m
+Merge: f32960c 8b13a1d
+Author: GzinSocker <gabriel.cama@outlook.com>
+Date:   Tue Feb 11 22:15:38 2020 -0300
+
+    Merge branch 'feature/conteudos' of https://github.com/arthurcg2/lignem into feature/conteudos
+
+[33mcommit f32960c9d5c79cabb5395728203844bc1b0748c0[m
+Author: GzinSocker <gabriel.cama@outlook.com>
+Date:   Tue Feb 11 22:15:13 2020 -0300
+
+    Adicionada a fonte
+
+[33mcommit 8b13a1d9d275e184ed9722ab94257c1c079be000[m
+Author: Arthur Guerra <conta.acg2002@gmail.com>
+Date:   Tue Feb 11 20:39:52 2020 -0300
+
+    muda referencia das imagens e adiciona fontes em maremotriz e solar
+
+[33mcommit be85b8b349aa05933250919677d10c44047b07db[m
+Author: Arthur Guerra <conta.acg2002@gmail.com>
+Date:   Tue Feb 11 20:25:23 2020 -0300
+
+    muda imagens
+
+[33mcommit a94bc6dfdf6384911bfa8bd2867adac8ce0fd568[m
+Author: GzinSocker <gabriel.cama@outlook.com>
+Date:   Mon Feb 10 18:38:53 2020 -0300
+
+    Adicionado assets
+
+[33mcommit ca0b00a01e6ec42a25589169a6b74cd4adfe5ab1[m
+Author: GzinSocker <gabriel.cama@outlook.com>
+Date:   Mon Feb 10 18:37:27 2020 -0300
+
+    Adicionado resto do conteúdo
+
+[33mcommit 4f2a9e1325f0904751f23805785274bf79b0314d[m
+Author: pedrohenriquemop <madeirapedrohenrique1112@gmail.com>
+Date:   Mon Feb 10 18:34:40 2020 -0300
+
+    Alterações nos stats
+
+[33mcommit c6e283772eb7eb6872dcee40a487e9e6e46c078e[m
+Merge: 420f582 faaafe8
+Author: pedrohenriquemop <madeirapedrohenrique1112@gmail.com>
+Date:   Mon Feb 10 17:28:27 2020 -0300
+
+    Merge branch 'feature/game' of https://github.com/arthurcg2/lignem into feature/game
+
+[33mcommit faaafe8af0873fe5fef507d67c4a3ed2473f5d33[m
+Author: Arthur Guerra <conta.acg2002@gmail.com>
+Date:   Sun Feb 9 15:14:35 2020 -0300
+
+    corrige commit
+
+[33mcommit c6ace967edb34dca6dc3db30d27df3dcd7ef057a[m
+Author: Arthur Guerra <conta.acg2002@gmail.com>
+Date:   Sun Feb 9 15:09:03 2020 -0300
+
+    adicionado background das cartas
+
+[33mcommit dc8817c54f10582f59ffed09fb3519a3684f4406[m
+Author: Arthur Guerra <conta.acg2002@gmail.com>
+Date:   Sun Feb 9 11:32:03 2020 -0300
+
+    correção de cor
+
+[33mcommit 46326ca1eae8dcbd4d59dc8e873d0cfada76afa5[m
+Author: Arthur Guerra <conta.acg2002@gmail.com>
+Date:   Sun Feb 9 00:16:01 2020 -0300
+
+    alteradas algumas cores
+
+[33mcommit 449a08870ab3e44d47cf748be360b2538a358a52[m
+Author: Arthur Guerra <conta.acg2002@gmail.com>
+Date:   Sat Feb 8 22:51:08 2020 -0300
+
+    adicionado estilo basico
+
+[33mcommit 15061a975921cbf99d549aefe5dfb5fe07b69761[m
+Author: pedrohenriquemop <madeirapedrohenrique1112@gmail.com>
+Date:   Sat Feb 8 21:46:53 2020 -0300
+
+    Fontes da parte de hidrelétrica
+
+[33mcommit 264340d5dd4eef4b99024ac20ce43f5ff2f6fe86[m
+Author: Arthur Guerra <conta.acg2002@gmail.com>
+Date:   Sat Feb 8 20:11:32 2020 -0300
+
+    barra de stats funcional
+
+[33mcommit 4906f9cd26c83ec1f71aca3f591c50eb931629dd[m
+Author: Iago Gabino <iagogabinogoncalves@gmail.com>
+Date:   Sat Feb 8 20:00:02 2020 -0300
+
+    adicionando fontes
+
+[33mcommit 6626df30ff34f9ec3eeb97bb274f0b84968c6dc3[m
+Author: Arthur Guerra <conta.acg2002@gmail.com>
+Date:   Sat Feb 8 19:21:13 2020 -0300
+
+    alterada estrutura de perguntas e disposição básica de perguntas
+
+[33mcommit 420f58238f68f53b150c160db97bdf9f1123b542[m
+Merge: f50c8e9 95c71b2
+Author: pedrohenriquemop <madeirapedrohenrique1112@gmail.com>
+Date:   Sat Feb 8 19:12:09 2020 -0300
+
+    Merge branch 'feature/game' of https://github.com/arthurcg2/lignem into feature/game
+
+[33mcommit 24d3cd5c3a8e66d04c6f3823857973bdf63c5ff3[m
+Author: Iago Gabino <iagogabinogoncalves@gmail.com>
+Date:   Sat Feb 8 18:57:21 2020 -0300
+
+    adicionando subtítulos para meus conteúdos
+
+[33mcommit 95c71b2e3fc06c1ded3079c5f9a928ad936df564[m
+Author: Arthur Guerra <conta.acg2002@gmail.com>
+Date:   Sat Feb 8 18:39:32 2020 -0300
+
+    muda animação
+
+[33mcommit e37e05c0bfeeb2c1d12f241fc7d42fbdf036defb[m
+Author: GzinSocker <gabriel.cama@outlook.com>
+Date:   Sat Feb 8 18:29:55 2020 -0300
+
+    Mudado estilo e tempo de animação
+
+[33mcommit 7e44cd6050b93adcf1e3dae6f4fc2bb9231f89fa[m
+Author: Iago Gabino <iagogabinogoncalves@gmail.com>
+Date:   Sat Feb 8 18:17:57 2020 -0300
+
+    adicionando conteúdo eficiência energética e card
+
+[33mcommit f50c8e9b028ec1f935dcb229fb35afc25330f4da[m
+Merge: fe8597c f1ffdd9
+Author: pedrohenriquemop <madeirapedrohenrique1112@gmail.com>
+Date:   Sat Feb 8 18:06:23 2020 -0300
+
+    Merge branch 'feature/game' of https://github.com/arthurcg2/lignem into feature/game
+
+[33mcommit f1ffdd91b5e259391a0f398a7af386d50884f4ce[m
+Author: Arthur Guerra <conta.acg2002@gmail.com>
+Date:   Sat Feb 8 17:40:33 2020 -0300
+
+    lipoaspiração
+
+[33mcommit fe8597c61b6a018827bc3032365d534891046c4b[m
+Merge: 3b9a04c 8d14a08
+Author: pedrohenriquemop <madeirapedrohenrique1112@gmail.com>
+Date:   Sat Feb 8 17:40:21 2020 -0300
+
+    Merge branch 'feature/game' of https://github.com/arthurcg2/lignem into feature/game
+
+[33mcommit 8d14a087feced22e180c4e8c6543d303d24d988f[m
+Author: Arthur Guerra <conta.acg2002@gmail.com>
+Date:   Sat Feb 8 17:22:55 2020 -0300
+
+    refatora código
+
+[33mcommit 3b9a04c576607cfe6d8ee54ed277da1f0cfafbf8[m
+Merge: 6adf8cb b419330
+Author: pedrohenriquemop <madeirapedrohenrique1112@gmail.com>
+Date:   Sat Feb 8 16:41:52 2020 -0300
+
+    Merge branch 'feature/game' of https://github.com/arthurcg2/lignem into feature/game
+
+[33mcommit b419330338d88784891501924f9f5227175223ad[m
+Merge: 1056983 29bea9e
+Author: GzinSocker <gabriel.cama@outlook.com>
+Date:   Sat Feb 8 16:29:06 2020 -0300
+
+    Alterado o component de decisão do usuário
+
+[33mcommit 8c9561c6c0a546f2b959b922375b188bfdccfe43[m
+Author: Arthur Guerra <conta.acg2002@gmail.com>
+Date:   Sat Feb 8 12:13:02 2020 -0300
+
+    adiciona card de hidrelétrica
+
+[33mcommit 39e84a75f1d8bda3e4a83d7dbf20ab5cdf6657d0[m
+Author: Arthur Guerra <conta.acg2002@gmail.com>
+Date:   Sat Feb 8 11:56:57 2020 -0300
+
+    padroniza markdown de energia eólica
+
+[33mcommit bfae1bdb031c57f30be675edf1925f375a318b11[m
+Author: Arthur Guerra <conta.acg2002@gmail.com>
+Date:   Sat Feb 8 11:41:18 2020 -0300
+
+    remove card exemplo e corrige card energia eólica
+
+[33mcommit 6adf8cb23017f5fb7dbc7aaca844e0287e698700[m
+Author: pedrohenriquemop <madeirapedrohenrique1112@gmail.com>
+Date:   Fri Feb 7 22:32:25 2020 -0300
+
+    Tutorial simples
+
+[33mcommit 76df6be773451d01f5b80279d2ac376301575296[m
+Author: Iago Gabino <iagogabinogoncalves@gmail.com>
+Date:   Wed Feb 5 17:52:18 2020 -0300
+
+    adicionando card eolica
+
+[33mcommit 2b5d18d6791eea183e0d2192b20392b493cbc074[m
+Author: Iago Gabino <iagogabinogoncalves@gmail.com>
+Date:   Wed Feb 5 17:42:09 2020 -0300
+
+    adicionando conteudo no JSON
+
+[33mcommit fc2f867e2a02953719806e1c8c18a43446f463eb[m
+Author: Arthur Guerra <conta.acg2002@gmail.com>
+Date:   Tue Feb 4 22:45:30 2020 -0300
+
+    alterado e corrigido conteúdo de maremotriz e solar
+
+[33mcommit c8456be7ef428a65cedc8b464524bc6ba2084d1e[m
+Author: Arthur Guerra <conta.acg2002@gmail.com>
+Date:   Tue Feb 4 22:44:22 2020 -0300
+
+    adicionando estilização ao markdown
+
+[33mcommit 35b1727f101e373d6ad25809ef37a1c7e4655b0d[m
+Author: Arthur Guerra <conta.acg2002@gmail.com>
+Date:   Tue Feb 4 20:32:17 2020 -0300
+
+    conserta conteudo de maremotriz e adiciona handler de erro no renderizador
+
+[33mcommit dbdd4311a1e39922701b7c225e7863f5de079485[m
+Author: Arthur Guerra <conta.acg2002@gmail.com>
+Date:   Tue Feb 4 17:25:17 2020 -0300
+
+    adicionado conteudo de maremotriz
+
+[33mcommit 6a75e00b56d926438ce773bce98e38fe22089f0b[m
+Merge: 3a1568e ea37b5e
+Author: Arthur Guerra <conta.acg2002@gmail.com>
+Date:   Tue Feb 4 16:21:29 2020 -0300
+
+    refac: mudando cards para arquivo separado
+
+[33mcommit 3a1568e4366474b52d632deb561c039f71344bec[m
+Author: Arthur Guerra <conta.acg2002@gmail.com>
+Date:   Tue Feb 4 16:19:51 2020 -0300
+
+    refact: separando cards em um arquivo especifico
+
+[33mcommit ea37b5ec3d9016cc19beb481ea1fbf63d963bbe0[m
+Author: pedrohenriquemop <madeirapedrohenrique1112@gmail.com>
+Date:   Tue Feb 4 08:52:39 2020 -0300
+
+    Adicionando conteudo de hidreletricas
+
+[33mcommit 29bea9edf7ac8dffb25b8d8d451bc353036f27cd[m
+Merge: ff5face 7b31bf4
+Author: pedrohenriquemop <madeirapedrohenrique1112@gmail.com>
+Date:   Tue Feb 4 07:42:52 2020 -0300
+
+    Merge branch 'feature/game' of https://github.com/arthurcg2/lignem into feature/game
+
+[33mcommit 105698311b0ed3e3313b83533673d46fb850c294[m
+Merge: c5a0abc 7b31bf4
+Author: GzinSocker <gabriel.cama@outlook.com>
+Date:   Mon Feb 3 20:02:04 2020 -0300
+
+    Merge conflict fixed
+
+[33mcommit 722186e6f95f8e50afa217d4e066c91572aba76b[m
+Author: Arthur Guerra <conta.acg2002@gmail.com>
+Date:   Mon Feb 3 19:34:07 2020 -0300
+
+    adicionado conteudo de energia solar.
+
+[33mcommit 7b31bf4577b45689977f8b09be1cae047c9b3b88[m
+Author: Arthur Guerra <conta.acg2002@gmail.com>
+Date:   Mon Feb 3 19:11:01 2020 -0300
+
+    refazendo branch feature/game para sincronizar com a master e mudanças de nome
+
+[33mcommit ff5face82c79a2b31e3133ab7ae389348495d2e0[m
+Author: pedrohenriquemop <madeirapedrohenrique1112@gmail.com>
+Date:   Tue Jan 28 19:03:15 2020 -0300
+
+    Mudando cor
+
+[33mcommit cc42a2d79c71d565773d008e76300caba13ef1c2[m
+Author: pedrohenriquemop <madeirapedrohenrique1112@gmail.com>
+Date:   Tue Jan 28 18:02:44 2020 -0300
+
+    Mudanças nas cores, ícones e perguntas
+
+[33mcommit 12b24bc4ce6cdbe026e02428b4492bead876d0e8[m
+Author: pedrohenriquemop <madeirapedrohenrique1112@gmail.com>
+Date:   Mon Jan 27 20:39:10 2020 -0300
+
+    Alterações no sistema de pontuação
+
+[33mcommit 7bb2358fad9ab01e8ff8eef2e0a4da8050f5c2ba[m
+Merge: 9880d23 c5a0abc
+Author: pedrohenriquemop <madeirapedrohenrique1112@gmail.com>
+Date:   Mon Jan 27 20:31:52 2020 -0300
+
+    Merge branch 'feature/game' of https://github.com/arthurcg2/lignem into feature/game
+
+[33mcommit 9880d23fffcf6615c2a0bd556b40feb3321820fe[m
+Author: pedrohenriquemop <madeirapedrohenrique1112@gmail.com>
+Date:   Mon Jan 27 20:24:48 2020 -0300
+
+    Adições no sistema de pontuação
+
+[33mcommit c5a0abc491a9d6837ccfa7464e07aea17d065f2e[m
+Author: GzinSocker <gabriel.cama@outlook.com>
+Date:   Mon Jan 27 13:46:29 2020 -0300
+
+    Consertado o problema de repetir a primeira pergunta
+
+[33mcommit d73555f587afaedce4dcf4acf528e42f6e14e6d7[m
+Author: GzinSocker <gabriel.cama@outlook.com>
+Date:   Sat Jan 25 18:25:52 2020 -0300
+
+    Resolvido o problema de repetir a primeira pergunta
+
+[33mcommit 6944019cb1250ef117fe4357db4bded7b536d03b[m
+Author: pedrohenriquemop <madeirapedrohenrique1112@gmail.com>
+Date:   Fri Jan 24 18:13:49 2020 -0300
+
+    Mudanças no game
+
+[33mcommit 50dd04124e90351c26e755712436d330bc5e4893[m
+Author: Arthur Guerra <conta.acg2002@gmail.com>
+Date:   Fri Jan 24 14:37:41 2020 -0300
+
+    Remove console.log
+
+[33mcommit f15f0c42be27872b6e987add6512d9c00b7e43d6[m
+Author: Arthur Guerra <conta.acg2002@gmail.com>
+Date:   Fri Jan 24 14:25:52 2020 -0300
+
+    Melhorado sistema de cards e conteúdo
+
+[33mcommit c0eb4296068ef8aab04acd11b1f9910d19145b0d[m
+Author: GzinSocker <gabriel.cama@outlook.com>
+Date:   Fri Jan 24 12:14:57 2020 -0300
+
+    Adicionado sistema de perguntas(beta)
+
+[33mcommit 2aad49ae8478a35b0cd04e19a6745b80c007ac7e[m
+Merge: efad71d 5388e89
+Author: Arthur Guerra <conta.acg2002@gmail.com>
+Date:   Thu Jan 23 22:55:48 2020 -0300
+
+    Merge feature/configuracoes (temporary timeout)
+
+[33mcommit a9bfe457b774309b42c7b820f9508a52046287c4[m
+Author: GzinSocker <gabriel.cama@outlook.com>
+Date:   Thu Jan 23 22:49:03 2020 -0300
+
+    Alterados os nomes das variáveis
+
+[33mcommit 50c7b2c95b3cf8c653e4f91283ae4967de6e06c6[m
+Author: GzinSocker <gabriel.cama@outlook.com>
+Date:   Thu Jan 23 19:50:09 2020 -0300
+
+    Adicionada uma pontuação(temporária obviamente)
+
+[33mcommit 3f914a0e3d069a43e98b54418c174b0128e76177[m
+Author: GzinSocker <gabriel.cama@outlook.com>
+Date:   Thu Jan 23 19:32:56 2020 -0300
+
+    Adicionada a estrutura basica do game
+
+[33mcommit efad71d1764694ccb438cda902d13b166bd7b1b9[m
+Author: Arthur Guerra <40214877+arthurcg2@users.noreply.github.com>
+Date:   Wed Jan 22 18:31:27 2020 -0300
+
+    Update README.md
+
+[33mcommit ff7711f9d7632c572f74b848e964cd7aa1538560[m
+Author: GzinSocker <gabriel.cama@outlook.com>
+Date:   Wed Jan 22 17:02:11 2020 -0300
+
+    Alterado o comportamento dos switchs de daltonismo
+
+[33mcommit 5388e89c18982b26616df17f2f00378c1a9d0e53[m
+Author: pedrohenriquemop <madeirapedrohenrique1112@gmail.com>
+Date:   Tue Jan 21 16:09:39 2020 -0300
+
+    Modificação no App.js
+    
+    Adicionada verificação para themeKey
+
+[33mcommit d2c4a2a9bd79e09eb431a76abf2ab719dff65100[m
+Author: Arthur Guerra <conta.acg2002@gmail.com>
+Date:   Wed Jan 15 18:03:05 2020 -0300
+
+    temporariamente bloqueando switch's de daltonismo
+
+[33mcommit f75d546eaef5218fbd94d8aefd8f44f9f4e911e5[m
+Author: Arthur Guerra <conta.acg2002@gmail.com>
+Date:   Wed Jan 15 14:07:14 2020 -0300
+
+    compatibilidade com temas da tab bar
+
+[33mcommit 2b6adb162dea7ec517717c3a9c4ee64f24a63e6a[m
+Author: Arthur Guerra <conta.acg2002@gmail.com>
+Date:   Wed Jan 15 12:48:33 2020 -0300
+
+    compatibilidade com temas da tela de conteúdo
+
+[33mcommit dee13f36275059fa812779711cbb93d5ae1ec7c5[m
+Author: Arthur Guerra <conta.acg2002@gmail.com>
+Date:   Wed Jan 15 12:37:47 2020 -0300
+
+    adicionado tema 'tomato' para pessoas com tritanomalia ou tritanopia
+
+[33mcommit eec6913fe9921afa0fa619a06fd02d889c342125[m
+Author: Arthur Guerra <conta.acg2002@gmail.com>
+Date:   Tue Jan 14 23:01:46 2020 -0300
+
+    Passagem e persistência de dados do tema selecionado
+    
+    com alteração visual do switch conforme o tema
+
+[33mcommit 0efcbbd7bf73f9cd95e5ae9a76fa842d32248a5b[m
+Author: Arthur Guerra <conta.acg2002@gmail.com>
+Date:   Tue Jan 14 21:45:22 2020 -0300
+
+    deixando o dado em AsyncStorage mais padrão
+    
+    e alterando um pouco a paleta de cor escura
+
+[33mcommit b8ff614d7b6042268ba54f0376397f1dfa9306d5[m
+Author: Arthur Guerra <conta.acg2002@gmail.com>
+Date:   Tue Jan 14 20:40:55 2020 -0300
+
+    persistindo dados do tema
+
+[33mcommit 415499f2a595e76b6e2a8c31b026d723ba7a17cf[m
+Author: Arthur Guerra <conta.acg2002@gmail.com>
+Date:   Tue Jan 14 19:45:33 2020 -0300
+
+    começando a troca de tema de cor
+    
+    atualmente só troca a StatusBar, e só funciona no switch do tema escuro
+
+[33mcommit 2ecc78bae9c5e352d1b926dda0c541d42f030015[m
+Author: Arthur Guerra <conta.acg2002@gmail.com>
+Date:   Wed Jan 8 20:17:52 2020 -0300
+
+    switch daltonismo
+
+[33mcommit 0ad151f9eb6520a90f3904231b984e88f53d1e58[m
+Author: Arthur Guerra <conta.acg2002@gmail.com>
+Date:   Wed Jan 8 15:46:34 2020 -0300
+
+    switch meio funcional
+
+[33mcommit 7e14c9d885b8cbad149e423bd22a9990a8721598[m
+Author: Arthur Guerra <conta.acg2002@gmail.com>
+Date:   Wed Jan 8 15:42:34 2020 -0300
+
+    Alterando a tela de configurações
+
+[33mcommit 35fc756dab60c146662569a3db8027b6b9379a69[m
+Merge: 93e4cf8 6897104
+Author: Arthur Guerra <conta.acg2002@gmail.com>
+Date:   Wed Jan 8 14:16:45 2020 -0300
+
+    Merge branch 'feature/configuracoes'
+
+[33mcommit 689710473c35fbbc7997fb0bda2a21f8d86dacc6[m
+Author: Arthur Guerra <conta.acg2002@gmail.com>
+Date:   Wed Jan 8 14:16:14 2020 -0300
+
+    consertando titulo das paginas
+
+[33mcommit 102098f9734c012bdca696447ac6d7790481c87d[m
+Author: Arthur Guerra <conta.acg2002@gmail.com>
+Date:   Wed Jan 8 02:27:47 2020 -0300
+
+    adicionado estrutura das telas de configurações
