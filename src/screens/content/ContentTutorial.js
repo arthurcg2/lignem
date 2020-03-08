@@ -62,8 +62,7 @@ const ContentTutorial = ({ navigation }) => {
 						backgroundColor: theme.colors.primary,
 						image: (
 							<Image
-							source={require('../../../assets/tutorial/lignem_white.png')}
-								style={styles.image}
+							source={require('../../../assets/tutorial/tc-1.png')}
 							/>
 						),
 						title: (
@@ -79,8 +78,7 @@ const ContentTutorial = ({ navigation }) => {
 						backgroundColor: theme.colors.primary,
 						image: (
 							<Image
-								source={require('../../../assets/tutorial/lignem_white.png')}
-								style={styles.image}
+								source={require('../../../assets/tutorial/tc-2.png')}
 							/>
 						),
 						title: (
@@ -96,8 +94,7 @@ const ContentTutorial = ({ navigation }) => {
 						backgroundColor: theme.colors.primary,
 						image: (
 							<Image
-								source={require('../../../assets/tutorial/lignem_white.png')}
-								style={styles.image}
+								source={require('../../../assets/tutorial/tc-3.png')}
 							/>
 						),
 						title: (
@@ -113,8 +110,7 @@ const ContentTutorial = ({ navigation }) => {
 						backgroundColor: theme.colors.primary,
 						image: (
 							<Image
-								source={require('../../../assets/tutorial/lignem_white.png')}
-								style={styles.image}
+								source={require('../../../assets/tutorial/tc-4.png')}
 							/>
 						),
 						title: (
@@ -179,7 +175,7 @@ const generateStyles = theme => {
 		image: {
 			height: 175,
 			width: 175,
-		},	
+		},
 	});
 };
 

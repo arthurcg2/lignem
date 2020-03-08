@@ -62,8 +62,7 @@ const GameTutorial = ({ navigation }) => {
 						backgroundColor: theme.colors.primary,
 						image: (
 							<Image
-								source={require('../../../assets/tutorial/lignem_white.png')}
-								style={styles.image}
+								source={require('../../../assets/tutorial/tg-1.png')}
 							/>
 						),
 						title: (
@@ -79,8 +78,7 @@ const GameTutorial = ({ navigation }) => {
 						backgroundColor: theme.colors.primary,
 						image: (
 							<Image
-								source={require('../../../assets/tutorial/lignem_white.png')}
-								style={styles.image}
+								source={require('../../../assets/tutorial/tg-2.png')}
 							/>
 						),
 						title: (
@@ -96,8 +94,7 @@ const GameTutorial = ({ navigation }) => {
 						backgroundColor: theme.colors.primary,
 						image: (
 							<Image
-								source={require('../../../assets/tutorial/lignem_white.png')}
-								style={styles.image}
+								source={require('../../../assets/tutorial/tg-3.png')}
 							/>
 						),
 						title: (
