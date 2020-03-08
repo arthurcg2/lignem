@@ -45,7 +45,8 @@ const ContentTutorial = ({ navigation }) => {
 						backgroundColor: theme.colors.primary,
 						image: (
 							<Image
-								source={require('../../../assets/tutorial/lignem_small_white.png')}
+								source={require('../../../assets/tutorial/lignem_white.png')}
+								style={styles.image}
 							/>
 						),
 						title: (
@@ -61,7 +62,7 @@ const ContentTutorial = ({ navigation }) => {
 						backgroundColor: theme.colors.primary,
 						image: (
 							<Image
-								source={require('../../../assets/tutorial/lignem_small_white.png')}
+							source={require('../../../assets/tutorial/tc-1.png')}
 							/>
 						),
 						title: (
@@ -77,7 +78,7 @@ const ContentTutorial = ({ navigation }) => {
 						backgroundColor: theme.colors.primary,
 						image: (
 							<Image
-								source={require('../../../assets/tutorial/lignem_small_white.png')}
+								source={require('../../../assets/tutorial/tc-2.png')}
 							/>
 						),
 						title: (
@@ -93,7 +94,7 @@ const ContentTutorial = ({ navigation }) => {
 						backgroundColor: theme.colors.primary,
 						image: (
 							<Image
-								source={require('../../../assets/tutorial/lignem_small_white.png')}
+								source={require('../../../assets/tutorial/tc-3.png')}
 							/>
 						),
 						title: (
@@ -109,7 +110,7 @@ const ContentTutorial = ({ navigation }) => {
 						backgroundColor: theme.colors.primary,
 						image: (
 							<Image
-								source={require('../../../assets/tutorial/lignem_small_white.png')}
+								source={require('../../../assets/tutorial/tc-4.png')}
 							/>
 						),
 						title: (
@@ -142,7 +143,6 @@ const ContentTutorial = ({ navigation }) => {
 				)}
 				pageIndexCallback={index => {
 					setCurrent(index);
-					console.log(index);
 				}}
 				DoneButtonComponent={props => (
 					<Icon
@@ -171,6 +171,10 @@ const generateStyles = theme => {
 			fontSize: 24,
 			color: theme.colors.background,
 			fontWeight: 'bold',
+		},
+		image: {
+			height: 175,
+			width: 175,
 		},
 	});
 };

@@ -45,7 +45,8 @@ const GameTutorial = ({ navigation }) => {
 						backgroundColor: theme.colors.primary,
 						image: (
 							<Image
-								source={require('../../../assets/tutorial/lignem_small_white.png')}
+								source={require('../../../assets/tutorial/lignem_white.png')}
+								style={styles.image}
 							/>
 						),
 						title: (
@@ -61,7 +62,7 @@ const GameTutorial = ({ navigation }) => {
 						backgroundColor: theme.colors.primary,
 						image: (
 							<Image
-								source={require('../../../assets/tutorial/lignem_small_white.png')}
+								source={require('../../../assets/tutorial/tg-1.png')}
 							/>
 						),
 						title: (
@@ -77,7 +78,7 @@ const GameTutorial = ({ navigation }) => {
 						backgroundColor: theme.colors.primary,
 						image: (
 							<Image
-								source={require('../../../assets/tutorial/lignem_small_white.png')}
+								source={require('../../../assets/tutorial/tg-2.png')}
 							/>
 						),
 						title: (
@@ -93,7 +94,7 @@ const GameTutorial = ({ navigation }) => {
 						backgroundColor: theme.colors.primary,
 						image: (
 							<Image
-								source={require('../../../assets/tutorial/lignem_small_white.png')}
+								source={require('../../../assets/tutorial/tg-3.png')}
 							/>
 						),
 						title: (
@@ -109,7 +110,8 @@ const GameTutorial = ({ navigation }) => {
 						backgroundColor: theme.colors.primary,
 						image: (
 							<Image
-								source={require('../../../assets/tutorial/lignem_small_white.png')}
+								source={require('../../../assets/tutorial/lignem_white.png')}
+								style={styles.image}
 							/>
 						),
 						title: (
@@ -142,7 +144,6 @@ const GameTutorial = ({ navigation }) => {
 				)}
 				pageIndexCallback={index => {
 					setCurrent(index);
-					console.log(index);
 				}}
 				DoneButtonComponent={props => (
 					<Icon
@@ -171,6 +172,10 @@ const generateStyles = theme => {
 			fontSize: 24,
 			color: theme.colors.background,
 			fontWeight: 'bold',
+		},
+		image: {
+			width: 175, 
+			height: 175,
 		},
 	});
 };

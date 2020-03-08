@@ -7,13 +7,28 @@ import questions from '../questions';
 import Card from '../Card';
 
 import backgroundImage from '../../../../assets/game/background.png';
+import { useEffect } from 'react';
 
 const Chooser = ({ onQuestionAnswered }) => {
 	const [currentQuestion, setCurrentQuestion] = useState(questions[0]);
+	const [info, setInfo] = useState('');
 	const elevationBrand = new Animated.Value(10);
 	const elevationSwap = new Animated.Value(20);
 	const changeableDist = 50;
 	const translateX = new Animated.Value(0);
+
+	useEffect(() => {
+		const character = currentQuestion.char
+		if (character === 'pop') {
+			setInfo("População")
+		} else if (character === 'car') {
+			setInfo("Carlos Joaquim\nMinistro da Economia")
+		} else if (character === 'jon') {
+			setInfo("Jonathan Augusto\nRepresentante da ONG Salve o Planeta")
+		} else if (character === 'rob') {
+			setInfo('Roberto Silvério\nMinistro da Energia')
+		}
+	}, [currentQuestion])
 
 	function updateQuestion() {
 		setCurrentQuestion(questions[Math.floor(Math.random() * questions.length)]);
@@ -127,6 +142,17 @@ const Chooser = ({ onQuestionAnswered }) => {
 						text={currentQuestion.statement}
 						character={currentQuestion.char}
 					/>
+					<Animated.View style={{
+							opacity: translateX.interpolate({
+								inputRange: [-40, 0, 40],
+								outputRange: [0, 1, 0],
+								extrapolate: 'clamp',
+							}),
+							...styles.infoContainer,
+						}}
+					>
+						<Text style={styles.info}>{info}</Text>
+					</Animated.View>
 					<Animated.View
 						style={{
 							opacity: translateX.interpolate({
