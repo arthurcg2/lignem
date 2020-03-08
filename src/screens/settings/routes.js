@@ -1,31 +1,49 @@
-import { createAppContainer } from 'react-navigation';
-import { createStackNavigator } from 'react-navigation-stack';
+import React from 'react';
+import { createStackNavigator } from '@react-navigation/stack';
+
+import Logo from '../../components/Logo';
 
 import Settings from './SettingsScreen';
 import Daltonismo from './DaltonismoScreen';
-import Outros from './OutrosScreen';
 import Sobre from './SobreScreen';
+import { useTheme } from '@react-navigation/native';
 
-const Router = createStackNavigator(
-	{
-		Settings,
-		Daltonismo,
-		Outros,
-		Sobre,
-	},
-	{
-		headerLayoutPreset: 'center',
-		defaultNavigationOptions: {
-			title: 'Título',
-			headerTintColor: '#7159C1',
-			headerTitleStyle: {
-				fontWeight: 'bold',
-			},
-			headerStyle: {
-				backgroundColor: '#FAFAFA',
-			},
-		},
-	},
-);
+const Stack = createStackNavigator();
 
-export default createAppContainer(Router);
+const Router = () => {
+	const theme = useTheme()
+
+	return (
+		<Stack.Navigator
+			screenOptions={{
+				title: 'Título',
+				headerTitleAlign: 'center',
+				headerTintColor: theme.colors.primary,
+				headerTitleStyle: {
+					fontWeight: 'bold',
+				},
+				headerStyle: {
+					backgroundColor: theme.colors.background,
+				},
+			}}
+		>
+			<Stack.Screen
+				name="Settings"
+				component={Settings}
+				options={{ headerTitle: props => <Logo {...props} /> }}
+			/>
+			<Stack.Screen
+				name="Daltonismo"
+				component={Daltonismo}
+				options={{ headerTitle: 'Modo de daltonismo' }}
+			/>
+			<Stack.Screen
+				name="Sobre"
+				component={Sobre}
+				options={{ headerTitle: 'Sobre' }}
+			/>
+		</Stack.Navigator>
+	)
+}
+
+export default Router;

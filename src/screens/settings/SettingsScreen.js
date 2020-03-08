@@ -2,9 +2,9 @@ import React, { useEffect, useState } from 'react';
 import { View, ScrollView, Switch, Text, StyleSheet } from 'react-native';
 import { ListItem, Divider } from 'react-native-elements';
 import AsyncStorage from '@react-native-community/async-storage';
-import Logo from '../../components/Logo';
 
-import { useThemeValue } from '../../states/ThemeState';
+import { useTheme } from '@react-navigation/native'
+import { useSwitchTheme } from '../../states/ThemeSwitchContext';
 
 const options = [
 	{
@@ -24,19 +24,18 @@ const accessibilityOptions = [
 		navigate: 'Daltonismo',
 		chevron: true,
 	},
-	{
-		title: 'Outros',
-		sub: 'Configurações gerais de acessiblidade',
-		navigate: 'Outros',
-		icon: 'accessibility',
-		chevron: true,
-	},
 ];
 
 const Settings = ({ navigation }) => {
+	const [styles, setStyles] = useState({});
 	const [darkmode, setDarkmode] = useState(false);
-	const [, dispatch] = useThemeValue();
+	const switchTheme = useSwitchTheme();
 	const isSwitchDisabled = true;
+	const theme = useTheme()
+
+	useEffect(() => {
+		setStyles(generateStyles(theme))
+	}, [theme])
 
 	useEffect(() => {
 		async function getInitialState() {
@@ -54,8 +53,8 @@ const Settings = ({ navigation }) => {
 	}, []);
 
 	function handleChange() {
-		dispatch({
-			type: !darkmode ? 'enableDarkMode' : 'enableLightMode',
+		switchTheme({
+			type: !darkmode ? 'dark' : 'light',
 		});
 		setDarkmode(!darkmode);
 	}
@@ -68,17 +67,19 @@ const Settings = ({ navigation }) => {
 				<ListItem
 					title="Tema escuro"
 					subtitle="Tons mais escuros para o Lignem"
-					style={styles.listItem}
+					containerStyle={{backgroundColor: theme.colors.background}}
+					titleStyle={{color: theme.colors.text}}
+					subtitleStyle={{color: theme.colors.text}}
 					accessible
 					accessibilityLabel="Tons mais escuros para o Lignem"
-					leftIcon={{ name: 'brightness-3' }}
+					leftIcon={{ name: 'brightness-3', color: theme.colors.text }}
 					onPress={!isSwitchDisabled ? handleChange : () => {}}
 					rightElement={
 						<Switch
 							value={darkmode}
 							disabled={isSwitchDisabled}
 							onValueChange={handleChange}
-							trackColor={{ true: '#937BE3' }}
+							trackColor={{ true: theme.colors.primary }}
 							thumbColor="#FFF"
 						/>
 					}
@@ -88,10 +89,12 @@ const Settings = ({ navigation }) => {
 					<ListItem
 						title={item.title}
 						subtitle={item.sub}
-						style={styles.listItem}
+						containerStyle={{backgroundColor: theme.colors.background}}
+						titleStyle={{color: theme.colors.text}}
+						subtitleStyle={{color: theme.colors.text}}
 						accessible
 						accessibilityLabel={item.sub}
-						leftIcon={{ name: item.icon }}
+						leftIcon={{ name: item.icon, color: theme.colors.text }}
 						rightElement={item.rightElement ? item.rightElement : null}
 						onPress={() => {
 							if (item.navigate) {
@@ -113,10 +116,12 @@ const Settings = ({ navigation }) => {
 					<ListItem
 						title={item.title}
 						subtitle={item.sub}
-						style={styles.listItem}
+						containerStyle={{backgroundColor: theme.colors.background}}
+						titleStyle={{color: theme.colors.text}}
+						subtitleStyle={{color: theme.colors.text}}
 						accessible
 						accessibilityLabel={item.sub}
-						leftIcon={{ name: item.icon }}
+						leftIcon={{ name: item.icon, color: theme.colors.text }}
 						rightElement={item.rightElement ? item.rightElement : null}
 						onPress={() => {
 							if (item.navigate) {
@@ -135,22 +140,20 @@ const Settings = ({ navigation }) => {
 	);
 };
 
-Settings.navigationOptions = {
-	headerTitle: <Logo />,
-};
-
-const styles = StyleSheet.create({
-	container: {
-		flex: 1,
-		backgroundColor: '#FFF',
-	},
-	title: {
-		fontSize: 30,
-		color: '#333',
-		marginLeft: 18,
-		marginTop: 10,
-		marginBottom: 20,
-	},
-});
+const generateStyles = theme => {
+	return StyleSheet.create({
+		container: {
+			flex: 1,
+			backgroundColor: theme.colors.background,
+		},
+		title: {
+			fontSize: 30,
+			color: theme.colors.text,
+			marginLeft: 18,
+			marginTop: 10,
+			marginBottom: 20,
+		},
+	});
+}
 
 export default Settings;
