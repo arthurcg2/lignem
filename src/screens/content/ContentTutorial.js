@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Image, StyleSheet, Text, StatusBar } from 'react-native';
+import { Image, StyleSheet, Text, StatusBar, Dimensions } from 'react-native';
 import Onboarding from 'react-native-onboarding-swiper';
 
 import AsyncStorage from '@react-native-community/async-storage';
@@ -10,6 +10,7 @@ const ContentTutorial = ({ navigation }) => {
 	const [styles, setStyles] = useState({});
 	const [current, setCurrent] = useState(0);
 	const theme = useTheme();
+	const isLargeScreen = Dimensions.get('window').height > 592;
 
 	useEffect(() => {
 		setStyles(generateStyles(theme));
@@ -60,11 +61,17 @@ const ContentTutorial = ({ navigation }) => {
 					},
 					{
 						backgroundColor: theme.colors.primary,
-						image: (
-							<Image
-							source={require('../../../assets/tutorial/tc-1.png')}
-							/>
-						),
+						image: (() => {
+							if (isLargeScreen) {
+								return (
+									<Image
+										source={require('../../../assets/tutorial/tc-1.png')}
+									/>
+								);
+							} else {
+								return <Image />;
+							}
+						})(),
 						title: (
 							<Text style={styles.text}>
 								<Text style={styles.bold}>Navegação</Text>
@@ -76,11 +83,17 @@ const ContentTutorial = ({ navigation }) => {
 					},
 					{
 						backgroundColor: theme.colors.primary,
-						image: (
-							<Image
-								source={require('../../../assets/tutorial/tc-2.png')}
-							/>
-						),
+						image: (() => {
+							if (isLargeScreen) {
+								return (
+									<Image
+										source={require('../../../assets/tutorial/tc-2.png')}
+									/>
+								);
+							} else {
+								return <Image />;
+							}
+						})(),
 						title: (
 							<Text style={styles.text}>
 								Tela de <Text style={styles.bold}>Conteúdos</Text>
@@ -92,11 +105,17 @@ const ContentTutorial = ({ navigation }) => {
 					},
 					{
 						backgroundColor: theme.colors.primary,
-						image: (
-							<Image
-								source={require('../../../assets/tutorial/tc-3.png')}
-							/>
-						),
+						image: (() => {
+							if (isLargeScreen) {
+								return (
+									<Image
+										source={require('../../../assets/tutorial/tc-3.png')}
+									/>
+								);
+							} else {
+								return <Image />;
+							}
+						})(),
 						title: (
 							<Text style={styles.text}>
 								Tela de <Text style={styles.bold}>Jogo</Text>
@@ -108,11 +127,17 @@ const ContentTutorial = ({ navigation }) => {
 					},
 					{
 						backgroundColor: theme.colors.primary,
-						image: (
-							<Image
-								source={require('../../../assets/tutorial/tc-4.png')}
-							/>
-						),
+						image: (() => {
+							if (isLargeScreen) {
+								return (
+									<Image
+										source={require('../../../assets/tutorial/tc-4.png')}
+									/>
+								);
+							} else {
+								return <Image />;
+							}
+						})(),
 						title: (
 							<Text style={styles.text}>
 								Tela de <Text style={styles.bold}>Configurações</Text>
