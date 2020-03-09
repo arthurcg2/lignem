@@ -52,7 +52,7 @@ const ContentTutorial = ({ navigation }) => {
 						),
 						title: (
 							<Text style={styles.text}>
-								Bem-vindo ao app <Text style={styles.bold}>Lignem</Text>!
+								Bem-vindo ao <Text style={styles.bold}>Lignem</Text>!
 							</Text>
 						),
 						subtitle:
