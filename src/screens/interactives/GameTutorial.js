@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Text, StyleSheet, Image, StatusBar } from 'react-native';
+import { Text, StyleSheet, Image, StatusBar, Dimensions } from 'react-native';
 
 import Onboarding from 'react-native-onboarding-swiper';
 import Icon from 'react-native-vector-icons/MaterialIcons';
@@ -10,6 +10,7 @@ const GameTutorial = ({ navigation }) => {
 	const [styles, setStyles] = useState({});
 	const [current, setCurrent] = useState(0);
 	const theme = useTheme();
+	const isLargeScreen = Dimensions.get('window').height > 592;
 
 	useEffect(() => {
 		setStyles(generateStyles(theme));
@@ -60,11 +61,17 @@ const GameTutorial = ({ navigation }) => {
 					},
 					{
 						backgroundColor: theme.colors.primary,
-						image: (
-							<Image
-								source={require('../../../assets/tutorial/tg-1.png')}
-							/>
-						),
+						image: (() => {
+							if (isLargeScreen) {
+								return (
+									<Image
+										source={require('../../../assets/tutorial/tg-1.png')}
+									/>
+								);
+							} else {
+								return <Image />;
+							}
+						})(),
 						title: (
 							<Text style={styles.text}>
 								Faça <Text style={styles.bold}>escolhas</Text>
@@ -76,11 +83,17 @@ const GameTutorial = ({ navigation }) => {
 					},
 					{
 						backgroundColor: theme.colors.primary,
-						image: (
-							<Image
-								source={require('../../../assets/tutorial/tg-2.png')}
-							/>
-						),
+						image: (() => {
+							if (isLargeScreen) {
+								return (
+									<Image
+										source={require('../../../assets/tutorial/tg-2.png')}
+									/>
+								);
+							} else {
+								return <Image />;
+							}
+						})(),
 						title: (
 							<Text style={styles.text}>
 								Administre seus <Text style={styles.bold}>atributos</Text>
@@ -92,11 +105,17 @@ const GameTutorial = ({ navigation }) => {
 					},
 					{
 						backgroundColor: theme.colors.primary,
-						image: (
-							<Image
-								source={require('../../../assets/tutorial/tg-3.png')}
-							/>
-						),
+						image: (() => {
+							if (isLargeScreen) {
+								return (
+									<Image
+										source={require('../../../assets/tutorial/tg-3.png')}
+									/>
+								);
+							} else {
+								return <Image />;
+							}
+						})(),
 						title: (
 							<Text style={styles.text}>
 								Tenha <Text style={styles.bold}>cuidado</Text> em cada escolha!
@@ -108,12 +127,18 @@ const GameTutorial = ({ navigation }) => {
 					},
 					{
 						backgroundColor: theme.colors.primary,
-						image: (
-							<Image
-								source={require('../../../assets/tutorial/lignem_white.png')}
-								style={styles.image}
-							/>
-						),
+						image: (() => {
+							if (isLargeScreen) {
+								return (
+									<Image
+										style={styles.image}
+										source={require('../../../assets/tutorial/lignem_white.png')}
+									/>
+								);
+							} else {
+								return <Image />;
+							}
+						})(),
 						title: (
 							<Text style={styles.text}>
 								<Text style={styles.bold}>Importante</Text>!
@@ -174,7 +199,7 @@ const generateStyles = theme => {
 			fontWeight: 'bold',
 		},
 		image: {
-			width: 175, 
+			width: 175,
 			height: 175,
 		},
 	});
