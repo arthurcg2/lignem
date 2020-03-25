@@ -39,9 +39,7 @@ const Settings = ({ navigation }) => {
 
 	useEffect(() => {
 		async function getInitialState() {
-			const themeKey = await AsyncStorage.getItem('theme');
-
-			if (themeKey === 'dark') {
+			if (theme.name == 'dark') {
 				setDarkmode(true);
 				return;
 			}
@@ -50,7 +48,7 @@ const Settings = ({ navigation }) => {
 		}
 
 		getInitialState();
-	}, []);
+	}, [theme]);
 
 	function handleChange() {
 		switchTheme({

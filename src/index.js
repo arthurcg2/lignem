@@ -33,15 +33,15 @@ export default function Index() {
 				setTheme(lightTheme);
 				break;
 			case 'tritanopia':
-			case 'tritanomaly':
+			case 'tritanomalia':
 				setTheme(tomatoTheme);
 				break;
 			case 'protanopia':
-			case 'protanomaly':
+			case 'protanomalia':
 				setTheme(blueTheme);
 				break;
 			case 'deuteranopia':
-			case 'deuteranomaly':
+			case 'deuteranomalia':
 				setTheme(redTheme);
 				break;
 			default:

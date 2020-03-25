@@ -8,22 +8,15 @@ import { useSwitchTheme } from '../../states/ThemeSwitchContext';
 
 const Daltonismo = () => {
 	const [deficiencias, setDeficiencias] = useState(new Array(6).fill(false));
-	const [styles, setStyles] = useState({});
 	const switchTheme = useSwitchTheme();
 	const isSwitchDisabled = false;
 	const theme = useTheme();
-
-	useEffect(() => {
-		setStyles(generateStyles(theme));
-	}, [theme]);
 
 	function handleChange(item) {
 		let newDef = new Array(6).fill(false);
 		newDef[item.cod] = !deficiencias[item.cod];
 
 		let defType = item.title.toLowerCase();
-
-		if (defType.endsWith('lia')) defType = defType.replace('ia', 'y');
 
 		switchTheme({
 			type: newDef[item.cod] ? defType : 'light',
@@ -34,12 +27,11 @@ const Daltonismo = () => {
 
 	useEffect(() => {
 		async function getType() {
-			let type = await AsyncStorage.getItem('theme');
-			if (type.endsWith('ly')) type = type.replace('y', 'ia');
+			const type = await AsyncStorage.getItem('theme');
 
 			if (type != 'light' && type != 'dark') {
 				list.forEach(el => {
-					if (el.title == type) {
+					if (el.title.toLowerCase() == type) {
 						let newDef = new Array(6).fill(false);
 						newDef[el.cod] = !deficiencias[el.cod];
 						setDeficiencias(newDef);
@@ -52,7 +44,9 @@ const Daltonismo = () => {
 	}, []);
 
 	return (
-		<View style={styles.container}>
+		<View
+			style={[styles.container, { backgroundColor: theme.colors.background }]}
+		>
 			<View accessibilityRole="menu">
 				{list.map((l, i) => (
 					<ListItem
@@ -121,13 +115,10 @@ const list = [
 	},
 ];
 
-const generateStyles = theme => {
-	return StyleSheet.create({
-		container: {
-			flex: 1,
-			backgroundColor: theme.colors.background,
-		},
-	});
-};
+const styles = StyleSheet.create({
+	container: {
+		flex: 1,
+	},
+});
 
 export default Daltonismo;
