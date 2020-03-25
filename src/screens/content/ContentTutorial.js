@@ -171,7 +171,7 @@ const ContentTutorial = ({ navigation }) => {
 				}}
 				DoneButtonComponent={props => (
 					<Icon
-						name="check-circle"
+						name="done"
 						size={32}
 						color={theme.colors.background}
 						style={{ marginRight: 15 }}

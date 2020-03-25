@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { View, StyleSheet, Switch } from 'react-native';
+import { ScrollView, View, StyleSheet, Switch } from 'react-native';
 import { ListItem } from 'react-native-elements';
 import AsyncStorage from '@react-native-community/async-storage';
 
@@ -44,7 +44,7 @@ const Daltonismo = () => {
 	}, []);
 
 	return (
-		<View
+		<ScrollView
 			style={[styles.container, { backgroundColor: theme.colors.background }]}
 		>
 			<View accessibilityRole="menu">
@@ -78,7 +78,7 @@ const Daltonismo = () => {
 					/>
 				))}
 			</View>
-		</View>
+		</ScrollView>
 	);
 };
 
