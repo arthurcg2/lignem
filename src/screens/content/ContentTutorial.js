@@ -1,13 +1,16 @@
 import React, { useState, useEffect } from 'react';
-import { Image, StyleSheet, Text, StatusBar } from 'react-native';
+import { Image, StyleSheet, Text, StatusBar, Dimensions } from 'react-native';
 import Onboarding from 'react-native-onboarding-swiper';
 
 import AsyncStorage from '@react-native-community/async-storage';
 import { useTheme } from '@react-navigation/native';
+import Icon from 'react-native-vector-icons/MaterialIcons';
 
 const ContentTutorial = ({ navigation }) => {
 	const [styles, setStyles] = useState({});
+	const [current, setCurrent] = useState(0);
 	const theme = useTheme();
+	const isLargeScreen = Dimensions.get('window').height > 592;
 
 	useEffect(() => {
 		setStyles(generateStyles(theme));
@@ -43,12 +46,13 @@ const ContentTutorial = ({ navigation }) => {
 						backgroundColor: theme.colors.primary,
 						image: (
 							<Image
-								source={require('../../../assets/tutorial/lignem_small_white.png')}
+								source={require('../../../assets/tutorial/lignem_white.png')}
+								style={styles.image}
 							/>
 						),
 						title: (
 							<Text style={styles.text}>
-								Bem-vindo ao app <Text style={styles.bold}>Lignem</Text>!
+								Bem-vindo ao <Text style={styles.bold}>Lignem</Text>!
 							</Text>
 						),
 						subtitle:
@@ -57,11 +61,17 @@ const ContentTutorial = ({ navigation }) => {
 					},
 					{
 						backgroundColor: theme.colors.primary,
-						image: (
-							<Image
-								source={require('../../../assets/tutorial/lignem_small_white.png')}
-							/>
-						),
+						image: (() => {
+							if (isLargeScreen) {
+								return (
+									<Image
+										source={require('../../../assets/tutorial/tc-1.png')}
+									/>
+								);
+							} else {
+								return <Image />;
+							}
+						})(),
 						title: (
 							<Text style={styles.text}>
 								<Text style={styles.bold}>Navegação</Text>
@@ -73,11 +83,17 @@ const ContentTutorial = ({ navigation }) => {
 					},
 					{
 						backgroundColor: theme.colors.primary,
-						image: (
-							<Image
-								source={require('../../../assets/tutorial/lignem_small_white.png')}
-							/>
-						),
+						image: (() => {
+							if (isLargeScreen) {
+								return (
+									<Image
+										source={require('../../../assets/tutorial/tc-2.png')}
+									/>
+								);
+							} else {
+								return <Image />;
+							}
+						})(),
 						title: (
 							<Text style={styles.text}>
 								Tela de <Text style={styles.bold}>Conteúdos</Text>
@@ -89,11 +105,17 @@ const ContentTutorial = ({ navigation }) => {
 					},
 					{
 						backgroundColor: theme.colors.primary,
-						image: (
-							<Image
-								source={require('../../../assets/tutorial/lignem_small_white.png')}
-							/>
-						),
+						image: (() => {
+							if (isLargeScreen) {
+								return (
+									<Image
+										source={require('../../../assets/tutorial/tc-3.png')}
+									/>
+								);
+							} else {
+								return <Image />;
+							}
+						})(),
 						title: (
 							<Text style={styles.text}>
 								Tela de <Text style={styles.bold}>Jogo</Text>
@@ -105,11 +127,17 @@ const ContentTutorial = ({ navigation }) => {
 					},
 					{
 						backgroundColor: theme.colors.primary,
-						image: (
-							<Image
-								source={require('../../../assets/tutorial/lignem_small_white.png')}
-							/>
-						),
+						image: (() => {
+							if (isLargeScreen) {
+								return (
+									<Image
+										source={require('../../../assets/tutorial/tc-4.png')}
+									/>
+								);
+							} else {
+								return <Image />;
+							}
+						})(),
 						title: (
 							<Text style={styles.text}>
 								Tela de <Text style={styles.bold}>Configurações</Text>
@@ -120,10 +148,39 @@ const ContentTutorial = ({ navigation }) => {
 						subTitleStyles: { color: theme.colors.background },
 					},
 				]}
-				nextLabel={'Próximo'}
-				skipLabel={'Pular'}
+				NextButtonComponent={props => (
+					<Icon
+						name="chevron-right"
+						size={32}
+						color={theme.colors.background}
+						style={{ right: 15 }}
+						{...props}
+					/>
+				)}
+				SkipButtonComponent={props => (
+					<Icon
+						name="chevron-left"
+						size={32}
+						color={theme.colors.background}
+						style={{ left: 15 }}
+						{...props}
+					/>
+				)}
+				pageIndexCallback={index => {
+					setCurrent(index);
+				}}
+				DoneButtonComponent={props => (
+					<Icon
+						name="check-circle"
+						size={32}
+						color={theme.colors.background}
+						style={{ marginRight: 15 }}
+						{...props}
+					/>
+				)}
 				onDone={onEnd}
-				onSkip={onEnd}
+				showSkip={current > 0}
+				skipToPage={current - 1}
 			/>
 		</>
 	);
@@ -139,6 +196,10 @@ const generateStyles = theme => {
 			fontSize: 24,
 			color: theme.colors.background,
 			fontWeight: 'bold',
+		},
+		image: {
+			height: 175,
+			width: 175,
 		},
 	});
 };

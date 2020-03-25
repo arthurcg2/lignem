@@ -5,6 +5,9 @@ export const generateStyles = theme => {
         view: {
             backgroundColor: theme.colors.background,
             borderRadius: 10,
+            elevation: 10,
+            margin: 5,
+            marginTop: 0,
         },
         image: {
             width: 200,

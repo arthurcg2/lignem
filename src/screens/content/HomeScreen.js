@@ -17,11 +17,11 @@ const Home = ({ navigation }) => {
 
 	useEffect(() => {
 		const loadData = async () => {
-			let str = await AsyncStorage.getItem('isContentTutorialDone')
-			if(str !== 'true') navigation.navigate('Tutorial')
-		}
-		loadData()
-	}, [])
+			let str = await AsyncStorage.getItem('isContentTutorialDone');
+			if (str !== 'true') navigation.navigate('TutorialLignem');
+		};
+		loadData();
+	}, []);
 
 	return (
 		<View style={styles.container}>
