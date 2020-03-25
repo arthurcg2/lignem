@@ -11,7 +11,7 @@ import { useTheme } from '@react-navigation/native';
 const Stack = createStackNavigator();
 
 const Router = () => {
-	const theme = useTheme()
+	const theme = useTheme();
 
 	return (
 		<Stack.Navigator
@@ -43,7 +43,7 @@ const Router = () => {
 				options={{ headerTitle: 'Sobre' }}
 			/>
 		</Stack.Navigator>
-	)
-}
+	);
+};
 
 export default Router;

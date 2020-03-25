@@ -1,12 +1,17 @@
 import React from 'react';
 import { View, Text, StyleSheet, ScrollView, Linking } from 'react-native';
 import { ListItem, SocialIcon } from 'react-native-elements';
+import { useTheme } from '@react-navigation/native';
 
 const Sobre = () => {
+	const theme = useTheme();
+
 	return (
-		<ScrollView style={styles.container}>
+		<ScrollView
+			style={[styles.container, { backgroundColor: theme.colors.background }]}
+		>
 			<View>
-				<Text style={styles.normalText}>
+				<Text style={[styles.normalText, { color: theme.colors.text }]}>
 					Nós somos a equipe <Text style={{ fontWeight: 'bold' }}>Lignem</Text>,
 					finalista da Maratona Brasil Mais TI 2019. Nossos integrantes são do
 					CEFET-MG. O aplicativo tem foco nas matérias de Geografia e Física,
@@ -24,10 +29,13 @@ const Sobre = () => {
 						equipelignem@gmail.com
 					</Text>
 				</Text>
-				<Text style={styles.title}>Quem somos?</Text>
+				<Text style={[styles.title, { color: theme.colors.text }]}>
+					Quem somos?
+				</Text>
 
 				{list.map((item, i) => (
 					<ListItem
+						containerStyle={{ backgroundColor: theme.colors.background }}
 						key={i}
 						leftAvatar={{
 							source: item.avatar,
@@ -46,6 +54,7 @@ const Sobre = () => {
 							</View>
 						}
 						title={item.name}
+						titleStyle={{ color: theme.colors.text }}
 						pad={15}
 						bottomDivider
 					/>

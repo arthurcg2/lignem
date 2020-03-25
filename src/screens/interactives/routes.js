@@ -18,12 +18,12 @@ const Router = ({ navigation }) => {
 			screenOptions={{
 				title: 'Título',
 				headerTitleAlign: 'center',
-				headerTintColor: '#7159C1',
+				headerTintColor: theme.colors.primary,
 				headerTitleStyle: {
 					fontWeight: 'bold',
 				},
 				headerStyle: {
-					backgroundColor: '#FAFAFA',
+					backgroundColor: theme.colors.background,
 				},
 			}}
 		>

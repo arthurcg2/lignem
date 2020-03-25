@@ -3,7 +3,7 @@ import { View, ScrollView, Switch, Text, StyleSheet } from 'react-native';
 import { ListItem, Divider } from 'react-native-elements';
 import AsyncStorage from '@react-native-community/async-storage';
 
-import { useTheme } from '@react-navigation/native'
+import { useTheme } from '@react-navigation/native';
 import { useSwitchTheme } from '../../states/ThemeSwitchContext';
 
 const options = [
@@ -30,12 +30,12 @@ const Settings = ({ navigation }) => {
 	const [styles, setStyles] = useState({});
 	const [darkmode, setDarkmode] = useState(false);
 	const switchTheme = useSwitchTheme();
-	const isSwitchDisabled = true;
-	const theme = useTheme()
+	const isSwitchDisabled = false;
+	const theme = useTheme();
 
 	useEffect(() => {
-		setStyles(generateStyles(theme))
-	}, [theme])
+		setStyles(generateStyles(theme));
+	}, [theme]);
 
 	useEffect(() => {
 		async function getInitialState() {
@@ -67,9 +67,9 @@ const Settings = ({ navigation }) => {
 				<ListItem
 					title="Tema escuro"
 					subtitle="Tons mais escuros para o Lignem"
-					containerStyle={{backgroundColor: theme.colors.background}}
-					titleStyle={{color: theme.colors.text}}
-					subtitleStyle={{color: theme.colors.text}}
+					containerStyle={{ backgroundColor: theme.colors.background }}
+					titleStyle={{ color: theme.colors.text }}
+					subtitleStyle={{ color: theme.colors.text }}
 					accessible
 					accessibilityLabel="Tons mais escuros para o Lignem"
 					leftIcon={{ name: 'brightness-3', color: theme.colors.text }}
@@ -89,9 +89,9 @@ const Settings = ({ navigation }) => {
 					<ListItem
 						title={item.title}
 						subtitle={item.sub}
-						containerStyle={{backgroundColor: theme.colors.background}}
-						titleStyle={{color: theme.colors.text}}
-						subtitleStyle={{color: theme.colors.text}}
+						containerStyle={{ backgroundColor: theme.colors.background }}
+						titleStyle={{ color: theme.colors.text }}
+						subtitleStyle={{ color: theme.colors.text }}
 						accessible
 						accessibilityLabel={item.sub}
 						leftIcon={{ name: item.icon, color: theme.colors.text }}
@@ -116,9 +116,9 @@ const Settings = ({ navigation }) => {
 					<ListItem
 						title={item.title}
 						subtitle={item.sub}
-						containerStyle={{backgroundColor: theme.colors.background}}
-						titleStyle={{color: theme.colors.text}}
-						subtitleStyle={{color: theme.colors.text}}
+						containerStyle={{ backgroundColor: theme.colors.background }}
+						titleStyle={{ color: theme.colors.text }}
+						subtitleStyle={{ color: theme.colors.text }}
 						accessible
 						accessibilityLabel={item.sub}
 						leftIcon={{ name: item.icon, color: theme.colors.text }}
@@ -154,6 +154,6 @@ const generateStyles = theme => {
 			marginBottom: 20,
 		},
 	});
-}
+};
 
 export default Settings;

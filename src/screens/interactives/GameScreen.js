@@ -77,9 +77,20 @@ const GameMain = ({ navigation }) => {
 
 	return (
 		<View style={styles.container}>
-			<Overlay isVisible={overlayVisible} height={100}>
-				<View style={styles.overlayContainer}>
-					<Text style={styles.text}>Você perdeu o jogo!</Text>
+			<Overlay
+				isVisible={overlayVisible}
+				height={100}
+				overlayBackgroundColor={theme.colors.background}
+			>
+				<View
+					style={[
+						styles.overlayContainer,
+						{ backgroundColor: theme.colors.background },
+					]}
+				>
+					<Text style={[styles.text, { color: theme.colors.text }]}>
+						Você perdeu o jogo!
+					</Text>
 					<Button
 						title="Reiniciar!"
 						color={theme.colors.primary}
