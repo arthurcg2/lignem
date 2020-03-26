@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Image } from 'react-native';
 
 import { useTheme } from '@react-navigation/native';
@@ -10,17 +10,20 @@ import lignemRed from '../../assets/logos/lignem_small_logo_red.png';
 import lignemTomato from '../../assets/logos/lignem_small_logo_tomato.png';
 
 const Logo = () => {
+	const currentImage = useState(lignem);
 	const theme = useTheme();
+
+	useEffect(() => {
+		if (theme.name == 'light') setCurrentImage(lignem);
+		if (theme.name == 'blue') setCurrentImage(lignemBlue);
+		if (theme.name == 'dark') setCurrentImage(lignemDark);
+		if (theme.name == 'red') setCurrentImage(lignemRed);
+		if (theme.name == 'tomato') setCurrentImage(lignemTomato);
+	}, [theme]);
 
 	return (
 		<Image
-			source={(() => {
-				if (theme.name == 'light') return lignem;
-				if (theme.name == 'blue') return lignemBlue;
-				if (theme.name == 'dark') return lignemDark;
-				if (theme.name == 'red') return lignemRed;
-				if (theme.name == 'tomato') return lignemTomato;
-			})()}
+			source={currentImage}
 			style={{
 				width: 35,
 				height: 35,
