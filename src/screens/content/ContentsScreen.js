@@ -14,7 +14,7 @@ const ContentsScreen = ({ navigation, route }) => {
 
 	useEffect(() => {
 		setMarkdownStyles(generateStyles(theme));
-	}, []);
+	}, [theme]);
 
 	useEffect(() => {
 		setTimeout(() => setContent(contents[route.params.contentJSONName]), 1);
