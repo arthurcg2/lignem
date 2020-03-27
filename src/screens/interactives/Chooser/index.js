@@ -9,8 +9,10 @@ import Card from '../Card';
 import backgroundImage from '../../../../assets/game/background.png';
 import { useEffect } from 'react';
 
-const Chooser = ({ onQuestionAnswered }) => {
-	const [currentQuestion, setCurrentQuestion] = useState(questions[0]);
+const Chooser = ({ onQuestionAnswered, tree }) => {
+	const [currentQuestion, setCurrentQuestion] = useState(questions[tree[0].id - 1]);
+	const [questionCount, setQuestionCount] = useState(0)
+
 	const [info, setInfo] = useState('');
 	const elevationBrand = new Animated.Value(10);
 	const elevationSwap = new Animated.Value(20);
@@ -31,8 +33,13 @@ const Chooser = ({ onQuestionAnswered }) => {
 	}, [currentQuestion])
 
 	function updateQuestion() {
-		setCurrentQuestion(questions[Math.floor(Math.random() * questions.length)]);
+		setQuestionCount(questionCount + 1)
+		setCurrentQuestion(questions[tree[questionCount].id - 1])
 	}
+
+	useEffect(() => {
+		setCurrentQuestion(questions[tree[questionCount].id - 1])
+	}, [tree])
 
 	const animatedEvent = Animated.event(
 		[
@@ -82,8 +89,12 @@ const Chooser = ({ onQuestionAnswered }) => {
 						useNativeDriver: true,
 					}).start();
 
-					onQuestionAnswered(currentQuestion[option]);
-					updateQuestion();
+					if(onQuestionAnswered(currentQuestion[option], questionCount)){
+						setQuestionCount(0)
+					} 
+					else{
+						updateQuestion();
+					}
 				}, 300);
 			}
 
