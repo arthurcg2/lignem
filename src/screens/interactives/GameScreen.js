@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import AsyncStorage from '@react-native-community/async-storage';
 
-import { View, Button, Text, StyleSheet } from 'react-native';
+import { View, Button, Text, StyleSheet, Animated } from 'react-native';
 import { Overlay } from 'react-native-elements';
 import { useTheme } from '@react-navigation/native';
 import Chooser from './Chooser';
@@ -13,55 +13,39 @@ const GameMain = ({ navigation }) => {
 		[
 			{
 				id: 1,
-				answered: false,
+			},
+			{
+				id: 2,
+			},
+			{
+				id: 3,
+				condition: {
+					qIndex: 0,
+					qAnswer: true,
+					do: 2, // Essa pergunta será a de id 2 caso a primeira pergunta tenha sido aceita 
+				},
 			},
 			{
 				id: 1,
-				answered: false,
-			},
-			{
-				id: 1,
-				answered: false,
-			},
-			{
-				id: 1,
-				answered: false,
-			},
-		],
-		[
-			{
-				id: 2,
-				answered: false,
-			},
-			{
-				id: 2,
-				answered: false,
-			},
-			{
-				id: 2,
-				answered: false,
-			},
-			{
-				id: 2,
-				answered: false,
 			},
 		],
 		[
 			{
 				id: 3,
-				answered: false,
+			},
+			{
+				id: 2,
+			},
+			{
+				id: 1,
+				condition: {
+					qIndex: 0,
+					qAnswer: false,
+					do: 'jump', // Essa pergunta será pulada caso a primeira pergunta tenha sido rejeitada
+				},
 			},
 			{
 				id: 3,
-				answered: false,
-			},
-			{
-				id: 3,
-				answered: false,
-			},
-			{
-				id: 3,
-				answered: false,
 			},
 		],
 	]
@@ -75,30 +59,31 @@ const GameMain = ({ navigation }) => {
 	const randNum = Math.floor(Math.random() * trees.length)
 	const [currentTree, setCurrentTree] = useState(trees[randNum])
 	const [currentTreeIndex, setCurrentTreeIndex] = useState(randNum)
+	const [month, setMonth] = useState(0)
 
 	const theme = useTheme();
 
 	const gameStats = [
 		{
-			name: 'sustentabilidade',
+			name: 'Sustentabilidade',
 			icon: 'leaf',
 			value: stats[0],
 			maxValue: 20,
 		},
 		{
-			name: 'popularidade',
+			name: 'Popularidade',
 			icon: 'group',
 			value: stats[1],
 			maxValue: 20,
 		},
 		{
-			name: 'finanças',
+			name: 'Finanças',
 			icon: 'dollar',
 			value: stats[2],
 			maxValue: 20,
 		},
 		{
-			name: 'energia',
+			name: 'Energia',
 			icon: 'bolt',
 			value: stats[3],
 			maxValue: 20,
@@ -122,12 +107,12 @@ const GameMain = ({ navigation }) => {
 	function checkEnd(questionCount, sts){
 		if (sts.includes(0) && !oldValues.includes(0)) {
 			setOverlayVisible(true);
-			setOverlayText(`Você perdeu!\nDias de governo: ${questionCount + 1}`)
+			setOverlayText(`Você perdeu!`)
 			return true
 		}
 		if(questionCount >= currentTree.length - 1){
 			setOverlayVisible(true)
-			setOverlayText(`Você ganhou! Parabéns!\nDias de governo: ${questionCount + 1}`)
+			setOverlayText(`Você chegou ao final do mandato!`)
 			return true
 		}
 		return false
@@ -154,15 +139,66 @@ const GameMain = ({ navigation }) => {
 			else if (sum < 0) newStats[i] = 0;
 			else newStats[i] = sum;
 		});
+		setMonth(month + 1)
 		setStats(newStats);
 		return checkEnd(questionCount, newStats)
 	}
 
+	function formatMonths(){
+		let s = ''
+		s = (month >= 12 ? Math.floor(month / 12) + ' ano' : "") + (Math.floor(month / 12) != 1 && month >= 12 ? 's' : '') + (month >= 12 && month % 12 != 0 ? ' e ' : '') + (month % 12 != 0 || month == 0 ? month % 12 + ' ' + (month % 12 == 1? 'mês' : 'meses') : '')
+		return s
+	}
+
+	function media(){
+		let sum = 0
+		for(let i = 0; i < gameStats.length; i++){
+			sum += (gameStats[i].value * 100 / gameStats[i].maxValue)
+		}
+		return Math.floor(sum / gameStats.length)
+	}
+
+	const m = new Animated.Value(media())
+
 	return (
 		<View style={styles.container}>
-			<Overlay isVisible={overlayVisible} height={170} width={300}>
+			<Overlay isVisible={overlayVisible} height={300} width={300}>
 				<View style={styles.overlayContainer}>
 					<Text style={styles.text}>{overlayText}</Text>
+					<Text style={{ fontSize: 18 }}>Tempo de governo: {formatMonths()}</Text>
+					{gameStats.map(stat => {
+						const v = new Animated.Value(stat.value)
+
+						return (
+							<View style={{ flexDirection: 'row', alignItems: 'center', paddingLeft: 10 }}>
+								<Text font>{stat.name}: </Text>
+								<Animated.Text style={{
+									color: v.interpolate({
+										inputRange: [0, stat.maxValue / 2, stat.maxValue],
+										outputRange: ['rgb(255, 0, 0)', 'rgb(230, 205, 126)', 'rgb(0, 255, 0)'],
+										extrapolate: 'clamp',
+									}),
+									fontWeight: 'bold',
+								}}>
+									{stat.value * 100 / stat.maxValue}%
+								</Animated.Text>
+							</View>
+						)
+					})}
+					<View style={{ flexDirection: 'row', alignItems: 'center', paddingLeft: 5 }}>
+						<Text style={{ fontSize: 16 }}>Média final: </Text>
+						<Animated.Text style={{
+							color: m.interpolate({
+								inputRange: [0, 50, 100],
+								outputRange: ['rgb(255, 0, 0)', 'rgb(230, 205, 126)', 'rgb(0, 255, 0)'],
+								extrapolate: 'clamp',
+							}),
+							fontWeight: 'bold',
+							fontSize: 16,
+						}}>
+							{media()}%
+						</Animated.Text>
+					</View>
 					<Button
 						title="Reiniciar com mesma árvore"
 						color={theme.colors.primary}
@@ -175,6 +211,7 @@ const GameMain = ({ navigation }) => {
 
 							setCurrentTree(trees[currentTreeIndex])
 							setStats(newStats);
+							setMonth(0)
 							setOverlayVisible(false);
 						}}
 					/>
@@ -190,12 +227,14 @@ const GameMain = ({ navigation }) => {
 
 							updateTree(currentTreeIndex)
 							setStats(newStats);
+							setMonth(0)
 							setOverlayVisible(false);
 						}}
 					/>
 				</View>
 			</Overlay>
 			<Chooser onQuestionAnswered={handleQuestionAnswered} tree={currentTree} />
+			<Text style={styles.monthsText}>Tempo de governo: {formatMonths()}</Text>
 			<Stats currentStats={gameStats} oldValues={oldValues} />
 		</View>
 	);
@@ -213,6 +252,10 @@ const styles = StyleSheet.create({
 	},
 	text: {
 		fontSize: 24,
+	},
+	monthsText: {
+		fontSize: 14,
+		marginVertical: 5,
 	},
 	overlayContainer: {
 		flex: 1,

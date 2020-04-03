@@ -12,6 +12,7 @@ import { useEffect } from 'react';
 const Chooser = ({ onQuestionAnswered, tree }) => {
 	const [currentQuestion, setCurrentQuestion] = useState(questions[tree[0].id - 1]);
 	const [questionCount, setQuestionCount] = useState(0)
+	const [answers, setAnswers] = useState(new Array(tree.length).fill(null))
 
 	const [info, setInfo] = useState('');
 	const elevationBrand = new Animated.Value(10);
@@ -32,13 +33,30 @@ const Chooser = ({ onQuestionAnswered, tree }) => {
 		}
 	}, [currentQuestion])
 
+	useEffect(() => {
+		updateQuestion()
+	}, [questionCount])
+
 	function updateQuestion() {
-		setQuestionCount(questionCount + 1)
 		setCurrentQuestion(questions[tree[questionCount].id - 1])
+
+		if(tree[questionCount].condition){
+			console.log(tree[questionCount].condition.qIndex)
+			let cond = tree[questionCount].condition
+			if(answers[cond.qIndex] == cond.qAnswer){
+				if(cond.do == 'jump'){
+					setQuestionCount(questionCount + 1)
+				}
+				else{
+					setCurrentQuestion(questions[cond.do - 1])
+				}
+			}
+		}
 	}
 
 	useEffect(() => {
 		setCurrentQuestion(questions[tree[questionCount].id - 1])
+		setAnswers(new Array(tree.length).fill(null))
 	}, [tree])
 
 	const animatedEvent = Animated.event(
@@ -89,12 +107,15 @@ const Chooser = ({ onQuestionAnswered, tree }) => {
 						useNativeDriver: true,
 					}).start();
 
+					let ans = answers
+					ans[questionCount] = option == 'yes'? true : false
+					setAnswers(ans)
 					if(onQuestionAnswered(currentQuestion[option], questionCount)){
 						setQuestionCount(0)
-					} 
-					else{
-						updateQuestion();
 					}
+					else{
+						setQuestionCount(questionCount + 1)
+					} 
 				}, 300);
 			}
 
