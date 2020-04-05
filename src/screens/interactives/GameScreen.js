@@ -90,6 +90,8 @@ const GameMain = ({ navigation }) => {
 		},
 	];
 
+	const endStatements = ["a sustentabilidade", "sua popularidade", "suas finanças", "sua reserva de energia"]
+
 	useEffect(() => {
 		const loadData = async () => {
 			const str = await AsyncStorage.getItem('isGameTutorialDone');
@@ -107,12 +109,14 @@ const GameMain = ({ navigation }) => {
 	function checkEnd(questionCount, sts){
 		if (sts.includes(0) && !oldValues.includes(0)) {
 			setOverlayVisible(true);
-			setOverlayText(`Você perdeu!`)
+			let i = 0;
+			for(i = 0; sts[i] != 0; i++);
+			setOverlayText(`Fim de jogo. Você não soube administrar ${endStatements[i]} e terá que sair já do poder!`)
 			return true
 		}
 		if(questionCount >= currentTree.length - 1){
 			setOverlayVisible(true)
-			setOverlayText(`Você chegou ao final do mandato!`)
+			setOverlayText(`Parabéns! Você chegou ao fim do seu mandato!`)
 			return true
 		}
 		return false
@@ -162,7 +166,7 @@ const GameMain = ({ navigation }) => {
 
 	return (
 		<View style={styles.container}>
-			<Overlay isVisible={overlayVisible} height={300} width={300}>
+			<Overlay isVisible={overlayVisible} height={350} width={300}>
 				<View style={styles.overlayContainer}>
 					<Text style={styles.text}>{overlayText}</Text>
 					<Text style={{ fontSize: 18 }}>Tempo de governo: {formatMonths()}</Text>

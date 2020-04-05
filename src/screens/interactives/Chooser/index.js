@@ -41,7 +41,6 @@ const Chooser = ({ onQuestionAnswered, tree }) => {
 		setCurrentQuestion(questions[tree[questionCount].id - 1])
 
 		if(tree[questionCount].condition){
-			console.log(tree[questionCount].condition.qIndex)
 			let cond = tree[questionCount].condition
 			if(answers[cond.qIndex] == cond.qAnswer){
 				if(cond.do == 'jump'){
