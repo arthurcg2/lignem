@@ -1,23 +1,32 @@
 import React, { useEffect, useState } from 'react';
 import { View, StyleSheet, Switch } from 'react-native';
 import { ListItem } from 'react-native-elements';
-import { useThemeValue } from '../../states/ThemeState';
 import AsyncStorage from '@react-native-community/async-storage';
+
+import { useTheme } from '@react-navigation/native'
+import { useSwitchTheme } from '../../states/ThemeSwitchContext';
 
 const Daltonismo = () => {
 	const [deficiencias, setDeficiencias] = useState(new Array(6).fill(false));
-	const [theme, dispatch] = useThemeValue();
+	const [styles, setStyles] = useState({})
+	const switchTheme = useSwitchTheme();
+	const isSwitchDisabled = true;
+	const theme = useTheme()
+
+	useEffect(() => {
+		setStyles(generateStyles(theme))
+	}, [theme])
 
 	function handleChange(item) {
 		let newDef = new Array(6).fill(false);
 		newDef[item.cod] = !deficiencias[item.cod];
 
-		let defType = item.title;
+		let defType = item.title.toLowerCase();
 
 		if (defType.endsWith('lia')) defType = defType.replace('ia', 'y');
 
-		dispatch({
-			type: newDef[item.cod] ? `enable${defType}Mode` : 'enableLightMode',
+		switchTheme({
+			type: newDef[item.cod] ? defType : 'light',
 		});
 
 		setDeficiencias(newDef);
@@ -48,21 +57,27 @@ const Daltonismo = () => {
 				{list.map((l, i) => (
 					<ListItem
 						key={i}
+						containerStyle={{backgroundColor: theme.colors.background}}
+						titleStyle={{color: theme.colors.text}}
+						subtitleStyle={{color: theme.colors.text}}
 						title={l.title}
 						accessible
 						accessibilityLabel={l.sub}
 						accessibilityRole="menuitem"
 						subtitle={l.sub}
 						bottomDivider
+						onPress={() => {
+							if (!isSwitchDisabled) handleChange(l);
+						}}
 						rightElement={
 							<Switch
-								disabled
+								disabled={isSwitchDisabled}
 								value={deficiencias[l.cod]}
 								onValueChange={() => {
 									handleChange(l);
 								}}
 								accessibilityRole="switch"
-								trackColor={{ true: '#937BE3' }}
+								trackColor={{ true: theme.colors.primary }}
 								thumbColor="#FFF"
 							/>
 						}
@@ -106,15 +121,13 @@ const list = [
 	},
 ];
 
-Daltonismo.navigationOptions = {
-	title: 'Modo de daltonismo',
-};
-
-const styles = StyleSheet.create({
-	container: {
-		flex: 1,
-		backgroundColor: '#FFF',
-	},
-});
+const generateStyles = theme => {
+	return StyleSheet.create({
+		container: {
+			flex: 1,
+			backgroundColor: theme.colors.background,
+		},
+	});
+}
 
 export default Daltonismo;

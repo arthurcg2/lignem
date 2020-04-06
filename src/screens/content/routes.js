@@ -1,28 +1,45 @@
 import React from 'react';
-import { createAppContainer } from 'react-navigation';
-import { createStackNavigator } from 'react-navigation-stack';
+import { createStackNavigator } from '@react-navigation/stack';
+
+import Logo from '../../components/Logo';
 
 import Home from './HomeScreen';
 import Content from './ContentsScreen';
+import { useTheme } from '@react-navigation/native'
+import ContentTutorial from './ContentTutorial';
 
-const Router = createStackNavigator(
-	{
-		Home,
-		Content,
-	},
-	{
-		headerLayoutPreset: 'center',
-		defaultNavigationOptions: {
-			title: 'Título',
-			headerTintColor: '#7159C1',
-			headerTitleStyle: {
-				fontWeight: 'bold',
-			},
-			headerStyle: {
-				backgroundColor: '#FAFAFA',
-			},
-		},
-	},
-);
+const Stack = createStackNavigator();
 
-export default createAppContainer(Router);
+const Router = () => {
+	const theme = useTheme()
+
+	return (
+		<Stack.Navigator
+			screenOptions={{
+				title: 'Título',
+				headerTitleAlign: 'center',
+				headerTintColor: theme.colors.primary,
+				headerTitleStyle: {
+					fontWeight: 'bold',
+				},
+				headerStyle: {
+					backgroundColor: theme.colors.background,
+				},
+			}}
+		>
+			<Stack.Screen
+				name="Home"
+				component={Home}
+				options={{ headerTitle: props => <Logo {...props} /> }}
+			/>
+			<Stack.Screen name="Content" component={Content} />
+			<Stack.Screen
+				name="Tutorial"
+				component={ContentTutorial}
+				options={{ headerShown: false }}
+			/>
+		</Stack.Navigator>
+	)
+}
+
+export default Router;

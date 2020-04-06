@@ -1,4 +1,6 @@
-import { StyleSheet } from 'react-native';
+import { StyleSheet, Dimensions } from 'react-native';
+
+const h = Dimensions.get('window').height	
 
 export const styles = StyleSheet.create({
 	container: {
@@ -8,21 +10,24 @@ export const styles = StyleSheet.create({
 		margin: 0,
 	},
 	brand: {
-		height: 320,
+		height: h <= 592 ? 280 : 320,
 		borderRadius: 10,
 		width: 280,
 		margin: 'auto',
 		position: 'absolute',
 	},
+	image: {
+		height: h <= 592 ? 280 : 320,
+	},
 	swap: {
-		height: 320,
+		height: h <= 592 ? 280 : 320,
 		borderRadius: 10,
 		width: 280,
 		margin: 'auto',
 		flexDirection: 'row',
 	},
 	no: {
-		height: 50,
+		paddingVertical: 10,
 		width: 280,
 		backgroundColor: 'red',
 		borderTopLeftRadius: 10,
@@ -46,5 +51,20 @@ export const styles = StyleSheet.create({
 		fontSize: 24,
 		fontWeight: 'bold',
 		paddingHorizontal: 20,
+	},
+	infoContainer: {
+		position: "absolute",
+		width: '100%',
+		zIndex: 3,
+	},
+	info: {
+		textAlign: 'center',
+		textShadowColor:'#000',
+		textShadowOffset: { width: 1, height: -1 },
+		textShadowRadius: 1,
+		fontSize: 12,
+		color: '#fff',
+		fontWeight: 'bold',
+		fontFamily: 'Montserrat',
 	},
 });

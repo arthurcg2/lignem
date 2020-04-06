@@ -1,8 +1,8 @@
 export default {
-	name: 'tomato',
+	name: 'blue',
 	dark: false,
 	colors: {
-		primary: '#FF585D',
+		primary: '#4285F4',
 		background: '#FFF',
 		card: '#FFF',
 		text: '#111',

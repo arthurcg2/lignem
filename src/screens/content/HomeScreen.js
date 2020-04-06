@@ -1,31 +1,27 @@
 import React, { useEffect, useState } from 'react';
 import { View, Text, StyleSheet, Button, ScrollView } from 'react-native';
 import { Card } from 'react-native-elements';
-import Logo from '../../components/Logo';
-import { useThemeValue } from '../../states/ThemeState';
+import { useTheme } from '@react-navigation/native';
 
-const cards = [
-	{
-		id: 1,
-		title: 'Exemplo',
-		image: require('../../../assets/hidreletrica.jpg'),
-		description:
-			'Exercitation officia exercitation anim nostrud aliqua aliquip qui anim.',
-		buttonTitle: 'Ir para a página!',
-		targetPageSettings: {
-			contentJSONName: 'teste',
-			contentPageTitle: 'Teste!',
-		},
-	},
-];
+import cards from './cards';
+
+import AsyncStorage from '@react-native-community/async-storage';
 
 const Home = ({ navigation }) => {
-	const [{ theme }] = useThemeValue();
 	const [styles, setStyles] = useState({});
+	const theme = useTheme();
 
 	useEffect(() => {
 		setStyles(generateStyles(theme));
 	}, [theme]);
+
+	useEffect(() => {
+		const loadData = async () => {
+			let str = await AsyncStorage.getItem('isContentTutorialDone')
+			if(str !== 'true') navigation.navigate('Tutorial')
+		}
+		loadData()
+	}, [])
 
 	return (
 		<View style={styles.container}>
@@ -35,17 +31,29 @@ const Home = ({ navigation }) => {
 						image={card.image}
 						title={card.title}
 						titleStyle={styles.title}
+						containerStyle={(() => {
+							const marginVal = cards[cards.length - 1] == card ? 20 : 0;
+
+							return {
+								marginBottom: marginVal,
+								backgroundColor: theme.colors.background,
+								borderColor: theme.colors.background,
+							};
+						})()}
 						key={card.id}
 					>
 						<Text style={styles.description}>{card.description}</Text>
 						<Button
 							title={card.buttonTitle}
-							color={theme.foreground}
+							color={theme.colors.primary}
 							style={styles.button}
 							onPress={() => {
-								navigation.navigate('Content', {
-									contentJSONName: card.targetPageSettings.contentJSONName,
-									contentPageTitle: card.targetPageSettings.contentPageTitle,
+								navigation.navigate({
+									name: 'Content',
+									params: {
+										contentJSONName: card.targetPageSettings.contentJSONName,
+										contentPageTitle: card.targetPageSettings.contentPageTitle,
+									},
 								});
 							}}
 						/>
@@ -56,27 +64,23 @@ const Home = ({ navigation }) => {
 	);
 };
 
-Home.navigationOptions = {
-	headerTitle: <Logo />,
-};
-
 const generateStyles = theme => {
 	return StyleSheet.create({
 		container: {
-			backgroundColor: theme.background,
+			backgroundColor: theme.colors.background,
 		},
 		cardsList: {
-			marginVertical: 10,
+			paddingTop: 10,
 		},
 		button: {
 			fontWeight: 'bold',
 		},
 		description: {
-			color: '#555',
-			marginBottom: 10,
+			color: theme.colors.text,
+			paddingBottom: 10,
 		},
 		title: {
-			color: theme.foreground,
+			color: theme.colors.primary,
 		},
 	});
 };

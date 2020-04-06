@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react';
-import { Animated, Text, View, Image } from 'react-native';
+import React, { useState } from 'react';
+import { Animated, Text, Image } from 'react-native';
 import { PanGestureHandler, State } from 'react-native-gesture-handler';
 import { styles } from './styles';
 
@@ -7,17 +7,56 @@ import questions from '../questions';
 import Card from '../Card';
 
 import backgroundImage from '../../../../assets/game/background.png';
+import { useEffect } from 'react';
 
-const Chooser = ({ onQuestionAnswered }) => {
-	const [currentQuestion, setCurrentQuestion] = useState(questions[0]);
+const Chooser = ({ onQuestionAnswered, tree }) => {
+	const [currentQuestion, setCurrentQuestion] = useState(questions[tree[0].id - 1]);
+	const [questionCount, setQuestionCount] = useState(0)
+	const [answers, setAnswers] = useState(new Array(tree.length).fill(null))
+
+	const [info, setInfo] = useState('');
 	const elevationBrand = new Animated.Value(10);
 	const elevationSwap = new Animated.Value(20);
 	const changeableDist = 50;
 	const translateX = new Animated.Value(0);
 
+	useEffect(() => {
+		const character = currentQuestion.char
+		if (character === 'pop') {
+			setInfo("População")
+		} else if (character === 'car') {
+			setInfo("Carlos Joaquim\nMinistro da Economia")
+		} else if (character === 'jon') {
+			setInfo("Jonathan Augusto\nRepresentante da ONG Salve o Planeta")
+		} else if (character === 'rob') {
+			setInfo('Roberto Silvério\nMinistro da Energia')
+		}
+	}, [currentQuestion])
+
+	useEffect(() => {
+		updateQuestion()
+	}, [questionCount])
+
 	function updateQuestion() {
-		setCurrentQuestion(questions[Math.floor(Math.random() * questions.length)]);
+		setCurrentQuestion(questions[tree[questionCount].id - 1])
+
+		if(tree[questionCount].condition){
+			let cond = tree[questionCount].condition
+			if(answers[cond.qIndex] == cond.qAnswer){
+				if(cond.do == 'jump'){
+					setQuestionCount(questionCount + 1)
+				}
+				else{
+					setCurrentQuestion(questions[cond.do - 1])
+				}
+			}
+		}
 	}
+
+	useEffect(() => {
+		setCurrentQuestion(questions[tree[questionCount].id - 1])
+		setAnswers(new Array(tree.length).fill(null))
+	}, [tree])
 
 	const animatedEvent = Animated.event(
 		[
@@ -67,8 +106,15 @@ const Chooser = ({ onQuestionAnswered }) => {
 						useNativeDriver: true,
 					}).start();
 
-					onQuestionAnswered(currentQuestion[option]);
-					updateQuestion();
+					let ans = answers
+					ans[questionCount] = option == 'yes'? true : false
+					setAnswers(ans)
+					if(onQuestionAnswered(currentQuestion[option], questionCount)){
+						setQuestionCount(0)
+					}
+					else{
+						setQuestionCount(questionCount + 1)
+					} 
 				}, 300);
 			}
 
@@ -97,7 +143,7 @@ const Chooser = ({ onQuestionAnswered }) => {
 						...styles.brand,
 					}}
 				>
-					<Image borderRadius={10} source={backgroundImage} />
+					<Image borderRadius={10} source={backgroundImage} style={styles.image} />
 				</Animated.View>
 				<Animated.View
 					style={{
@@ -123,7 +169,21 @@ const Chooser = ({ onQuestionAnswered }) => {
 						...styles.swap,
 					}}
 				>
-					<Card text={currentQuestion.statement} />
+					<Card
+						text={currentQuestion.statement}
+						character={currentQuestion.char}
+					/>
+					<Animated.View style={{
+							opacity: translateX.interpolate({
+								inputRange: [-40, 0, 40],
+								outputRange: [0, 1, 0],
+								extrapolate: 'clamp',
+							}),
+							...styles.infoContainer,
+						}}
+					>
+						<Text style={styles.info}>{info}</Text>
+					</Animated.View>
 					<Animated.View
 						style={{
 							opacity: translateX.interpolate({
