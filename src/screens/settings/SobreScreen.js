@@ -11,10 +11,10 @@ const Sobre = () => {
 			style={[styles.container, { backgroundColor: theme.colors.background }]}
 		>
 			<View>
-				<Text
-					style={[styles.normalText, { color: theme.colors.text }]}
-					accessibilityLabel="Descrição da equipe"
-				>
+				<Text style={[styles.title, { color: theme.colors.text }]}>
+					Quem somos?
+				</Text>
+				<Text style={[styles.normalText, { color: theme.colors.text }]}>
 					Nós somos a equipe <Text style={{ fontWeight: 'bold' }}>Lignem</Text>,
 					finalista da Maratona Brasil Mais TI 2019. Nossos integrantes são do
 					CEFET-MG. O aplicativo tem foco nas matérias de Geografia e Física,
@@ -32,8 +32,13 @@ const Sobre = () => {
 						equipelignem@gmail.com
 					</Text>
 				</Text>
-				<Text style={[styles.title, { color: theme.colors.text }]}>
-					Quem somos?
+				<Text
+					style={[
+						styles.title,
+						{ color: theme.colors.text, marginTop: 20, marginBottom: 10 },
+					]}
+				>
+					Integrantes
 				</Text>
 
 				{list.map((item, i) => (
@@ -142,8 +147,6 @@ const styles = StyleSheet.create({
 		textAlign: 'center',
 		fontSize: 25,
 		color: '#333',
-		marginTop: 20,
-		marginBottom: 10,
 	},
 	normalText: {
 		textAlign: 'justify',
