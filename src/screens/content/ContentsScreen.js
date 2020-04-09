@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { ScrollView, View, Image, ActivityIndicator } from 'react-native';
+import { ScrollView, View, Text, Image, ActivityIndicator } from 'react-native';
 import { useTheme } from '@react-navigation/native';
 import Markdown from 'react-native-simple-markdown';
 
@@ -32,33 +32,38 @@ const ContentsScreen = ({ navigation, route }) => {
 			contentContainerStyle={{ flexGrow: 1 }}
 		>
 			{content ? (
-				<View
-					accessible
-					accessibilityLabel={`Conteúdo sobre o tópico ${route.params.contentPageTitle}`}
-					onAccessibilityTap={() => {
-						console.log('accessible');
+				<Markdown
+					styles={markdownStyles}
+					errorHandler={(errors, children) => <Text>{children}</Text>}
+					rules={{
+						image: {
+							react: (node, output, state) => {
+								return (
+									<Image
+										key={state.key}
+										style={markdownStyles.image}
+										source={images[node.target.split('.')[0]]}
+									/>
+								);
+							},
+						},
+						paragraph: {
+							react: (node, output, state) => {
+								return (
+									<View
+										accessible
+										key={state.key}
+										style={markdownStyles.paragraph}
+									>
+										{output(node.content, state)}
+									</View>
+								);
+							},
+						},
 					}}
 				>
-					<Markdown
-						styles={markdownStyles}
-						errorHandler={(errors, children) => <Text>{children}</Text>}
-						rules={{
-							image: {
-								react: (node, output, state) => {
-									return (
-										<Image
-											key={state.key}
-											style={markdownStyles.image}
-											source={images[node.target.split('.')[0]]}
-										/>
-									);
-								},
-							},
-						}}
-					>
-						{content}
-					</Markdown>
-				</View>
+					{content}
+				</Markdown>
 			) : (
 				<View
 					style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}
