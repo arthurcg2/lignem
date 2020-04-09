@@ -59,7 +59,9 @@ const Settings = ({ navigation }) => {
 
 	return (
 		<ScrollView style={styles.container}>
-			<Text style={styles.title}>Geral</Text>
+			<Text style={styles.title} importantForAccessibility="no">
+				Geral
+			</Text>
 			<View>
 				<Divider />
 				<ListItem
@@ -69,11 +71,13 @@ const Settings = ({ navigation }) => {
 					titleStyle={{ color: theme.colors.text }}
 					subtitleStyle={{ color: theme.colors.text }}
 					accessible
-					accessibilityLabel="Tons mais escuros para o Lignem"
+					accessibilityLabel="Ativar o modo de cores escuras."
+					accessibilityState={{ selected: darkmode }}
 					leftIcon={{ name: 'brightness-3', color: theme.colors.text }}
 					onPress={!isSwitchDisabled ? handleChange : () => {}}
 					rightElement={
 						<Switch
+							importantForAccessibility="no"
 							value={darkmode}
 							disabled={isSwitchDisabled}
 							onValueChange={handleChange}
@@ -107,7 +111,9 @@ const Settings = ({ navigation }) => {
 					/>
 				))}
 			</View>
-			<Text style={styles.title}>Acessibilidade</Text>
+			<Text style={styles.title} importantForAccessibility="no">
+				Acessibilidade
+			</Text>
 			<View>
 				<Divider />
 				{accessibilityOptions.map((item, i) => (

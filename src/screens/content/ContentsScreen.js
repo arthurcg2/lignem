@@ -32,25 +32,33 @@ const ContentsScreen = ({ navigation, route }) => {
 			contentContainerStyle={{ flexGrow: 1 }}
 		>
 			{content ? (
-				<Markdown
-					styles={markdownStyles}
-					errorHandler={(errors, children) => <Text>{children}</Text>}
-					rules={{
-						image: {
-							react: (node, output, state) => {
-								return (
-									<Image
-										key={state.key}
-										style={markdownStyles.image}
-										source={images[node.target.split('.')[0]]}
-									/>
-								);
-							},
-						},
+				<View
+					accessible
+					accessibilityLabel={`Conteúdo sobre o tópico ${route.params.contentPageTitle}`}
+					onAccessibilityTap={() => {
+						console.log('accessible');
 					}}
 				>
-					{content}
-				</Markdown>
+					<Markdown
+						styles={markdownStyles}
+						errorHandler={(errors, children) => <Text>{children}</Text>}
+						rules={{
+							image: {
+								react: (node, output, state) => {
+									return (
+										<Image
+											key={state.key}
+											style={markdownStyles.image}
+											source={images[node.target.split('.')[0]]}
+										/>
+									);
+								},
+							},
+						}}
+					>
+						{content}
+					</Markdown>
+				</View>
 			) : (
 				<View
 					style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}

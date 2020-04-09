@@ -35,6 +35,7 @@ const Router = ({ navigation }) => {
 					headerTitle: props => <Logo {...props} />,
 					headerRight: props => (
 						<Icon
+							accessibilityHint="Abrir o tutorial do aplicativo."
 							color={theme.colors.primary}
 							size={32}
 							style={{ marginRight: 15 }}
@@ -47,7 +48,14 @@ const Router = ({ navigation }) => {
 					),
 				}}
 			/>
-			<Stack.Screen name="Content" component={Content} />
+			<Stack.Screen
+				name="Content"
+				component={Content}
+				options={{
+					headerBackTitle: 'Voltar para a página de configurações.',
+					headerBackTitleVisible: false,
+				}}
+			/>
 			<Stack.Screen
 				name="TutorialLignem"
 				component={ContentTutorial}

@@ -27,37 +27,46 @@ const Home = ({ navigation }) => {
 		<View style={styles.container}>
 			<ScrollView style={styles.cardsList}>
 				{cards.map(card => (
-					<Card
-						image={card.image}
-						title={card.title}
-						titleStyle={styles.title}
-						containerStyle={(() => {
-							const marginVal = cards[cards.length - 1] == card ? 20 : 0;
-
-							return {
-								marginBottom: marginVal,
-								backgroundColor: theme.colors.background,
-								borderColor: theme.colors.background,
-							};
-						})()}
+					<View
 						key={card.id}
+						accessible
+						accessibilityLabel={`Card de ${card.title}. O conteúdo aborda ${card.description}. Para acessar a página desse conteúdo, clique no botão a seguir.`}
 					>
-						<Text style={styles.description}>{card.description}</Text>
-						<Button
-							title={card.buttonTitle}
-							color={theme.colors.primary}
-							style={styles.button}
-							onPress={() => {
-								navigation.navigate({
-									name: 'Content',
-									params: {
-										contentJSONName: card.targetPageSettings.contentJSONName,
-										contentPageTitle: card.targetPageSettings.contentPageTitle,
-									},
-								});
-							}}
-						/>
-					</Card>
+						<Card
+							image={card.image}
+							title={card.title}
+							titleStyle={styles.title}
+							containerStyle={(() => {
+								const marginVal = cards[cards.length - 1] == card ? 20 : 0;
+
+								return {
+									marginBottom: marginVal,
+									backgroundColor: theme.colors.background,
+									borderColor: theme.colors.background,
+								};
+							})()}
+						>
+							<Text style={styles.description} importantForAccessibility="no">
+								{card.description}
+							</Text>
+							<Button
+								accessibilityLabel={`Ir para a página de conteúdo de ${card.title}`}
+								title={card.buttonTitle}
+								color={theme.colors.primary}
+								style={styles.button}
+								onPress={() => {
+									navigation.navigate({
+										name: 'Content',
+										params: {
+											contentJSONName: card.targetPageSettings.contentJSONName,
+											contentPageTitle:
+												card.targetPageSettings.contentPageTitle,
+										},
+									});
+								}}
+							/>
+						</Card>
+					</View>
 				))}
 			</ScrollView>
 		</View>
@@ -68,9 +77,6 @@ const generateStyles = theme => {
 	return StyleSheet.create({
 		container: {
 			backgroundColor: theme.colors.background,
-		},
-		cardsList: {
-			paddingTop: 10,
 		},
 		button: {
 			fontWeight: 'bold',

@@ -35,12 +35,20 @@ const Router = () => {
 			<Stack.Screen
 				name="Daltonismo"
 				component={Daltonismo}
-				options={{ headerTitle: 'Modo de daltonismo' }}
+				options={{
+					headerTitle: 'Modo de daltonismo',
+					headerBackTitle: 'Voltar para a página de configurações.',
+					headerBackTitleVisible: false,
+				}}
 			/>
 			<Stack.Screen
 				name="Sobre"
 				component={Sobre}
-				options={{ headerTitle: 'Sobre' }}
+				options={{
+					headerTitle: 'Sobre',
+					headerBackTitle: 'Voltar para a página de configurações.',
+					headerBackTitleVisible: false,
+				}}
 			/>
 		</Stack.Navigator>
 	);

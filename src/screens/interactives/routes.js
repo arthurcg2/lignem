@@ -34,6 +34,7 @@ const Router = ({ navigation }) => {
 					headerTitle: props => <Logo {...props} />,
 					headerRight: props => (
 						<Icon
+							accessibilityHint="Abrir o tutorial do jogo."
 							color={theme.colors.primary}
 							size={32}
 							style={{ marginRight: 15 }}

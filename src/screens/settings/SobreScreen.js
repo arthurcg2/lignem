@@ -11,7 +11,10 @@ const Sobre = () => {
 			style={[styles.container, { backgroundColor: theme.colors.background }]}
 		>
 			<View>
-				<Text style={[styles.normalText, { color: theme.colors.text }]}>
+				<Text
+					style={[styles.normalText, { color: theme.colors.text }]}
+					accessibilityLabel="Descrição da equipe"
+				>
 					Nós somos a equipe <Text style={{ fontWeight: 'bold' }}>Lignem</Text>,
 					finalista da Maratona Brasil Mais TI 2019. Nossos integrantes são do
 					CEFET-MG. O aplicativo tem foco nas matérias de Geografia e Física,
@@ -35,6 +38,8 @@ const Sobre = () => {
 
 				{list.map((item, i) => (
 					<ListItem
+						accessible
+						accessibilityLabel={`Integrante: ${item.name}`}
 						containerStyle={{ backgroundColor: theme.colors.background }}
 						key={i}
 						leftAvatar={{
@@ -43,13 +48,26 @@ const Sobre = () => {
 						rightElement={
 							<View style={{ flexDirection: 'row' }}>
 								{item.sites.types.map((type, i) => (
-									<SocialIcon
+									<View
 										key={i}
-										type={type}
-										style={styles.icon}
-										iconSize={20}
-										onPress={() => Linking.openURL(item.sites.urls[i])}
-									/>
+										accessible
+										accessibilityLabel={`Rede social ${type} do integrante`}
+										onAccessibilityTap={() =>
+											Linking.openURL(item.sites.urls[i])
+										}
+									>
+										<View importantForAccessibility="no-hide-descendants">
+											<SocialIcon
+												type={type}
+												style={styles.icon}
+												iconSize={20}
+												onPress={() => Linking.openURL(item.sites.urls[i])}
+												onAccessibilityTap={() =>
+													Linking.openURL(item.sites.urls[i])
+												}
+											/>
+										</View>
+									</View>
 								))}
 							</View>
 						}

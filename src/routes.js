@@ -31,6 +31,7 @@ const Router = () => {
 				component={Interativos}
 				options={{
 					tabBarLabel: 'Jogo',
+					tabBarAccessibilityLabel: 'Navegação: ir para a página do jogo',
 					tabBarIcon: ({ color, size }) => (
 						<Icon name="gamepad" color={color} size={size} />
 					),
@@ -41,6 +42,7 @@ const Router = () => {
 				component={Conteudo}
 				options={{
 					tabBarLabel: 'Conteúdo',
+					tabBarAccessibilityLabel: 'Navegação: ir para a página dos conteúdos',
 					tabBarIcon: ({ color, size }) => (
 						<Icon name="chrome-reader-mode" color={color} size={size} />
 					),
@@ -51,6 +53,8 @@ const Router = () => {
 				component={Settings}
 				options={{
 					tabBarLabel: 'Configurações',
+					tabBarAccessibilityLabel:
+						'Navegação: ir para a página de configurações',
 					tabBarIcon: ({ color, size }) => (
 						<Icon name="settings" color={color} size={size} />
 					),

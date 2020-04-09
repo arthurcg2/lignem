@@ -47,7 +47,7 @@ const Daltonismo = () => {
 		<ScrollView
 			style={[styles.container, { backgroundColor: theme.colors.background }]}
 		>
-			<View accessibilityRole="menu">
+			<View>
 				{list.map((l, i) => (
 					<ListItem
 						key={i}
@@ -56,8 +56,8 @@ const Daltonismo = () => {
 						subtitleStyle={{ color: theme.colors.text }}
 						title={l.title}
 						accessible
-						accessibilityLabel={l.sub}
-						accessibilityRole="menuitem"
+						accessibilityLabel={`Ativar o modo de daltonismo do tipo ${l.sub}`}
+						accessibilityState={{ selected: deficiencias[l.cod] }}
 						subtitle={l.sub}
 						bottomDivider
 						onPress={() => {
@@ -65,6 +65,7 @@ const Daltonismo = () => {
 						}}
 						rightElement={
 							<Switch
+								importantForAccessibility="no"
 								disabled={isSwitchDisabled}
 								value={deficiencias[l.cod]}
 								onValueChange={() => {
