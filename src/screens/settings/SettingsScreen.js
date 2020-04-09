@@ -1,7 +1,13 @@
 import React, { useEffect, useState } from 'react';
-import { View, ScrollView, Switch, Text, StyleSheet } from 'react-native';
+import {
+	View,
+	ScrollView,
+	Switch,
+	Text,
+	StyleSheet,
+	AccessibilityInfo,
+} from 'react-native';
 import { ListItem, Divider } from 'react-native-elements';
-import AsyncStorage from '@react-native-community/async-storage';
 
 import { useTheme } from '@react-navigation/native';
 import { useSwitchTheme } from '../../states/ThemeSwitchContext';
@@ -34,10 +40,11 @@ const Settings = ({ navigation }) => {
 	const theme = useTheme();
 
 	useEffect(() => {
-		setStyles(generateStyles(theme));
-	}, [theme]);
+		AccessibilityInfo.announceForAccessibility('Página de configurações.');
+	}, []);
 
 	useEffect(() => {
+		setStyles(generateStyles(theme));
 		async function getInitialState() {
 			if (theme.name == 'dark') {
 				setDarkmode(true);
@@ -71,7 +78,7 @@ const Settings = ({ navigation }) => {
 					titleStyle={{ color: theme.colors.text }}
 					subtitleStyle={{ color: theme.colors.text }}
 					accessible
-					accessibilityLabel="Ativar o modo de cores escuras."
+					accessibilityLabel="Opção: ativar o modo de cores escuras."
 					accessibilityState={{ selected: darkmode }}
 					leftIcon={{ name: 'brightness-3', color: theme.colors.text }}
 					onPress={!isSwitchDisabled ? handleChange : () => {}}

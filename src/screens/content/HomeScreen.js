@@ -1,5 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, StyleSheet, Button, ScrollView } from 'react-native';
+import {
+	View,
+	Text,
+	StyleSheet,
+	Button,
+	ScrollView,
+	AccessibilityInfo,
+} from 'react-native';
 import { Card } from 'react-native-elements';
 import { useTheme } from '@react-navigation/native';
 
@@ -21,6 +28,10 @@ const Home = ({ navigation }) => {
 			if (str !== 'true') navigation.navigate('TutorialLignem');
 		};
 		loadData();
+
+		AccessibilityInfo.announceForAccessibility(
+			'Página de conteúdos. Os cards estão dispostos a seguir.',
+		);
 	}, []);
 
 	return (
@@ -30,7 +41,9 @@ const Home = ({ navigation }) => {
 					<View
 						key={card.id}
 						accessible
-						accessibilityLabel={`Card de ${card.title}. O conteúdo aborda ${card.description}. Para acessar a página desse conteúdo, clique no botão a seguir.`}
+						accessibilityLabel={`Card de ${card.title}. O conteúdo aborda ${
+							card.description
+						}. Para acessar a página desse conteúdo, clique no botão a seguir.`}
 					>
 						<Card
 							image={card.image}
@@ -50,7 +63,9 @@ const Home = ({ navigation }) => {
 								{card.description}
 							</Text>
 							<Button
-								accessibilityLabel={`Ir para a página de conteúdo de ${card.title}`}
+								accessibilityLabel={`Ir para a página de conteúdo de ${
+									card.title
+								}`}
 								title={card.buttonTitle}
 								color={theme.colors.primary}
 								style={styles.button}

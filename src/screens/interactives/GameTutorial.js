@@ -1,5 +1,13 @@
-import React, { useState, useEffect } from 'react';
-import { Text, StyleSheet, Image, StatusBar, Dimensions } from 'react-native';
+import React, { useState, useEffect, useRef } from 'react';
+import {
+	Text,
+	StyleSheet,
+	Image,
+	StatusBar,
+	Dimensions,
+	AccessibilityInfo,
+	findNodeHandle,
+} from 'react-native';
 
 import Onboarding from 'react-native-onboarding-swiper';
 import Icon from 'react-native-vector-icons/MaterialIcons';
@@ -7,6 +15,7 @@ import { useTheme } from '@react-navigation/native';
 import AsyncStorage from '@react-native-community/async-storage';
 
 const GameTutorial = ({ navigation }) => {
+	const initialElement = useRef(null);
 	const [styles, setStyles] = useState({});
 	const [current, setCurrent] = useState(0);
 	const theme = useTheme();
@@ -14,6 +23,9 @@ const GameTutorial = ({ navigation }) => {
 
 	useEffect(() => {
 		setStyles(generateStyles(theme));
+		AccessibilityInfo.setAccessibilityFocus(
+			findNodeHandle(initialElement.current),
+		);
 
 		const parent = navigation.dangerouslyGetParent();
 		parent.setOptions({
@@ -51,7 +63,7 @@ const GameTutorial = ({ navigation }) => {
 							/>
 						),
 						title: (
-							<Text style={styles.text}>
+							<Text style={styles.text} ref={initialElement}>
 								Bem-vindo ao <Text style={styles.bold}>Governors</Text>!
 							</Text>
 						),
@@ -151,6 +163,7 @@ const GameTutorial = ({ navigation }) => {
 				]}
 				NextButtonComponent={props => (
 					<Icon
+						accessibilityLabel="Ir para a próxima página do tutorial."
 						name="chevron-right"
 						size={32}
 						color={theme.colors.background}
@@ -160,6 +173,7 @@ const GameTutorial = ({ navigation }) => {
 				)}
 				SkipButtonComponent={props => (
 					<Icon
+						accessibilityLabel="Voltar para a última página do tutorial."
 						name="chevron-left"
 						size={32}
 						color={theme.colors.background}
@@ -172,6 +186,7 @@ const GameTutorial = ({ navigation }) => {
 				}}
 				DoneButtonComponent={props => (
 					<Icon
+						accessibilityLabel="Fechar o tutorial."
 						name="done"
 						size={32}
 						color={theme.colors.background}

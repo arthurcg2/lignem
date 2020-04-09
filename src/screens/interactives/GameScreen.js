@@ -2,7 +2,13 @@
 import React, { useState, useEffect } from 'react';
 import AsyncStorage from '@react-native-community/async-storage';
 
-import { View, Button, Text, StyleSheet } from 'react-native';
+import {
+	View,
+	Button,
+	Text,
+	StyleSheet,
+	AccessibilityInfo,
+} from 'react-native';
 import { Overlay } from 'react-native-elements';
 import { useTheme } from '@react-navigation/native';
 import Chooser from './Chooser';
@@ -53,6 +59,10 @@ const GameMain = ({ navigation }) => {
 			newStats[i] = gameStats[i].maxValue / 2;
 		}
 		setStats(newStats);
+
+		AccessibilityInfo.announceForAccessibility(
+			'Página do jogo. Para mais informações, abra o tutorial do jogo no canto superior direito da tela.',
+		);
 	}, []);
 
 	useEffect(() => {
