@@ -8,8 +8,12 @@ import {
 	AccessibilityInfo,
 	findNodeHandle,
 } from 'react-native';
-import Onboarding from 'react-native-onboarding-swiper';
+import {
+	hideNavigationBar,
+	showNavigationBar,
+} from 'react-native-navigation-bar-color';
 
+import Onboarding from 'react-native-onboarding-swiper';
 import AsyncStorage from '@react-native-community/async-storage';
 import { useTheme } from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
@@ -22,6 +26,7 @@ const ContentTutorial = ({ navigation }) => {
 	const isLargeScreen = Dimensions.get('window').height > 592;
 
 	useEffect(() => {
+		hideNavigationBar();
 		setStyles(generateStyles(theme));
 		AccessibilityInfo.setAccessibilityFocus(
 			findNodeHandle(initialElement.current),
@@ -31,10 +36,12 @@ const ContentTutorial = ({ navigation }) => {
 		parent.setOptions({
 			tabBarVisible: false,
 		});
-		return () =>
+		return () => {
+			showNavigationBar();
 			parent.setOptions({
 				tabBarVisible: true,
 			});
+		};
 	}, []);
 
 	const onEnd = async () => {
