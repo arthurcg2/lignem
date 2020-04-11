@@ -21,6 +21,7 @@
 		"react-native-elements": "^1.2.7",
 		"react-native-gesture-handler": "^1.6.0",
 		"react-native-markdown-package": "^1.5.4",
+		"react-native-navigation-bar-color": "^2.0.1",
 		"react-native-onboarding-swiper": "^1.1.0",
 		"react-native-reanimated": "^1.7.0",
 		"react-native-safe-area-context": "^0.7.3",

@@ -5478,6 +5478,11 @@ react-native-markdown-package@^1.5.4:
     react-native-lightbox "^0.7.0"
     simple-markdown "^0.6.0"
 
+react-native-navigation-bar-color@^2.0.1:
+  version "2.0.1"
+  resolved "https://registry.yarnpkg.com/react-native-navigation-bar-color/-/react-native-navigation-bar-color-2.0.1.tgz#ee2be25cc37105f7da355717b0a9a32c9c059ae6"
+  integrity sha512-1kE/oxWt+HYjRxdZdvke9tJ365xaee5n3+euOQA1En8zQuSbOxiE4SYEGM7TeaWnmLJ0l37mRnPHaB2H4mGh0A==
+
 react-native-onboarding-swiper@^1.1.0:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/react-native-onboarding-swiper/-/react-native-onboarding-swiper-1.1.0.tgz#fb4c5a10fc91e3d2fe7fa2e9860b3e4e997e672a"
