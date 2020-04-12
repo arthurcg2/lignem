@@ -137,7 +137,7 @@ export default questions = [
 	{
 		id: 16,
 		char: 'rog',
-		statement: 'Olá governador, sou dono da empresa Mais Energia e gostaria da sua autorização para a construção de uma usina termelétrica próximo à Vila da Paz.',
+		statement: 'Olá governador, sou dono da empresa Mais Energia e gostaria da sua autorização para a construção de mais uma usina termelétrica próximo à Vila da Paz.',
 		yesOption: 'Está autorizado',
 		noOption: 'Não autorizarei',
 		yes: [-4, -2, 0, 2],
@@ -146,7 +146,7 @@ export default questions = [
 	{
 		id: 17,
 		char: 'rog',
-		statement: 'Governador, nossa usina está a todo vapor e gerando diversos empregos! Poderíamos expandí-la?',
+		statement: 'Governador, nossa nova usina está a todo vapor e gerando diversos empregos! Poderíamos expandí-la?',
 		yesOption: 'Com certeza!',
 		noOption: 'Não',
 		yes: [-4, -1, 2, 4],
@@ -155,7 +155,7 @@ export default questions = [
 	{
 		id: 18,
 		char: 'rog',
-		statement: 'Governador, estamos interessados em uma parceria com a mais nova mina de carvão para suprir nossa termelétrica! O que acha?',
+		statement: 'Governador, estamos interessados em uma parceria com a mais nova mina de carvão para suprir nossas termelétricas! O que acha?',
 		yesOption: 'Parece um bom negócio',
 		noOption: 'Não no momento',
 		yes: [-4, -2, 2, 4],

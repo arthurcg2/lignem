@@ -38,7 +38,8 @@ const Chooser = ({ onQuestionAnswered, tree }) => {
 	}, [currentQuestion])
 
 	useEffect(() => {
-		updateQuestion()
+		if(questionCount <= tree.length - 1) updateQuestion()
+		else onQuestionAnswered([0, 0, 0, 0], questionCount)
 	}, [questionCount])
 
 	function updateQuestion() {
@@ -46,12 +47,12 @@ const Chooser = ({ onQuestionAnswered, tree }) => {
 
 		if(tree[questionCount].condition){
 			let cond = tree[questionCount].condition
-			if(answers[findInTree(cond.qIndex)] == cond.qAnswer){
-				if(cond.do == 'jump'){
+			if(answers[findInTree(cond.qIndex)] != cond.qAnswer){
+				if(cond.elseDo == 'jump'){
 					setQuestionCount(questionCount + 1)
 				}
 				else{
-					setCurrentQuestion(questions[cond.do - 1])
+					setCurrentQuestion(questions[cond.elseDo - 1])
 				}
 			}
 		}
