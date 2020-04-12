@@ -23,6 +23,14 @@ export default function Card({ text, character }) {
 			setCharacterImage(
 				require('../../../../assets/game/characters/roberto.png'),
 			);
+		} else if (character === 'rog') {
+			setCharacterImage(
+				require('../../../../assets/game/characters/rogerio_santos.png'),
+			);
+		} else if (character === 'igo') {
+			setCharacterImage(
+				require('../../../../assets/game/characters/igor_martis.png'),
+			);
 		}
 	}, [character]);
 

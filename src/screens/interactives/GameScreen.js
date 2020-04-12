@@ -8,43 +8,61 @@ import {
 	Text,
 	StyleSheet,
 	AccessibilityInfo,
+	Animated,
 } from 'react-native';
 import { Overlay } from 'react-native-elements';
 import { useTheme } from '@react-navigation/native';
 import Chooser from './Chooser';
 import Stats from './Stats';
 
+import trees from './trees';
+
 const GameMain = ({ navigation }) => {
 	const [stats, setStats] = useState(new Array(4).fill(0));
 	const [oldValues, setOldValues] = useState(new Array(4).fill(0));
+
 	const [overlayVisible, setOverlayVisible] = useState(false);
+	const [overlayText, setOverlayText] = useState('');
+
+	const randNum = Math.floor(Math.random() * trees.length);
+	const [currentTree, setCurrentTree] = useState(trees[randNum]);
+	const [currentTreeIndex, setCurrentTreeIndex] = useState(randNum);
+	const [month, setMonth] = useState(0);
+
 	const theme = useTheme();
 
 	const gameStats = [
 		{
-			name: 'sustentabilidade',
+			name: 'Sustentabilidade',
 			icon: 'leaf',
 			value: stats[0],
 			maxValue: 20,
 		},
 		{
-			name: 'popularidade',
+			name: 'Popularidade',
 			icon: 'group',
 			value: stats[1],
 			maxValue: 20,
 		},
 		{
-			name: 'finanças',
+			name: 'Finanças',
 			icon: 'dollar',
 			value: stats[2],
 			maxValue: 20,
 		},
 		{
-			name: 'energia',
+			name: 'Energia',
 			icon: 'bolt',
 			value: stats[3],
 			maxValue: 20,
 		},
+	];
+
+	const endStatements = [
+		'a sustentabilidade',
+		'sua popularidade',
+		'suas finanças',
+		'sua reserva de energia',
 	];
 
 	useEffect(() => {
@@ -65,14 +83,38 @@ const GameMain = ({ navigation }) => {
 		);
 	}, []);
 
-	useEffect(() => {
-		if (stats.includes(0) && !oldValues.includes(0)) {
-			// perdeu o jogo
+	function checkEnd(questionCount, sts) {
+		if (sts.includes(0) && !oldValues.includes(0)) {
 			setOverlayVisible(true);
+			let i = 0;
+			for (i = 0; sts[i] != 0; i++);
+			setOverlayText(
+				`Fim de jogo. Você não soube administrar ${
+					endStatements[i]
+				} e terá que sair já do poder!`,
+			);
+			return true;
 		}
-	}, [stats]);
+		if (questionCount >= currentTree.length - 1) {
+			setOverlayVisible(true);
+			setOverlayText(`Parabéns! Você chegou ao fim do seu mandato!`);
+			return true;
+		}
+		return false;
+	}
 
-	function handleQuestionAnswered(optionStats) {
+	function updateTree(not = -1) {
+		let rand = Math.floor(Math.random() * trees.length);
+		if (not != -1) {
+			while (rand === not) {
+				rand = Math.floor(Math.random() * trees.length);
+			}
+		}
+		setCurrentTreeIndex(rand);
+		setCurrentTree(trees[rand]);
+	}
+
+	function handleQuestionAnswered(optionStats, questionCount) {
 		let newStats = new Array(4).fill(0);
 		setOldValues(stats);
 		newStats.map((stat, i) => {
@@ -82,8 +124,33 @@ const GameMain = ({ navigation }) => {
 			else if (sum < 0) newStats[i] = 0;
 			else newStats[i] = sum;
 		});
+		setMonth(month + 1);
 		setStats(newStats);
+		console.log(newStats);
+		return checkEnd(questionCount, newStats);
 	}
+
+	function formatMonths() {
+		let s = '';
+		s =
+			(month >= 12 ? Math.floor(month / 12) + ' ano' : '') +
+			(Math.floor(month / 12) != 1 && month >= 12 ? 's' : '') +
+			(month >= 12 && month % 12 != 0 ? ' e ' : '') +
+			(month % 12 != 0 || month == 0
+				? (month % 12) + ' ' + (month % 12 == 1 ? 'mês' : 'meses')
+				: '');
+		return s;
+	}
+
+	function media() {
+		let sum = 0;
+		for (let i = 0; i < gameStats.length; i++) {
+			sum += (gameStats[i].value * 100) / gameStats[i].maxValue;
+		}
+		return Math.floor(sum / gameStats.length);
+	}
+
+	const m = new Animated.Value(media());
 
 	return (
 		<View
@@ -96,22 +163,72 @@ const GameMain = ({ navigation }) => {
 				},
 			]}
 		>
-			<Overlay
-				isVisible={overlayVisible}
-				height={100}
-				overlayBackgroundColor={theme.colors.background}
-			>
-				<View
-					style={[
-						styles.overlayContainer,
-						{ backgroundColor: theme.colors.background },
-					]}
-				>
-					<Text style={[styles.text, { color: theme.colors.text }]}>
-						Você perdeu o jogo!
+			<Overlay isVisible={overlayVisible} height={350} width={300}>
+				<View style={styles.overlayContainer}>
+					<Text style={styles.text}>{overlayText}</Text>
+					<Text style={{ fontSize: 18 }}>
+						Tempo de governo: {formatMonths()}
 					</Text>
+					{gameStats.map((stat, index) => {
+						const v = new Animated.Value(stat.value);
+
+						return (
+							<View
+								key={index}
+								style={{
+									flexDirection: 'row',
+									alignItems: 'center',
+									paddingLeft: 10,
+								}}
+							>
+								<Text font>{stat.name}: </Text>
+								<Animated.Text
+									style={{
+										color: v.interpolate({
+											inputRange: [0, stat.maxValue / 2, stat.maxValue],
+											outputRange: [
+												'rgb(255, 0, 0)',
+												'rgb(230, 205, 126)',
+												'rgb(0, 255, 0)',
+											],
+											extrapolate: 'clamp',
+										}),
+										fontWeight: 'bold',
+									}}
+								>
+									{(stat.value * 100) / stat.maxValue}%
+								</Animated.Text>
+							</View>
+						);
+					})}
+					<View
+						style={{
+							flexDirection: 'row',
+							alignItems: 'center',
+							paddingLeft: 5,
+						}}
+					>
+						<Text style={{ fontSize: 16 }}>Média final: </Text>
+						<Animated.Text
+							style={{
+								color: m.interpolate({
+									inputRange: [0, 50, 100],
+									outputRange: [
+										'rgb(255, 0, 0)',
+										'rgb(230, 205, 126)',
+										'rgb(0, 255, 0)',
+									],
+									extrapolate: 'clamp',
+								}),
+								fontWeight: 'bold',
+								fontSize: 16,
+							}}
+						>
+							{media()}%
+						</Animated.Text>
+					</View>
 					<Button
-						title="Reiniciar!"
+						title="Reiniciar"
 						color={theme.colors.primary}
 						style={styles.button}
 						onPress={() => {
@@ -120,13 +237,32 @@ const GameMain = ({ navigation }) => {
 								newStats[i] = gameStats[i].maxValue / 2;
 							}
 
+							setCurrentTree(trees[currentTreeIndex]);
 							setStats(newStats);
+							setMonth(0);
 							setOverlayVisible(false);
 						}}
 					/>
+					{/* <Button
+						title="Reiniciar com árvore diferente"
+						color={theme.colors.primary}
+						style={styles.button}
+						onPress={() => {
+							let newStats = new Array(gameStats.length).fill(0);
+							for (let i = 0; i < gameStats.length; i++) {
+								newStats[i] = gameStats[i].maxValue / 2;
+							}
+
+							updateTree(currentTreeIndex)
+							setStats(newStats);
+							setMonth(0)
+							setOverlayVisible(false);
+						}}
+					/> */}
 				</View>
 			</Overlay>
-			<Chooser onQuestionAnswered={handleQuestionAnswered} />
+			<Chooser onQuestionAnswered={handleQuestionAnswered} tree={currentTree} />
+			<Text style={styles.monthsText}>Tempo de governo: {formatMonths()}</Text>
 			<Stats currentStats={gameStats} oldValues={oldValues} />
 		</View>
 	);
@@ -144,6 +280,10 @@ const styles = StyleSheet.create({
 	},
 	text: {
 		fontSize: 24,
+	},
+	monthsText: {
+		fontSize: 14,
+		marginVertical: 5,
 	},
 	overlayContainer: {
 		flex: 1,
