@@ -3,11 +3,13 @@ import { StatusBar } from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
 
 import { useSwitchTheme } from './states/ThemeSwitchContext';
+import { useTheme } from '@react-navigation/native';
 
 import Router from './routes';
 
 export default function App() {
 	const switchTheme = useSwitchTheme();
+	const theme = useTheme();
 
 	useEffect(() => {
 		async function getStorageTheme() {
@@ -26,7 +28,10 @@ export default function App() {
 
 	return (
 		<>
-			<StatusBar barStyle={'dark-content'} backgroundColor="#EFEFEF" />
+			<StatusBar
+				barStyle={theme.statusBarStyle}
+				backgroundColor={theme.colors.backgroundDarken}
+			/>
 			<Router />
 		</>
 	);

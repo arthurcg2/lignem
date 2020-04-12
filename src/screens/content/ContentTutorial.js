@@ -1,28 +1,47 @@
-import React, { useState, useEffect } from 'react';
-import { Image, StyleSheet, Text, StatusBar, Dimensions } from 'react-native';
-import Onboarding from 'react-native-onboarding-swiper';
+import React, { useState, useEffect, useRef } from 'react';
+import {
+	Image,
+	StyleSheet,
+	Text,
+	StatusBar,
+	Dimensions,
+	AccessibilityInfo,
+	findNodeHandle,
+} from 'react-native';
+import {
+	hideNavigationBar,
+	showNavigationBar,
+} from 'react-native-navigation-bar-color';
 
+import Onboarding from 'react-native-onboarding-swiper';
 import AsyncStorage from '@react-native-community/async-storage';
 import { useTheme } from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
 const ContentTutorial = ({ navigation }) => {
+	const initialElement = useRef(null);
 	const [styles, setStyles] = useState({});
 	const [current, setCurrent] = useState(0);
 	const theme = useTheme();
 	const isLargeScreen = Dimensions.get('window').height > 592;
 
 	useEffect(() => {
+		hideNavigationBar();
 		setStyles(generateStyles(theme));
+		AccessibilityInfo.setAccessibilityFocus(
+			findNodeHandle(initialElement.current),
+		);
 
 		const parent = navigation.dangerouslyGetParent();
 		parent.setOptions({
 			tabBarVisible: false,
 		});
-		return () =>
+		return () => {
+			showNavigationBar();
 			parent.setOptions({
 				tabBarVisible: true,
 			});
+		};
 	}, []);
 
 	const onEnd = async () => {
@@ -51,7 +70,7 @@ const ContentTutorial = ({ navigation }) => {
 							/>
 						),
 						title: (
-							<Text style={styles.text}>
+							<Text style={styles.text} ref={initialElement}>
 								Bem-vindo ao <Text style={styles.bold}>Lignem</Text>!
 							</Text>
 						),
@@ -150,6 +169,7 @@ const ContentTutorial = ({ navigation }) => {
 				]}
 				NextButtonComponent={props => (
 					<Icon
+						accessibilityLabel="Ir para a próxima página do tutorial."
 						name="chevron-right"
 						size={32}
 						color={theme.colors.background}
@@ -159,6 +179,7 @@ const ContentTutorial = ({ navigation }) => {
 				)}
 				SkipButtonComponent={props => (
 					<Icon
+						accessibilityLabel="Voltar para a última página do tutorial."
 						name="chevron-left"
 						size={32}
 						color={theme.colors.background}
@@ -171,7 +192,8 @@ const ContentTutorial = ({ navigation }) => {
 				}}
 				DoneButtonComponent={props => (
 					<Icon
-						name="check-circle"
+						accessibilityLabel="Fechar tutorial."
+						name="done"
 						size={32}
 						color={theme.colors.background}
 						style={{ marginRight: 15 }}

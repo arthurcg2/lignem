@@ -9,8 +9,11 @@ import Card from '../Card';
 import backgroundImage from '../../../../assets/game/background.png';
 import { useEffect } from 'react';
 
-const Chooser = ({ onQuestionAnswered }) => {
-	const [currentQuestion, setCurrentQuestion] = useState(questions[0]);
+const Chooser = ({ onQuestionAnswered, tree }) => {
+	const [currentQuestion, setCurrentQuestion] = useState(questions[tree[0].id - 1]);
+	const [questionCount, setQuestionCount] = useState(0)
+	const [answers, setAnswers] = useState(new Array(tree.length).fill(null))
+
 	const [info, setInfo] = useState('');
 	const elevationBrand = new Animated.Value(10);
 	const elevationSwap = new Animated.Value(20);
@@ -27,12 +30,45 @@ const Chooser = ({ onQuestionAnswered }) => {
 			setInfo("Jonathan Augusto\nRepresentante da ONG Salve o Planeta")
 		} else if (character === 'rob') {
 			setInfo('Roberto Silvério\nMinistro da Energia')
+		} else if (character === 'rog') {
+			setInfo("Rogério Santos\ndono da empresa Mais Energia")
+		} else if (character === 'igo') {
+			setInfo('Igor Martins\nCientista e Pesquisador')
 		}
 	}, [currentQuestion])
 
+	useEffect(() => {
+		if(questionCount <= tree.length - 1) updateQuestion()
+		else onQuestionAnswered([0, 0, 0, 0], questionCount)
+	}, [questionCount])
+
 	function updateQuestion() {
-		setCurrentQuestion(questions[Math.floor(Math.random() * questions.length)]);
+		setCurrentQuestion(questions[tree[questionCount].id - 1])
+
+		if(tree[questionCount].condition){
+			let cond = tree[questionCount].condition
+			if(answers[findInTree(cond.qIndex)] != cond.qAnswer){
+				if(cond.elseDo == 'jump'){
+					setQuestionCount(questionCount + 1)
+				}
+				else{
+					setCurrentQuestion(questions[cond.elseDo - 1])
+				}
+			}
+		}
 	}
+
+	function findInTree(id){
+		for(let i = 0; i < tree.length; i++){
+			if(tree[i].id == id) return i
+		}
+		return -1
+	}
+
+	useEffect(() => {
+		setCurrentQuestion(questions[tree[questionCount].id - 1])
+		setAnswers(new Array(tree.length).fill(null))
+	}, [tree])
 
 	const animatedEvent = Animated.event(
 		[
@@ -82,8 +118,15 @@ const Chooser = ({ onQuestionAnswered }) => {
 						useNativeDriver: true,
 					}).start();
 
-					onQuestionAnswered(currentQuestion[option]);
-					updateQuestion();
+					let ans = answers
+					ans[questionCount] = option == 'yes'? true : false
+					setAnswers(ans)
+					if(onQuestionAnswered(currentQuestion[option], questionCount)){
+						setQuestionCount(0)
+					}
+					else{
+						setQuestionCount(questionCount + 1)
+					} 
 				}, 300);
 			}
 

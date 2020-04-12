@@ -1,16 +1,25 @@
 import React from 'react';
 import { View, Text, StyleSheet, ScrollView, Linking } from 'react-native';
-import { ListItem, SocialIcon } from 'react-native-elements';
+import { ListItem, SocialIcon, Divider } from 'react-native-elements';
+import { useTheme } from '@react-navigation/native';
 
 const Sobre = () => {
+	const theme = useTheme();
+
 	return (
-		<ScrollView style={styles.container}>
+		<ScrollView
+			style={[styles.container, { backgroundColor: theme.colors.background }]}
+		>
 			<View>
-				<Text style={styles.normalText}>
-					Nós somos a equipe <Text style={{ fontWeight: 'bold' }}>Lignem</Text>,
-					finalista da Maratona Brasil Mais TI 2019. Nossos integrantes são do
-					CEFET-MG. O aplicativo tem foco nas matérias de Geografia e Física,
-					além de uma aplicação prática baseada no jogo{' '}
+				<Text style={[styles.title, { color: theme.colors.text }]}>
+					Quem somos?
+				</Text>
+				<Text style={[styles.normalText, { color: theme.colors.text }]}>
+					{'\t\t'}Nós somos a equipe{' '}
+					<Text style={{ fontWeight: 'bold' }}>Lignem</Text>, finalista da
+					Maratona Brasil Mais TI 2019. Nossos integrantes são do CEFET-MG. O
+					aplicativo tem foco nas matérias de Geografia e Física, além de uma
+					aplicação prática baseada no jogo{' '}
 					<Text style={{ fontStyle: 'italic' }}>Reigns</Text>. {'\n\n'}
 					Para críticas/sugestões, entre em contato:{' '}
 					<Text
@@ -24,31 +33,59 @@ const Sobre = () => {
 						equipelignem@gmail.com
 					</Text>
 				</Text>
-				<Text style={styles.title}>Quem somos?</Text>
+				<Text
+					style={[
+						styles.title,
+						{ color: theme.colors.text, marginTop: 20, marginBottom: 10 },
+					]}
+				>
+					Integrantes
+				</Text>
 
 				{list.map((item, i) => (
-					<ListItem
-						key={i}
-						leftAvatar={{
-							source: item.avatar,
-						}}
-						rightElement={
-							<View style={{ flexDirection: 'row' }}>
-								{item.sites.types.map((type, i) => (
-									<SocialIcon
-										key={i}
-										type={type}
-										style={styles.icon}
-										iconSize={20}
-										onPress={() => Linking.openURL(item.sites.urls[i])}
-									/>
-								))}
-							</View>
-						}
-						title={item.name}
-						pad={15}
-						bottomDivider
-					/>
+					<View key={i}>
+						<ListItem
+							accessible
+							accessibilityLabel={`Integrante: ${item.name}`}
+							containerStyle={{ backgroundColor: theme.colors.background }}
+							leftAvatar={{
+								source: item.avatar,
+							}}
+							rightElement={
+								<View style={{ flexDirection: 'row' }}>
+									{item.sites.types.map((type, i) => (
+										<View
+											key={i}
+											accessible
+											accessibilityLabel={`Rede social ${type} do integrante`}
+											onAccessibilityTap={() =>
+												Linking.openURL(item.sites.urls[i])
+											}
+										>
+											<View importantForAccessibility="no-hide-descendants">
+												<SocialIcon
+													type={type}
+													style={styles.icon}
+													iconSize={20}
+													onPress={() => Linking.openURL(item.sites.urls[i])}
+													onAccessibilityTap={() =>
+														Linking.openURL(item.sites.urls[i])
+													}
+												/>
+											</View>
+										</View>
+									))}
+								</View>
+							}
+							title={item.name}
+							titleStyle={{ color: theme.colors.text }}
+							pad={15}
+							bottomDivider={!theme.dark}
+						/>
+						{i !== list.length - 1 && theme.dark && (
+							<Divider style={{ height: 0.5, backgroundColor: '#707477' }} />
+						)}
+					</View>
 				))}
 			</View>
 		</ScrollView>
@@ -115,8 +152,6 @@ const styles = StyleSheet.create({
 		textAlign: 'center',
 		fontSize: 25,
 		color: '#333',
-		marginTop: 20,
-		marginBottom: 10,
 	},
 	normalText: {
 		textAlign: 'justify',

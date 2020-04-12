@@ -1,5 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, StyleSheet, Button, ScrollView } from 'react-native';
+import {
+	View,
+	Text,
+	StyleSheet,
+	Button,
+	ScrollView,
+	AccessibilityInfo,
+} from 'react-native';
 import { Card } from 'react-native-elements';
 import { useTheme } from '@react-navigation/native';
 
@@ -21,43 +28,61 @@ const Home = ({ navigation }) => {
 			if (str !== 'true') navigation.navigate('TutorialLignem');
 		};
 		loadData();
+
+		AccessibilityInfo.announceForAccessibility(
+			'Página de conteúdos. Os cards estão dispostos a seguir.',
+		);
 	}, []);
 
 	return (
 		<View style={styles.container}>
 			<ScrollView style={styles.cardsList}>
 				{cards.map(card => (
-					<Card
-						image={card.image}
-						title={card.title}
-						titleStyle={styles.title}
-						containerStyle={(() => {
-							const marginVal = cards[cards.length - 1] == card ? 20 : 0;
-
-							return {
-								marginBottom: marginVal,
-								backgroundColor: theme.colors.background,
-								borderColor: theme.colors.background,
-							};
-						})()}
+					<View
 						key={card.id}
+						accessible
+						accessibilityLabel={`Card de ${card.title}. O conteúdo aborda ${
+							card.description
+						}. Para acessar a página desse conteúdo, clique no botão a seguir.`}
 					>
-						<Text style={styles.description}>{card.description}</Text>
-						<Button
-							title={card.buttonTitle}
-							color={theme.colors.primary}
-							style={styles.button}
-							onPress={() => {
-								navigation.navigate({
-									name: 'Content',
-									params: {
-										contentJSONName: card.targetPageSettings.contentJSONName,
-										contentPageTitle: card.targetPageSettings.contentPageTitle,
-									},
-								});
-							}}
-						/>
-					</Card>
+						<Card
+							image={card.image}
+							title={card.title}
+							titleStyle={styles.title}
+							containerStyle={(() => {
+								const marginVal = cards[cards.length - 1] == card ? 20 : 0;
+
+								return {
+									marginBottom: marginVal,
+									backgroundColor: theme.colors.background,
+									borderColor: theme.colors.background,
+									borderRadius: 3,
+								};
+							})()}
+						>
+							<Text style={styles.description} importantForAccessibility="no">
+								{card.description}
+							</Text>
+							<Button
+								accessibilityLabel={`Ir para a página de conteúdo de ${
+									card.title
+								}`}
+								title={card.buttonTitle}
+								color={theme.colors.primary}
+								style={styles.button}
+								onPress={() => {
+									navigation.navigate({
+										name: 'Content',
+										params: {
+											contentJSONName: card.targetPageSettings.contentJSONName,
+											contentPageTitle:
+												card.targetPageSettings.contentPageTitle,
+										},
+									});
+								}}
+							/>
+						</Card>
+					</View>
 				))}
 			</ScrollView>
 		</View>
@@ -67,10 +92,9 @@ const Home = ({ navigation }) => {
 const generateStyles = theme => {
 	return StyleSheet.create({
 		container: {
-			backgroundColor: theme.colors.background,
-		},
-		cardsList: {
-			paddingTop: 10,
+			backgroundColor: theme.dark
+				? theme.colors.backgroundDarken
+				: theme.colors.background,
 		},
 		button: {
 			fontWeight: 'bold',

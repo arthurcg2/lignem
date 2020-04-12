@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { ScrollView, View, Image, ActivityIndicator } from 'react-native';
+import { ScrollView, View, Text, Image, ActivityIndicator } from 'react-native';
 import { useTheme } from '@react-navigation/native';
 import Markdown from 'react-native-simple-markdown';
 
@@ -14,7 +14,7 @@ const ContentsScreen = ({ navigation, route }) => {
 
 	useEffect(() => {
 		setMarkdownStyles(generateStyles(theme));
-	}, []);
+	}, [theme]);
 
 	useEffect(() => {
 		setTimeout(() => setContent(contents[route.params.contentJSONName]), 1);
@@ -44,6 +44,19 @@ const ContentsScreen = ({ navigation, route }) => {
 										style={markdownStyles.image}
 										source={images[node.target.split('.')[0]]}
 									/>
+								);
+							},
+						},
+						paragraph: {
+							react: (node, output, state) => {
+								return (
+									<View
+										accessible
+										key={state.key}
+										style={markdownStyles.paragraph}
+									>
+										{output(node.content, state)}
+									</View>
 								);
 							},
 						},

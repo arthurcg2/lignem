@@ -1,9 +1,15 @@
 import React, { useEffect, useState } from 'react';
-import { View, ScrollView, Switch, Text, StyleSheet } from 'react-native';
+import {
+	View,
+	ScrollView,
+	Switch,
+	Text,
+	StyleSheet,
+	AccessibilityInfo,
+} from 'react-native';
 import { ListItem, Divider } from 'react-native-elements';
-import AsyncStorage from '@react-native-community/async-storage';
 
-import { useTheme } from '@react-navigation/native'
+import { useTheme } from '@react-navigation/native';
 import { useSwitchTheme } from '../../states/ThemeSwitchContext';
 
 const options = [
@@ -30,18 +36,17 @@ const Settings = ({ navigation }) => {
 	const [styles, setStyles] = useState({});
 	const [darkmode, setDarkmode] = useState(false);
 	const switchTheme = useSwitchTheme();
-	const isSwitchDisabled = true;
-	const theme = useTheme()
+	const isSwitchDisabled = false;
+	const theme = useTheme();
 
 	useEffect(() => {
-		setStyles(generateStyles(theme))
-	}, [theme])
+		AccessibilityInfo.announceForAccessibility('Página de configurações.');
+	}, []);
 
 	useEffect(() => {
+		setStyles(generateStyles(theme));
 		async function getInitialState() {
-			const themeKey = await AsyncStorage.getItem('theme');
-
-			if (themeKey === 'dark') {
+			if (theme.name == 'dark') {
 				setDarkmode(true);
 				return;
 			}
@@ -50,7 +55,7 @@ const Settings = ({ navigation }) => {
 		}
 
 		getInitialState();
-	}, []);
+	}, [theme]);
 
 	function handleChange() {
 		switchTheme({
@@ -61,21 +66,25 @@ const Settings = ({ navigation }) => {
 
 	return (
 		<ScrollView style={styles.container}>
-			<Text style={styles.title}>Geral</Text>
+			<Text style={styles.title} importantForAccessibility="no">
+				Geral
+			</Text>
 			<View>
-				<Divider />
+				{!theme.dark && <Divider />}
 				<ListItem
 					title="Tema escuro"
 					subtitle="Tons mais escuros para o Lignem"
-					containerStyle={{backgroundColor: theme.colors.background}}
-					titleStyle={{color: theme.colors.text}}
-					subtitleStyle={{color: theme.colors.text}}
+					containerStyle={{ backgroundColor: theme.colors.background }}
+					titleStyle={{ color: theme.colors.text }}
+					subtitleStyle={{ color: theme.colors.text }}
 					accessible
-					accessibilityLabel="Tons mais escuros para o Lignem"
+					accessibilityLabel="Opção: ativar o modo de cores escuras."
+					accessibilityState={{ selected: darkmode }}
 					leftIcon={{ name: 'brightness-3', color: theme.colors.text }}
 					onPress={!isSwitchDisabled ? handleChange : () => {}}
 					rightElement={
 						<Switch
+							importantForAccessibility="no"
 							value={darkmode}
 							disabled={isSwitchDisabled}
 							onValueChange={handleChange}
@@ -83,42 +92,51 @@ const Settings = ({ navigation }) => {
 							thumbColor="#FFF"
 						/>
 					}
-					bottomDivider
+					bottomDivider={!theme.dark}
 				/>
+				{theme.dark && (
+					<Divider style={{ height: 0.5, backgroundColor: '#5A5C5F' }} />
+				)}
 				{options.map((item, i) => (
-					<ListItem
-						title={item.title}
-						subtitle={item.sub}
-						containerStyle={{backgroundColor: theme.colors.background}}
-						titleStyle={{color: theme.colors.text}}
-						subtitleStyle={{color: theme.colors.text}}
-						accessible
-						accessibilityLabel={item.sub}
-						leftIcon={{ name: item.icon, color: theme.colors.text }}
-						rightElement={item.rightElement ? item.rightElement : null}
-						onPress={() => {
-							if (item.navigate) {
-								navigation.navigate(item.navigate);
-							} else if (item.onPress) {
-								item.onPress();
-							}
-						}}
-						chevron={item.chevron}
-						bottomDivider
-						key={i}
-					/>
+					<View key={'options-' + i}>
+						<ListItem
+							title={item.title}
+							subtitle={item.sub}
+							containerStyle={{ backgroundColor: theme.colors.background }}
+							titleStyle={{ color: theme.colors.text }}
+							subtitleStyle={{ color: theme.colors.text }}
+							accessible
+							accessibilityLabel={item.sub}
+							leftIcon={{ name: item.icon, color: theme.colors.text }}
+							rightElement={item.rightElement ? item.rightElement : null}
+							onPress={() => {
+								if (item.navigate) {
+									navigation.navigate(item.navigate);
+								} else if (item.onPress) {
+									item.onPress();
+								}
+							}}
+							chevron={item.chevron}
+							bottomDivider={!theme.dark}
+						/>
+						{i !== options.length - 1 && theme.dark && (
+							<Divider style={{ height: 0.5, backgroundColor: '#5A5C5F' }} />
+						)}
+					</View>
 				))}
 			</View>
-			<Text style={styles.title}>Acessibilidade</Text>
+			<Text style={styles.title} importantForAccessibility="no">
+				Acessibilidade
+			</Text>
 			<View>
-				<Divider />
+				{!theme.dark && <Divider />}
 				{accessibilityOptions.map((item, i) => (
 					<ListItem
 						title={item.title}
 						subtitle={item.sub}
-						containerStyle={{backgroundColor: theme.colors.background}}
-						titleStyle={{color: theme.colors.text}}
-						subtitleStyle={{color: theme.colors.text}}
+						containerStyle={{ backgroundColor: theme.colors.background }}
+						titleStyle={{ color: theme.colors.text }}
+						subtitleStyle={{ color: theme.colors.text }}
 						accessible
 						accessibilityLabel={item.sub}
 						leftIcon={{ name: item.icon, color: theme.colors.text }}
@@ -131,8 +149,8 @@ const Settings = ({ navigation }) => {
 							}
 						}}
 						chevron={item.chevron}
-						bottomDivider
-						key={i}
+						bottomDivider={!theme.dark}
+						key={'accessibility-' + i}
 					/>
 				))}
 			</View>
@@ -144,7 +162,9 @@ const generateStyles = theme => {
 	return StyleSheet.create({
 		container: {
 			flex: 1,
-			backgroundColor: theme.colors.background,
+			backgroundColor: theme.dark
+				? theme.colors.backgroundDarken
+				: theme.colors.background,
 		},
 		title: {
 			fontSize: 30,
@@ -154,6 +174,6 @@ const generateStyles = theme => {
 			marginBottom: 20,
 		},
 	});
-}
+};
 
 export default Settings;

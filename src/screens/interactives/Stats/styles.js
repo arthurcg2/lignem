@@ -1,6 +1,6 @@
 import { StyleSheet, Dimensions } from 'react-native';
 
-const h = Dimensions.get('window').height
+const h = Dimensions.get('window').height;
 
 export default StyleSheet.create({
 	statsContainer: {
@@ -19,7 +19,6 @@ export default StyleSheet.create({
 		height: 75,
 		marginBottom: 10,
 		borderWidth: 2,
-		borderColor: '#6048b0',
 		padding: 2,
 		alignItems: 'center',
 		justifyContent: 'flex-end',

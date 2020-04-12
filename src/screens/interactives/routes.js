@@ -18,12 +18,12 @@ const Router = ({ navigation }) => {
 			screenOptions={{
 				title: 'Título',
 				headerTitleAlign: 'center',
-				headerTintColor: '#7159C1',
+				headerTintColor: theme.colors.primary,
 				headerTitleStyle: {
 					fontWeight: 'bold',
 				},
 				headerStyle: {
-					backgroundColor: '#FAFAFA',
+					backgroundColor: theme.colors.background,
 				},
 			}}
 		>
@@ -34,6 +34,7 @@ const Router = ({ navigation }) => {
 					headerTitle: props => <Logo {...props} />,
 					headerRight: props => (
 						<Icon
+							accessibilityHint="Abrir o tutorial do jogo."
 							color={theme.colors.primary}
 							size={32}
 							style={{ marginRight: 15 }}

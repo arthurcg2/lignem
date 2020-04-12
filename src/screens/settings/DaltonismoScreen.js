@@ -1,29 +1,22 @@
 import React, { useEffect, useState } from 'react';
-import { View, StyleSheet, Switch } from 'react-native';
-import { ListItem } from 'react-native-elements';
+import { ScrollView, View, StyleSheet, Switch } from 'react-native';
+import { ListItem, Divider } from 'react-native-elements';
 import AsyncStorage from '@react-native-community/async-storage';
 
-import { useTheme } from '@react-navigation/native'
+import { useTheme } from '@react-navigation/native';
 import { useSwitchTheme } from '../../states/ThemeSwitchContext';
 
 const Daltonismo = () => {
 	const [deficiencias, setDeficiencias] = useState(new Array(6).fill(false));
-	const [styles, setStyles] = useState({})
 	const switchTheme = useSwitchTheme();
-	const isSwitchDisabled = true;
-	const theme = useTheme()
-
-	useEffect(() => {
-		setStyles(generateStyles(theme))
-	}, [theme])
+	const isSwitchDisabled = false;
+	const theme = useTheme();
 
 	function handleChange(item) {
 		let newDef = new Array(6).fill(false);
 		newDef[item.cod] = !deficiencias[item.cod];
 
 		let defType = item.title.toLowerCase();
-
-		if (defType.endsWith('lia')) defType = defType.replace('ia', 'y');
 
 		switchTheme({
 			type: newDef[item.cod] ? defType : 'light',
@@ -34,12 +27,11 @@ const Daltonismo = () => {
 
 	useEffect(() => {
 		async function getType() {
-			let type = await AsyncStorage.getItem('theme');
-			if (type.endsWith('ly')) type = type.replace('y', 'ia');
+			const type = await AsyncStorage.getItem('theme');
 
 			if (type != 'light' && type != 'dark') {
 				list.forEach(el => {
-					if (el.title == type) {
+					if (el.title.toLowerCase() == type) {
 						let newDef = new Array(6).fill(false);
 						newDef[el.cod] = !deficiencias[el.cod];
 						setDeficiencias(newDef);
@@ -52,39 +44,48 @@ const Daltonismo = () => {
 	}, []);
 
 	return (
-		<View style={styles.container}>
-			<View accessibilityRole="menu">
+		<ScrollView
+			style={[styles.container, { backgroundColor: theme.colors.background }]}
+		>
+			<View>
 				{list.map((l, i) => (
-					<ListItem
-						key={i}
-						containerStyle={{backgroundColor: theme.colors.background}}
-						titleStyle={{color: theme.colors.text}}
-						subtitleStyle={{color: theme.colors.text}}
-						title={l.title}
-						accessible
-						accessibilityLabel={l.sub}
-						accessibilityRole="menuitem"
-						subtitle={l.sub}
-						bottomDivider
-						onPress={() => {
-							if (!isSwitchDisabled) handleChange(l);
-						}}
-						rightElement={
-							<Switch
-								disabled={isSwitchDisabled}
-								value={deficiencias[l.cod]}
-								onValueChange={() => {
-									handleChange(l);
-								}}
-								accessibilityRole="switch"
-								trackColor={{ true: theme.colors.primary }}
-								thumbColor="#FFF"
-							/>
-						}
-					/>
+					<View key={i}>
+						<ListItem
+							containerStyle={{ backgroundColor: theme.colors.background }}
+							titleStyle={{ color: theme.colors.text }}
+							subtitleStyle={{ color: theme.colors.text }}
+							title={l.title}
+							accessible
+							accessibilityLabel={`Ativar o modo de daltonismo do tipo ${
+								l.sub
+							}`}
+							accessibilityState={{ selected: deficiencias[l.cod] }}
+							subtitle={l.sub}
+							bottomDivider={!theme.dark}
+							onPress={() => {
+								if (!isSwitchDisabled) handleChange(l);
+							}}
+							rightElement={
+								<Switch
+									importantForAccessibility="no"
+									disabled={isSwitchDisabled}
+									value={deficiencias[l.cod]}
+									onValueChange={() => {
+										handleChange(l);
+									}}
+									accessibilityRole="switch"
+									trackColor={{ true: theme.colors.primary }}
+									thumbColor="#FFF"
+								/>
+							}
+						/>
+						{theme.dark && (
+							<Divider style={{ height: 0.5, backgroundColor: '#707477' }} />
+						)}
+					</View>
 				))}
 			</View>
-		</View>
+		</ScrollView>
 	);
 };
 
@@ -121,13 +122,10 @@ const list = [
 	},
 ];
 
-const generateStyles = theme => {
-	return StyleSheet.create({
-		container: {
-			flex: 1,
-			backgroundColor: theme.colors.background,
-		},
-	});
-}
+const styles = StyleSheet.create({
+	container: {
+		flex: 1,
+	},
+});
 
 export default Daltonismo;
