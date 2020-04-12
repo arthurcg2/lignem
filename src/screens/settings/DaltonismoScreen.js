@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { ScrollView, View, StyleSheet, Switch } from 'react-native';
-import { ListItem } from 'react-native-elements';
+import { ListItem, Divider } from 'react-native-elements';
 import AsyncStorage from '@react-native-community/async-storage';
 
 import { useTheme } from '@react-navigation/native';
@@ -49,34 +49,40 @@ const Daltonismo = () => {
 		>
 			<View>
 				{list.map((l, i) => (
-					<ListItem
-						key={i}
-						containerStyle={{ backgroundColor: theme.colors.background }}
-						titleStyle={{ color: theme.colors.text }}
-						subtitleStyle={{ color: theme.colors.text }}
-						title={l.title}
-						accessible
-						accessibilityLabel={`Ativar o modo de daltonismo do tipo ${l.sub}`}
-						accessibilityState={{ selected: deficiencias[l.cod] }}
-						subtitle={l.sub}
-						bottomDivider
-						onPress={() => {
-							if (!isSwitchDisabled) handleChange(l);
-						}}
-						rightElement={
-							<Switch
-								importantForAccessibility="no"
-								disabled={isSwitchDisabled}
-								value={deficiencias[l.cod]}
-								onValueChange={() => {
-									handleChange(l);
-								}}
-								accessibilityRole="switch"
-								trackColor={{ true: theme.colors.primary }}
-								thumbColor="#FFF"
-							/>
-						}
-					/>
+					<View key={i}>
+						<ListItem
+							containerStyle={{ backgroundColor: theme.colors.background }}
+							titleStyle={{ color: theme.colors.text }}
+							subtitleStyle={{ color: theme.colors.text }}
+							title={l.title}
+							accessible
+							accessibilityLabel={`Ativar o modo de daltonismo do tipo ${
+								l.sub
+							}`}
+							accessibilityState={{ selected: deficiencias[l.cod] }}
+							subtitle={l.sub}
+							bottomDivider={!theme.dark}
+							onPress={() => {
+								if (!isSwitchDisabled) handleChange(l);
+							}}
+							rightElement={
+								<Switch
+									importantForAccessibility="no"
+									disabled={isSwitchDisabled}
+									value={deficiencias[l.cod]}
+									onValueChange={() => {
+										handleChange(l);
+									}}
+									accessibilityRole="switch"
+									trackColor={{ true: theme.colors.primary }}
+									thumbColor="#FFF"
+								/>
+							}
+						/>
+						{theme.dark && (
+							<Divider style={{ height: 0.5, backgroundColor: '#707477' }} />
+						)}
+					</View>
 				))}
 			</View>
 		</ScrollView>

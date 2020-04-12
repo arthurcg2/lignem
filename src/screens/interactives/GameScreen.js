@@ -86,7 +86,16 @@ const GameMain = ({ navigation }) => {
 	}
 
 	return (
-		<View style={styles.container}>
+		<View
+			style={[
+				styles.container,
+				{
+					backgroundColor: theme.dark
+						? theme.colors.backgroundDarken
+						: theme.colors.background,
+				},
+			]}
+		>
 			<Overlay
 				isVisible={overlayVisible}
 				height={100}

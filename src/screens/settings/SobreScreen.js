@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, Text, StyleSheet, ScrollView, Linking } from 'react-native';
-import { ListItem, SocialIcon } from 'react-native-elements';
+import { ListItem, SocialIcon, Divider } from 'react-native-elements';
 import { useTheme } from '@react-navigation/native';
 
 const Sobre = () => {
@@ -15,10 +15,11 @@ const Sobre = () => {
 					Quem somos?
 				</Text>
 				<Text style={[styles.normalText, { color: theme.colors.text }]}>
-					Nós somos a equipe <Text style={{ fontWeight: 'bold' }}>Lignem</Text>,
-					finalista da Maratona Brasil Mais TI 2019. Nossos integrantes são do
-					CEFET-MG. O aplicativo tem foco nas matérias de Geografia e Física,
-					além de uma aplicação prática baseada no jogo{' '}
+					{'\t\t'}Nós somos a equipe{' '}
+					<Text style={{ fontWeight: 'bold' }}>Lignem</Text>, finalista da
+					Maratona Brasil Mais TI 2019. Nossos integrantes são do CEFET-MG. O
+					aplicativo tem foco nas matérias de Geografia e Física, além de uma
+					aplicação prática baseada no jogo{' '}
 					<Text style={{ fontStyle: 'italic' }}>Reigns</Text>. {'\n\n'}
 					Para críticas/sugestões, entre em contato:{' '}
 					<Text
@@ -42,45 +43,49 @@ const Sobre = () => {
 				</Text>
 
 				{list.map((item, i) => (
-					<ListItem
-						accessible
-						accessibilityLabel={`Integrante: ${item.name}`}
-						containerStyle={{ backgroundColor: theme.colors.background }}
-						key={i}
-						leftAvatar={{
-							source: item.avatar,
-						}}
-						rightElement={
-							<View style={{ flexDirection: 'row' }}>
-								{item.sites.types.map((type, i) => (
-									<View
-										key={i}
-										accessible
-										accessibilityLabel={`Rede social ${type} do integrante`}
-										onAccessibilityTap={() =>
-											Linking.openURL(item.sites.urls[i])
-										}
-									>
-										<View importantForAccessibility="no-hide-descendants">
-											<SocialIcon
-												type={type}
-												style={styles.icon}
-												iconSize={20}
-												onPress={() => Linking.openURL(item.sites.urls[i])}
-												onAccessibilityTap={() =>
-													Linking.openURL(item.sites.urls[i])
-												}
-											/>
+					<View key={i}>
+						<ListItem
+							accessible
+							accessibilityLabel={`Integrante: ${item.name}`}
+							containerStyle={{ backgroundColor: theme.colors.background }}
+							leftAvatar={{
+								source: item.avatar,
+							}}
+							rightElement={
+								<View style={{ flexDirection: 'row' }}>
+									{item.sites.types.map((type, i) => (
+										<View
+											key={i}
+											accessible
+											accessibilityLabel={`Rede social ${type} do integrante`}
+											onAccessibilityTap={() =>
+												Linking.openURL(item.sites.urls[i])
+											}
+										>
+											<View importantForAccessibility="no-hide-descendants">
+												<SocialIcon
+													type={type}
+													style={styles.icon}
+													iconSize={20}
+													onPress={() => Linking.openURL(item.sites.urls[i])}
+													onAccessibilityTap={() =>
+														Linking.openURL(item.sites.urls[i])
+													}
+												/>
+											</View>
 										</View>
-									</View>
-								))}
-							</View>
-						}
-						title={item.name}
-						titleStyle={{ color: theme.colors.text }}
-						pad={15}
-						bottomDivider
-					/>
+									))}
+								</View>
+							}
+							title={item.name}
+							titleStyle={{ color: theme.colors.text }}
+							pad={15}
+							bottomDivider={!theme.dark}
+						/>
+						{i !== list.length - 1 && theme.dark && (
+							<Divider style={{ height: 0.5, backgroundColor: '#707477' }} />
+						)}
+					</View>
 				))}
 			</View>
 		</ScrollView>

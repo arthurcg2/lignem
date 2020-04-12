@@ -70,7 +70,7 @@ const Settings = ({ navigation }) => {
 				Geral
 			</Text>
 			<View>
-				<Divider />
+				{!theme.dark && <Divider />}
 				<ListItem
 					title="Tema escuro"
 					subtitle="Tons mais escuros para o Lignem"
@@ -92,37 +92,44 @@ const Settings = ({ navigation }) => {
 							thumbColor="#FFF"
 						/>
 					}
-					bottomDivider
+					bottomDivider={!theme.dark}
 				/>
+				{theme.dark && (
+					<Divider style={{ height: 0.5, backgroundColor: '#5A5C5F' }} />
+				)}
 				{options.map((item, i) => (
-					<ListItem
-						title={item.title}
-						subtitle={item.sub}
-						containerStyle={{ backgroundColor: theme.colors.background }}
-						titleStyle={{ color: theme.colors.text }}
-						subtitleStyle={{ color: theme.colors.text }}
-						accessible
-						accessibilityLabel={item.sub}
-						leftIcon={{ name: item.icon, color: theme.colors.text }}
-						rightElement={item.rightElement ? item.rightElement : null}
-						onPress={() => {
-							if (item.navigate) {
-								navigation.navigate(item.navigate);
-							} else if (item.onPress) {
-								item.onPress();
-							}
-						}}
-						chevron={item.chevron}
-						bottomDivider
-						key={i}
-					/>
+					<View key={'options-' + i}>
+						<ListItem
+							title={item.title}
+							subtitle={item.sub}
+							containerStyle={{ backgroundColor: theme.colors.background }}
+							titleStyle={{ color: theme.colors.text }}
+							subtitleStyle={{ color: theme.colors.text }}
+							accessible
+							accessibilityLabel={item.sub}
+							leftIcon={{ name: item.icon, color: theme.colors.text }}
+							rightElement={item.rightElement ? item.rightElement : null}
+							onPress={() => {
+								if (item.navigate) {
+									navigation.navigate(item.navigate);
+								} else if (item.onPress) {
+									item.onPress();
+								}
+							}}
+							chevron={item.chevron}
+							bottomDivider={!theme.dark}
+						/>
+						{i !== options.length - 1 && theme.dark && (
+							<Divider style={{ height: 0.5, backgroundColor: '#5A5C5F' }} />
+						)}
+					</View>
 				))}
 			</View>
 			<Text style={styles.title} importantForAccessibility="no">
 				Acessibilidade
 			</Text>
 			<View>
-				<Divider />
+				{!theme.dark && <Divider />}
 				{accessibilityOptions.map((item, i) => (
 					<ListItem
 						title={item.title}
@@ -142,8 +149,8 @@ const Settings = ({ navigation }) => {
 							}
 						}}
 						chevron={item.chevron}
-						bottomDivider
-						key={i}
+						bottomDivider={!theme.dark}
+						key={'accessibility-' + i}
 					/>
 				))}
 			</View>
@@ -155,7 +162,9 @@ const generateStyles = theme => {
 	return StyleSheet.create({
 		container: {
 			flex: 1,
-			backgroundColor: theme.colors.background,
+			backgroundColor: theme.dark
+				? theme.colors.backgroundDarken
+				: theme.colors.background,
 		},
 		title: {
 			fontSize: 30,

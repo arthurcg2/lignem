@@ -56,6 +56,7 @@ const Home = ({ navigation }) => {
 									marginBottom: marginVal,
 									backgroundColor: theme.colors.background,
 									borderColor: theme.colors.background,
+									borderRadius: 3,
 								};
 							})()}
 						>
@@ -91,7 +92,9 @@ const Home = ({ navigation }) => {
 const generateStyles = theme => {
 	return StyleSheet.create({
 		container: {
-			backgroundColor: theme.colors.background,
+			backgroundColor: theme.dark
+				? theme.colors.backgroundDarken
+				: theme.colors.background,
 		},
 		button: {
 			fontWeight: 'bold',
