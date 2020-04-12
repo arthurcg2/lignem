@@ -8,47 +8,9 @@ import { useTheme } from '@react-navigation/native';
 import Chooser from './Chooser';
 import Stats from './Stats';
 
+import trees from './trees'
+
 const GameMain = ({ navigation }) => {
-	const trees = [
-		[
-			{
-				id: 1,
-			},
-			{
-				id: 2,
-			},
-			{
-				id: 3,
-				condition: {
-					qIndex: 0,
-					qAnswer: true,
-					do: 2, // Essa pergunta será a de id 2 caso a primeira pergunta tenha sido aceita 
-				},
-			},
-			{
-				id: 1,
-			},
-		],
-		[
-			{
-				id: 3,
-			},
-			{
-				id: 2,
-			},
-			{
-				id: 1,
-				condition: {
-					qIndex: 0,
-					qAnswer: false,
-					do: 'jump', // Essa pergunta será pulada caso a primeira pergunta tenha sido rejeitada
-				},
-			},
-			{
-				id: 3,
-			},
-		],
-	]
 
 	const [stats, setStats] = useState(new Array(4).fill(0));
 	const [oldValues, setOldValues] = useState(new Array(4).fill(0));
@@ -145,6 +107,7 @@ const GameMain = ({ navigation }) => {
 		});
 		setMonth(month + 1)
 		setStats(newStats);
+		console.log(newStats)
 		return checkEnd(questionCount, newStats)
 	}
 
@@ -170,11 +133,11 @@ const GameMain = ({ navigation }) => {
 				<View style={styles.overlayContainer}>
 					<Text style={styles.text}>{overlayText}</Text>
 					<Text style={{ fontSize: 18 }}>Tempo de governo: {formatMonths()}</Text>
-					{gameStats.map(stat => {
+					{gameStats.map((stat, index) => {
 						const v = new Animated.Value(stat.value)
 
 						return (
-							<View style={{ flexDirection: 'row', alignItems: 'center', paddingLeft: 10 }}>
+							<View key={index} style={{ flexDirection: 'row', alignItems: 'center', paddingLeft: 10 }}>
 								<Text font>{stat.name}: </Text>
 								<Animated.Text style={{
 									color: v.interpolate({
@@ -204,7 +167,7 @@ const GameMain = ({ navigation }) => {
 						</Animated.Text>
 					</View>
 					<Button
-						title="Reiniciar com mesma árvore"
+						title="Reiniciar"
 						color={theme.colors.primary}
 						style={styles.button}
 						onPress={() => {
@@ -219,7 +182,7 @@ const GameMain = ({ navigation }) => {
 							setOverlayVisible(false);
 						}}
 					/>
-					<Button
+					{/* <Button
 						title="Reiniciar com árvore diferente"
 						color={theme.colors.primary}
 						style={styles.button}
@@ -234,7 +197,7 @@ const GameMain = ({ navigation }) => {
 							setMonth(0)
 							setOverlayVisible(false);
 						}}
-					/>
+					/> */}
 				</View>
 			</Overlay>
 			<Chooser onQuestionAnswered={handleQuestionAnswered} tree={currentTree} />

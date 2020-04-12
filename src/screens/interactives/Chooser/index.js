@@ -30,6 +30,10 @@ const Chooser = ({ onQuestionAnswered, tree }) => {
 			setInfo("Jonathan Augusto\nRepresentante da ONG Salve o Planeta")
 		} else if (character === 'rob') {
 			setInfo('Roberto Silvério\nMinistro da Energia')
+		} else if (character === 'rog') {
+			setInfo("Rogério Santos\ndono da empresa Mais Energia")
+		} else if (character === 'igo') {
+			setInfo('Igor Martins\nCientista e Pesquisador')
 		}
 	}, [currentQuestion])
 
@@ -42,7 +46,7 @@ const Chooser = ({ onQuestionAnswered, tree }) => {
 
 		if(tree[questionCount].condition){
 			let cond = tree[questionCount].condition
-			if(answers[cond.qIndex] == cond.qAnswer){
+			if(answers[findInTree(cond.qIndex)] == cond.qAnswer){
 				if(cond.do == 'jump'){
 					setQuestionCount(questionCount + 1)
 				}
@@ -51,6 +55,13 @@ const Chooser = ({ onQuestionAnswered, tree }) => {
 				}
 			}
 		}
+	}
+
+	function findInTree(id){
+		for(let i = 0; i < tree.length; i++){
+			if(tree[i].id == id) return i
+		}
+		return -1
 	}
 
 	useEffect(() => {
