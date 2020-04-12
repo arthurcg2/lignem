@@ -12,10 +12,18 @@ import {
 } from 'react-native';
 import { Overlay } from 'react-native-elements';
 import { useTheme } from '@react-navigation/native';
+
 import Chooser from './Chooser';
 import Stats from './Stats';
 
 import trees from './trees';
+
+const endStatements = [
+	'a sustentabilidade',
+	'sua popularidade',
+	'suas finanças',
+	'sua reserva de energia',
+];
 
 const GameMain = ({ navigation }) => {
 	const [stats, setStats] = useState(new Array(4).fill(0));
@@ -56,13 +64,6 @@ const GameMain = ({ navigation }) => {
 			value: stats[3],
 			maxValue: 20,
 		},
-	];
-
-	const endStatements = [
-		'a sustentabilidade',
-		'sua popularidade',
-		'suas finanças',
-		'sua reserva de energia',
 	];
 
 	useEffect(() => {
@@ -163,10 +164,17 @@ const GameMain = ({ navigation }) => {
 				},
 			]}
 		>
-			<Overlay isVisible={overlayVisible} height={350} width={300}>
+			<Overlay
+				isVisible={overlayVisible}
+				overlayBackgroundColor={theme.colors.background}
+				height={350}
+				width={300}
+			>
 				<View style={styles.overlayContainer}>
-					<Text style={styles.text}>{overlayText}</Text>
-					<Text style={{ fontSize: 18 }}>
+					<Text style={[styles.text, { color: theme.colors.text }]}>
+						{overlayText}
+					</Text>
+					<Text style={{ fontSize: 18, color: theme.colors.text }}>
 						Tempo de governo: {formatMonths()}
 					</Text>
 					{gameStats.map((stat, index) => {
@@ -181,7 +189,7 @@ const GameMain = ({ navigation }) => {
 									paddingLeft: 10,
 								}}
 							>
-								<Text font>{stat.name}: </Text>
+								<Text style={{ color: theme.colors.text }}>{stat.name}: </Text>
 								<Animated.Text
 									style={{
 										color: v.interpolate({
@@ -208,7 +216,9 @@ const GameMain = ({ navigation }) => {
 							paddingLeft: 5,
 						}}
 					>
-						<Text style={{ fontSize: 16 }}>Média final: </Text>
+						<Text style={{ fontSize: 16, color: theme.colors.text }}>
+							Média final:{' '}
+						</Text>
 						<Animated.Text
 							style={{
 								color: m.interpolate({
@@ -262,7 +272,9 @@ const GameMain = ({ navigation }) => {
 				</View>
 			</Overlay>
 			<Chooser onQuestionAnswered={handleQuestionAnswered} tree={currentTree} />
-			<Text style={styles.monthsText}>Tempo de governo: {formatMonths()}</Text>
+			<Text style={[styles.monthsText, { color: theme.colors.text }]}>
+				Tempo de governo: {formatMonths()}
+			</Text>
 			<Stats currentStats={gameStats} oldValues={oldValues} />
 		</View>
 	);
@@ -284,6 +296,7 @@ const styles = StyleSheet.create({
 	monthsText: {
 		fontSize: 14,
 		marginVertical: 5,
+		fontFamily: 'Montserrat',
 	},
 	overlayContainer: {
 		flex: 1,
