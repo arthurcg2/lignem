@@ -127,7 +127,6 @@ const GameMain = ({ navigation }) => {
 		});
 		setMonth(month + 1);
 		setStats(newStats);
-		console.log(newStats);
 		return checkEnd(questionCount, newStats);
 	}
 
