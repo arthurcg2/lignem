@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Animated, Text, Image } from 'react-native';
+import { Animated, Text, Image, View } from 'react-native';
 import { PanGestureHandler, State } from 'react-native-gesture-handler';
 import { styles } from './styles';
 
@@ -10,65 +10,61 @@ import backgroundImage from '../../../../assets/game/background.png';
 import { useEffect } from 'react';
 
 const Chooser = ({ onQuestionAnswered, tree }) => {
-	const [currentQuestion, setCurrentQuestion] = useState(questions[tree[0].id - 1]);
-	const [questionCount, setQuestionCount] = useState(0)
-	const [answers, setAnswers] = useState(new Array(tree.length).fill(null))
+	const [currentQuestion, setCurrentQuestion] = useState(
+		questions[tree[0].id - 1],
+	);
+	const [questionCount, setQuestionCount] = useState(0);
+	const [answers, setAnswers] = useState(new Array(tree.length).fill(null));
 
 	const [info, setInfo] = useState('');
 	const elevationBrand = new Animated.Value(10);
 	const elevationSwap = new Animated.Value(20);
 	const changeableDist = 50;
 	const translateX = new Animated.Value(0);
+	const agent = {
+		pop: 'A População',
+		car: 'Carlos Joaquim\nMinistro da Economia',
+		jon: 'Jonathan Augusto\nRepresentante da ONG Salve o Planeta',
+		rob: 'Roberto Silvério\nMinistro da Energia',
+		rog: 'Rogério Santos\ndono da empresa Mais Energia',
+		igo: 'Igor Martins\nCientista e Pesquisador',
+	};
 
 	useEffect(() => {
-		const character = currentQuestion.char
-		if (character === 'pop') {
-			setInfo("População")
-		} else if (character === 'car') {
-			setInfo("Carlos Joaquim\nMinistro da Economia")
-		} else if (character === 'jon') {
-			setInfo("Jonathan Augusto\nRepresentante da ONG Salve o Planeta")
-		} else if (character === 'rob') {
-			setInfo('Roberto Silvério\nMinistro da Energia')
-		} else if (character === 'rog') {
-			setInfo("Rogério Santos\ndono da empresa Mais Energia")
-		} else if (character === 'igo') {
-			setInfo('Igor Martins\nCientista e Pesquisador')
-		}
-	}, [currentQuestion])
+		setInfo(agent[currentQuestion.char]);
+	}, [currentQuestion]);
 
 	useEffect(() => {
-		if(questionCount <= tree.length - 1) updateQuestion()
-		else onQuestionAnswered([0, 0, 0, 0], questionCount)
-	}, [questionCount])
+		if (questionCount <= tree.length - 1) updateQuestion();
+		else onQuestionAnswered([0, 0, 0, 0], questionCount);
+	}, [questionCount]);
 
 	function updateQuestion() {
-		setCurrentQuestion(questions[tree[questionCount].id - 1])
+		setCurrentQuestion(questions[tree[questionCount].id - 1]);
 
-		if(tree[questionCount].condition){
-			let cond = tree[questionCount].condition
-			if(answers[findInTree(cond.qIndex)] != cond.qAnswer){
-				if(cond.elseDo == 'jump'){
-					setQuestionCount(questionCount + 1)
-				}
-				else{
-					setCurrentQuestion(questions[cond.elseDo - 1])
+		if (tree[questionCount].condition) {
+			let cond = tree[questionCount].condition;
+			if (answers[findInTree(cond.qIndex)] != cond.qAnswer) {
+				if (cond.elseDo == 'jump') {
+					setQuestionCount(questionCount + 1);
+				} else {
+					setCurrentQuestion(questions[cond.elseDo - 1]);
 				}
 			}
 		}
 	}
 
-	function findInTree(id){
-		for(let i = 0; i < tree.length; i++){
-			if(tree[i].id == id) return i
+	function findInTree(id) {
+		for (let i = 0; i < tree.length; i++) {
+			if (tree[i].id == id) return i;
 		}
-		return -1
+		return -1;
 	}
 
 	useEffect(() => {
-		setCurrentQuestion(questions[tree[questionCount].id - 1])
-		setAnswers(new Array(tree.length).fill(null))
-	}, [tree])
+		setCurrentQuestion(questions[tree[questionCount].id - 1]);
+		setAnswers(new Array(tree.length).fill(null));
+	}, [tree]);
 
 	const animatedEvent = Animated.event(
 		[
@@ -118,15 +114,14 @@ const Chooser = ({ onQuestionAnswered, tree }) => {
 						useNativeDriver: true,
 					}).start();
 
-					let ans = answers
-					ans[questionCount] = option == 'yes'? true : false
-					setAnswers(ans)
-					if(onQuestionAnswered(currentQuestion[option], questionCount)){
-						setQuestionCount(0)
+					let ans = answers;
+					ans[questionCount] = option == 'yes' ? true : false;
+					setAnswers(ans);
+					if (onQuestionAnswered(currentQuestion[option], questionCount)) {
+						setQuestionCount(0);
+					} else {
+						setQuestionCount(questionCount + 1);
 					}
-					else{
-						setQuestionCount(questionCount + 1)
-					} 
 				}, 300);
 			}
 
@@ -143,7 +138,13 @@ const Chooser = ({ onQuestionAnswered, tree }) => {
 			onGestureEvent={animatedEvent}
 			onHandlerStateChange={onHandlerStateChanged}
 		>
-			<Animated.View style={styles.container}>
+			<Animated.View
+				style={styles.container}
+				accessible={true}
+				accessibilityLabel={`${info} diz:\n ${
+					currentQuestion.statement
+				}\n: Clique nas laterais para tomar uma decisão!`}
+			>
 				<Animated.View
 					style={{
 						elevation: 5,
@@ -155,7 +156,11 @@ const Chooser = ({ onQuestionAnswered, tree }) => {
 						...styles.brand,
 					}}
 				>
-					<Image borderRadius={10} source={backgroundImage} style={styles.image} />
+					<Image
+						borderRadius={10}
+						source={backgroundImage}
+						style={styles.image}
+					/>
 				</Animated.View>
 				<Animated.View
 					style={{
@@ -185,7 +190,8 @@ const Chooser = ({ onQuestionAnswered, tree }) => {
 						text={currentQuestion.statement}
 						character={currentQuestion.char}
 					/>
-					<Animated.View style={{
+					<Animated.View
+						style={{
 							opacity: translateX.interpolate({
 								inputRange: [-40, 0, 40],
 								outputRange: [0, 1, 0],
