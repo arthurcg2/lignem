@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import {
 	View,
 	ScrollView,
@@ -6,6 +6,7 @@ import {
 	Text,
 	StyleSheet,
 	AccessibilityInfo,
+	findNodeHandle,
 } from 'react-native';
 import { ListItem, Divider } from 'react-native-elements';
 
@@ -34,6 +35,7 @@ const accessibilityOptions = [
 
 const Settings = ({ navigation }) => {
 	const [styles, setStyles] = useState({});
+	const initialFocus = useRef(null);
 	const [darkmode, setDarkmode] = useState(false);
 	const switchTheme = useSwitchTheme();
 	const isSwitchDisabled = false;
@@ -42,6 +44,18 @@ const Settings = ({ navigation }) => {
 	useEffect(() => {
 		AccessibilityInfo.announceForAccessibility('Página de configurações.');
 	}, []);
+
+	useEffect(() => {
+		const unsubscribe = navigation.addListener('focus', () => {
+			if (initialFocus.current)
+				AccessibilityInfo.setAccessibilityFocus(
+					findNodeHandle(initialFocus.current),
+				);
+		});
+
+		// Return the function to unsubscribe from the event so it gets removed on unmount
+		return unsubscribe;
+	}, [navigation, initialFocus]);
 
 	useEffect(() => {
 		setStyles(generateStyles(theme));
@@ -72,6 +86,7 @@ const Settings = ({ navigation }) => {
 			<View>
 				{!theme.dark && <Divider />}
 				<ListItem
+					ref={initialFocus}
 					title="Tema escuro"
 					subtitle="Tons mais escuros para o Lignem"
 					containerStyle={{ backgroundColor: theme.colors.background }}
