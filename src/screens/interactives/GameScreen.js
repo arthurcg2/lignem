@@ -1,5 +1,5 @@
 /* eslint-disable react-native/no-inline-styles */
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import AsyncStorage from '@react-native-community/async-storage';
 
 import {
@@ -9,6 +9,7 @@ import {
 	StyleSheet,
 	AccessibilityInfo,
 	Animated,
+	findNodeHandle,
 } from 'react-native';
 import { Overlay } from 'react-native-elements';
 import { useTheme } from '@react-navigation/native';
@@ -28,7 +29,9 @@ const endStatements = [
 const GameMain = ({ navigation }) => {
 	const [stats, setStats] = useState(new Array(4).fill(0));
 	const [oldValues, setOldValues] = useState(new Array(4).fill(0));
+	const [questionText, setQuestionText] = useState('');
 
+	const mainGameRef = useRef(null);
 	const [overlayVisible, setOverlayVisible] = useState(false);
 	const [overlayText, setOverlayText] = useState('');
 
@@ -84,6 +87,18 @@ const GameMain = ({ navigation }) => {
 		);
 	}, []);
 
+	useEffect(() => {
+		const unsubscribe = navigation.addListener('focus', () => {
+			if (mainGameRef.current)
+				AccessibilityInfo.setAccessibilityFocus(
+					findNodeHandle(mainGameRef.current),
+				);
+		});
+
+		// Return the function to unsubscribe from the event so it gets removed on unmount
+		return unsubscribe;
+	}, [navigation, mainGameRef]);
+
 	function checkEnd(questionCount, sts) {
 		if (sts.includes(0) && !oldValues.includes(0)) {
 			setOverlayVisible(true);
@@ -130,6 +145,14 @@ const GameMain = ({ navigation }) => {
 		return checkEnd(questionCount, newStats);
 	}
 
+	function handleNewQuestion(currentQuestion, info) {
+		setQuestionText(
+			`${info} diz:\n ${
+				currentQuestion.statement
+			}\n Clique nas laterais para tomar uma decisão!`,
+		);
+	}
+
 	function formatMonths() {
 		let s = '';
 		s =
@@ -162,6 +185,17 @@ const GameMain = ({ navigation }) => {
 						: theme.colors.background,
 				},
 			]}
+			accessible={!overlayVisible}
+			accessibilityLabel={`
+				\nEstado atual dos atributos:\n 
+				${gameStats[0].name}: ${(stats[0] * 100) / gameStats[0].maxValue}%;\n
+				${gameStats[1].name}: ${(stats[1] * 100) / gameStats[1].maxValue}%;\n
+				${gameStats[2].name}: ${(stats[2] * 100) / gameStats[2].maxValue}%;\n
+				${gameStats[3].name}: ${(stats[3] * 100) / gameStats[3].maxValue}%;\n
+				\n${questionText}
+			`}
+			accessibilityLiveRegion="polite"
+			ref={mainGameRef}
 		>
 			<Overlay
 				isVisible={overlayVisible}
@@ -270,7 +304,11 @@ const GameMain = ({ navigation }) => {
 					/> */}
 				</View>
 			</Overlay>
-			<Chooser onQuestionAnswered={handleQuestionAnswered} tree={currentTree} />
+			<Chooser
+				onNewQuestion={handleNewQuestion}
+				onQuestionAnswered={handleQuestionAnswered}
+				tree={currentTree}
+			/>
 			<Text style={[styles.monthsText, { color: theme.colors.text }]}>
 				Tempo de governo: {formatMonths()}
 			</Text>
@@ -300,6 +338,11 @@ const styles = StyleSheet.create({
 	overlayContainer: {
 		flex: 1,
 		justifyContent: 'space-between',
+	},
+	mainGameContainer: {
+		flex: 1,
+		justifyContent: 'space-between',
+		alignItems: 'center',
 	},
 });
 

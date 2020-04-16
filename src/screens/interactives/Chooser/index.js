@@ -9,7 +9,7 @@ import Card from '../Card';
 import backgroundImage from '../../../../assets/game/background.png';
 import { useEffect } from 'react';
 
-const Chooser = ({ onQuestionAnswered, tree }) => {
+const Chooser = ({ onNewQuestion, onQuestionAnswered, tree }) => {
 	const [currentQuestion, setCurrentQuestion] = useState(
 		questions[tree[0].id - 1],
 	);
@@ -32,6 +32,7 @@ const Chooser = ({ onQuestionAnswered, tree }) => {
 
 	useEffect(() => {
 		setInfo(agent[currentQuestion.char]);
+		onNewQuestion(currentQuestion, agent[currentQuestion.char]);
 	}, [currentQuestion]);
 
 	useEffect(() => {
@@ -138,100 +139,93 @@ const Chooser = ({ onQuestionAnswered, tree }) => {
 			onGestureEvent={animatedEvent}
 			onHandlerStateChange={onHandlerStateChanged}
 		>
-			<View
-				accessible
-				accessibilityLabel={`${info} diz:\n ${
-					currentQuestion.statement
-				}\n Clique nas laterais para tomar uma decisão!`}
+			<Animated.View
+				style={styles.container}
+				importantForAccessibility="no-hide-descendants"
 			>
 				<Animated.View
-					style={styles.container}
-					importantForAccessibility="no-hide-descendants"
+					style={{
+						elevation: 5,
+						elevation: elevationBrand.interpolate({
+							inputRange: [10, 20],
+							outputRange: [10, 20],
+							extrapolate: 'clamp',
+						}),
+						...styles.brand,
+					}}
 				>
+					<Image
+						borderRadius={10}
+						source={backgroundImage}
+						style={styles.image}
+					/>
+				</Animated.View>
+				<Animated.View
+					style={{
+						transform: [
+							{
+								translateX: translateX.interpolate({
+									inputRange: [-450, -50, 50, 450],
+									outputRange: [-75, -50, 50, 75],
+									extrapolate: 'clamp',
+								}),
+								rotateY: translateX.interpolate({
+									inputRange: [-450, -50, 0, 50, 450],
+									outputRange: [-0.3, 0, 0, 0, 0.3],
+									extrapolate: 'clamp',
+								}),
+							},
+						],
+						elevation: elevationSwap.interpolate({
+							inputRange: [10, 20],
+							outputRange: [10, 20],
+							extrapolate: 'clamp',
+						}),
+						...styles.swap,
+					}}
+				>
+					<Card
+						text={currentQuestion.statement}
+						character={currentQuestion.char}
+					/>
 					<Animated.View
 						style={{
-							elevation: 5,
-							elevation: elevationBrand.interpolate({
-								inputRange: [10, 20],
-								outputRange: [10, 20],
+							opacity: translateX.interpolate({
+								inputRange: [-40, 0, 40],
+								outputRange: [0, 1, 0],
 								extrapolate: 'clamp',
 							}),
-							...styles.brand,
+							...styles.infoContainer,
 						}}
 					>
-						<Image
-							borderRadius={10}
-							source={backgroundImage}
-							style={styles.image}
-						/>
+						<Text style={styles.info}>{info}</Text>
 					</Animated.View>
 					<Animated.View
 						style={{
-							transform: [
-								{
-									translateX: translateX.interpolate({
-										inputRange: [-450, -50, 50, 450],
-										outputRange: [-75, -50, 50, 75],
-										extrapolate: 'clamp',
-									}),
-									rotateY: translateX.interpolate({
-										inputRange: [-450, -50, 0, 50, 450],
-										outputRange: [-0.3, 0, 0, 0, 0.3],
-										extrapolate: 'clamp',
-									}),
-								},
-							],
-							elevation: elevationSwap.interpolate({
-								inputRange: [10, 20],
-								outputRange: [10, 20],
+							opacity: translateX.interpolate({
+								inputRange: [0, 20, 70],
+								outputRange: [0, 0.4, 0.8],
 								extrapolate: 'clamp',
 							}),
-							...styles.swap,
+							...styles.yes,
 						}}
 					>
-						<Card
-							text={currentQuestion.statement}
-							character={currentQuestion.char}
-						/>
-						<Animated.View
-							style={{
-								opacity: translateX.interpolate({
-									inputRange: [-40, 0, 40],
-									outputRange: [0, 1, 0],
-									extrapolate: 'clamp',
-								}),
-								...styles.infoContainer,
-							}}
-						>
-							<Text style={styles.info}>{info}</Text>
-						</Animated.View>
-						<Animated.View
-							style={{
-								opacity: translateX.interpolate({
-									inputRange: [0, 20, 70],
-									outputRange: [0, 0.4, 0.8],
-									extrapolate: 'clamp',
-								}),
-								...styles.yes,
-							}}
-						>
-							<Text style={styles.optionText}>{currentQuestion.yesOption}</Text>
-						</Animated.View>
-						<Animated.View
-							style={{
-								opacity: translateX.interpolate({
-									inputRange: [-70, -20, 0],
-									outputRange: [0.8, 0.4, 0],
-									extrapolate: 'clamp',
-								}),
-								...styles.no,
-							}}
-						>
-							<Text style={styles.optionText}>{currentQuestion.noOption}</Text>
-						</Animated.View>
+						<Text style={styles.optionText}>{currentQuestion.yesOption}</Text>
+					</Animated.View>
+					<Animated.View
+						style={{
+							opacity: translateX.interpolate({
+								inputRange: [-70, -20, 0],
+								outputRange: [0.8, 0.4, 0],
+								extrapolate: 'clamp',
+							}),
+							...styles.no,
+						}}
+					>
+						<Text style={styles.optionText}>{currentQuestion.noOption}</Text>
 					</Animated.View>
 				</Animated.View>
-			</View>
+			</Animated.View>
 		</PanGestureHandler>
 	);
 };
