@@ -126,7 +126,7 @@ const GameTutorial = ({ navigation }) => {
 							</Text>
 						),
 						subtitle:
-							'Caso estiver usando um leitor de tela, arraste com dois dedos na parte central da tela (sem localização específica) para fazer suas escolhas. Isso deixará sua experiência mais prática.',
+							'Caso estiver usando um leitor de tela, clique nos botões localizados na direita e na esquerda da parte central da tela para fazer suas escolhas. Isso deixará sua experiência mais prática.',
 						subTitleStyles: { color: theme.colors.background },
 					},
 					{
