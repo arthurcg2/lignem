@@ -5432,6 +5432,11 @@ react-is@^16.8.1, react-is@^16.8.4, react-is@^16.9.0:
   resolved "https://registry.yarnpkg.com/react-is/-/react-is-16.11.0.tgz#b85dfecd48ad1ce469ff558a882ca8e8313928fa"
   integrity sha512-gbBVYR2p8mnriqAwWx9LbuUrShnAuSCNnuPGyc7GJrMVQtPDAh8iLpv7FRuMPFb56KkaVZIYSz1PrjI9q0QPCw==
 
+react-native-check-accessibility@^1.1.7:
+  version "1.1.7"
+  resolved "https://registry.yarnpkg.com/react-native-check-accessibility/-/react-native-check-accessibility-1.1.7.tgz#5235123f417c9a3c71f4f670d40329a666c3296e"
+  integrity sha512-InqC1Uz3MNgU+0YbKe3DMZBeX7iPK6aSk4LUppSY1z44IOVTRthqN44OQx94cEWNyqKSEKdI5jRtJwi8/trqvQ==
+
 react-native-elements@^1.2.7:
   version "1.2.7"
   resolved "https://registry.yarnpkg.com/react-native-elements/-/react-native-elements-1.2.7.tgz#1eca2db715c41722aeb67aea62bd2a4621adb134"

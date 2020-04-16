@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Animated, Text, Image, View } from 'react-native';
+import { Animated, Text, Image, View, TouchableOpacity } from 'react-native';
 import { PanGestureHandler, State } from 'react-native-gesture-handler';
 import { styles } from './styles';
 
@@ -9,13 +9,16 @@ import Card from '../Card';
 import backgroundImage from '../../../../assets/game/background.png';
 import { useEffect } from 'react';
 
+import ReactNativeCheckAccessibilty from 'react-native-check-accessibility';
+import Icon from 'react-native-vector-icons/FontAwesome';
+
 const Chooser = ({ onQuestionAnswered, tree }) => {
 	const [currentQuestion, setCurrentQuestion] = useState(
 		questions[tree[0].id - 1],
 	);
 	const [questionCount, setQuestionCount] = useState(0);
 	const [answers, setAnswers] = useState(new Array(tree.length).fill(null));
-
+	const [isTalkBack, setTalkBack] = useState(false);
 	const [info, setInfo] = useState('');
 	const elevationBrand = new Animated.Value(10);
 	const elevationSwap = new Animated.Value(20);
@@ -29,6 +32,13 @@ const Chooser = ({ onQuestionAnswered, tree }) => {
 		rog: 'Rogério Santos\ndono da empresa Mais Energia',
 		igo: 'Igor Martins\nCientista e Pesquisador',
 	};
+
+	useEffect(() => {
+		ReactNativeCheckAccessibilty.isVoiceOverRunning().then(result => {
+			console.log(result === '1' ? 'Ativo' : 'Desligado');
+			if (result === '1') setTalkBack(true);
+		});
+	}, []);
 
 	useEffect(() => {
 		setInfo(agent[currentQuestion.char]);
@@ -77,6 +87,41 @@ const Chooser = ({ onQuestionAnswered, tree }) => {
 		{ useNativeDriver: true },
 	);
 
+	const changeQuestion = option => {
+		Animated.timing(elevationSwap, {
+			toValue: 15,
+			duration: 2,
+			useNativeDriver: true,
+		}).start();
+		Animated.timing(elevationBrand, {
+			toValue: 16,
+			duration: 200,
+			useNativeDriver: true,
+		}).start();
+
+		setTimeout(() => {
+			Animated.timing(elevationSwap, {
+				toValue: 20,
+				duration: 250,
+				useNativeDriver: true,
+			}).start();
+			Animated.timing(elevationBrand, {
+				toValue: 10,
+				duration: 250,
+				useNativeDriver: true,
+			}).start();
+
+			let ans = answers;
+			ans[questionCount] = option == 'yes' ? true : false;
+			setAnswers(ans);
+			if (onQuestionAnswered(currentQuestion[option], questionCount)) {
+				setQuestionCount(0);
+			} else {
+				setQuestionCount(questionCount + 1);
+			}
+		}, 300);
+	};
+
 	const onHandlerStateChanged = event => {
 		let changed = false;
 		const { translationX } = event.nativeEvent;
@@ -90,40 +135,7 @@ const Chooser = ({ onQuestionAnswered, tree }) => {
 				option = 'yes';
 			}
 
-			if (changed) {
-				Animated.timing(elevationSwap, {
-					toValue: 15,
-					duration: 2,
-					useNativeDriver: true,
-				}).start();
-				Animated.timing(elevationBrand, {
-					toValue: 16,
-					duration: 200,
-					useNativeDriver: true,
-				}).start();
-
-				setTimeout(() => {
-					Animated.timing(elevationSwap, {
-						toValue: 20,
-						duration: 250,
-						useNativeDriver: true,
-					}).start();
-					Animated.timing(elevationBrand, {
-						toValue: 10,
-						duration: 250,
-						useNativeDriver: true,
-					}).start();
-
-					let ans = answers;
-					ans[questionCount] = option == 'yes' ? true : false;
-					setAnswers(ans);
-					if (onQuestionAnswered(currentQuestion[option], questionCount)) {
-						setQuestionCount(0);
-					} else {
-						setQuestionCount(questionCount + 1);
-					}
-				}, 300);
-			}
+			if (changed) changeQuestion(option);
 
 			Animated.timing(translateX, {
 				toValue: 0,
@@ -147,7 +159,6 @@ const Chooser = ({ onQuestionAnswered, tree }) => {
 			>
 				<Animated.View
 					style={{
-						elevation: 5,
 						elevation: elevationBrand.interpolate({
 							inputRange: [10, 20],
 							outputRange: [10, 20],
@@ -227,6 +238,40 @@ const Chooser = ({ onQuestionAnswered, tree }) => {
 						<Text style={styles.optionText}>{currentQuestion.noOption}</Text>
 					</Animated.View>
 				</Animated.View>
+				{isTalkBack && (
+					<View style={styles.accessibilityButtonsContainer}>
+						<TouchableOpacity
+							accessibilityLabel={`Esquerda\n, você diz: ${
+								currentQuestion.noOption
+							}`}
+							style={{
+								...styles.accessibilityButton,
+								backgroundColor: 'red',
+								borderTopRightRadius: 0,
+								borderBottomRightRadius: 0,
+								paddingRight: 10,
+							}}
+							onPress={() => changeQuestion('no')}
+						>
+							<Icon name="times" size={50} color="white" />
+						</TouchableOpacity>
+						<TouchableOpacity
+							accessibilityLabel={`Direita\n, você diz: ${
+								currentQuestion.yesOption
+							}`}
+							style={{
+								...styles.accessibilityButton,
+								backgroundColor: 'green',
+								borderTopLeftRadius: 0,
+								borderBottomLeftRadius: 0,
+								paddingLeft: 10,
+							}}
+							onPress={() => changeQuestion('yes')}
+						>
+							<Icon name="check" size={50} color="white" />
+						</TouchableOpacity>
+					</View>
+				)}
 			</Animated.View>
 		</PanGestureHandler>
 	);
