@@ -91,7 +91,8 @@ const GameTutorial = ({ navigation }) => {
 							if (isLargeScreen) {
 								return (
 									<Image
-										source={require('../../../assets/tutorial/tg-1.png')}
+										source={require('../../../assets/tutorial/tg-1.jpg')}
+										styles={{ height: 350, width: 350 }}
 									/>
 								);
 							} else {
@@ -113,7 +114,8 @@ const GameTutorial = ({ navigation }) => {
 							if (isLargeScreen) {
 								return (
 									<Image
-										source={require('../../../assets/tutorial/tg-1.png')}
+										source={require('../../../assets/tutorial/tg-1.jpg')}
+										styles={{ height: 350, width: 350 }}
 									/>
 								);
 							} else {
@@ -135,7 +137,8 @@ const GameTutorial = ({ navigation }) => {
 							if (isLargeScreen) {
 								return (
 									<Image
-										source={require('../../../assets/tutorial/tg-2.png')}
+										source={require('../../../assets/tutorial/tg-2.jpg')}
+										styles={{ height: 267, width: 350 }}
 									/>
 								);
 							} else {
@@ -157,7 +160,8 @@ const GameTutorial = ({ navigation }) => {
 							if (isLargeScreen) {
 								return (
 									<Image
-										source={require('../../../assets/tutorial/tg-3.png')}
+										source={require('../../../assets/tutorial/tg-3.jpg')}
+										styles={{ height: 370, width: 323 }}
 									/>
 								);
 							} else {

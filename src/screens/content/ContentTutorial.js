@@ -84,7 +84,8 @@ const ContentTutorial = ({ navigation }) => {
 							if (isLargeScreen) {
 								return (
 									<Image
-										source={require('../../../assets/tutorial/tc-1.png')}
+										source={require('../../../assets/tutorial/tc-1.jpg')}
+										style={{ height: 229, width: 350 }}
 									/>
 								);
 							} else {
@@ -106,7 +107,8 @@ const ContentTutorial = ({ navigation }) => {
 							if (isLargeScreen) {
 								return (
 									<Image
-										source={require('../../../assets/tutorial/tc-2.png')}
+										source={require('../../../assets/tutorial/tc-2.jpg')}
+										style={{ height: 367, width: 350 }}
 									/>
 								);
 							} else {
@@ -128,7 +130,8 @@ const ContentTutorial = ({ navigation }) => {
 							if (isLargeScreen) {
 								return (
 									<Image
-										source={require('../../../assets/tutorial/tc-3.png')}
+										source={require('../../../assets/tutorial/tc-3.jpg')}
+										style={{ height: 221, width: 350 }}
 									/>
 								);
 							} else {
@@ -150,7 +153,8 @@ const ContentTutorial = ({ navigation }) => {
 							if (isLargeScreen) {
 								return (
 									<Image
-										source={require('../../../assets/tutorial/tc-4.png')}
+										source={require('../../../assets/tutorial/tc-4.jpg')}
+										style={{ height: 341, width: 350 }}
 									/>
 								);
 							} else {
@@ -222,6 +226,11 @@ const generateStyles = theme => {
 		image: {
 			height: 175,
 			width: 175,
+		},
+
+		imgTutorialConfig: {
+			height: 500,
+			width: 340,
 		},
 	});
 };
