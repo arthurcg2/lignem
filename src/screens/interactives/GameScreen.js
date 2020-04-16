@@ -6,11 +6,14 @@ import {
 	View,
 	Button,
 	Text,
+	TouchableOpacity,
 	StyleSheet,
 	AccessibilityInfo,
+	Dimensions,
 	Animated,
 	findNodeHandle,
 } from 'react-native';
+
 import { Overlay } from 'react-native-elements';
 import { useTheme } from '@react-navigation/native';
 
@@ -85,6 +88,10 @@ const GameMain = ({ navigation }) => {
 		AccessibilityInfo.announceForAccessibility(
 			'Página do jogo. Para mais informações, abra o tutorial do jogo no canto superior direito da tela.',
 		);
+
+		AccessibilityInfo.isScreenReaderEnabled().then(isEnabled => {
+			setIsTalkBack(isEnabled);
+		});
 	}, []);
 
 	useEffect(() => {
