@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import AsyncStorage from '@react-native-community/async-storage';
 import { NavigationContainer, ThemeProvider } from '@react-navigation/native';
 import { ThemeSwitchProvider } from './states/ThemeSwitchContext';
+import changeNavigationBarColor from 'react-native-navigation-bar-color';
 
 import lightTheme from './themes/default';
 import darkTheme from './themes/dark';
@@ -28,27 +29,33 @@ export default function Index() {
 		switch (action.type) {
 			case 'dark':
 				setTheme(darkTheme);
+				changeNavigationBarColor('#232931', false);
 				break;
 			case 'light':
 				setTheme(lightTheme);
+				changeNavigationBarColor('#FFFFFF', true);
 				break;
 			case 'tritanopia':
-			case 'tritanomaly':
+			case 'tritanomalia':
 				setTheme(tomatoTheme);
+				changeNavigationBarColor('#FFFFFF', true);
 				break;
 			case 'protanopia':
-			case 'protanomaly':
+			case 'protanomalia':
 				setTheme(blueTheme);
+				changeNavigationBarColor('#FFFFFF', true);
 				break;
 			case 'deuteranopia':
-			case 'deuteranomaly':
+			case 'deuteranomalia':
 				setTheme(redTheme);
+				changeNavigationBarColor('#FFFFFF', true);
 				break;
 			default:
 				updateStorage('light');
 				console.error(`Color mode ${action.type} not found.`);
 
 				setTheme(lightTheme);
+				changeNavigationBarColor('#FFFFFF', true);
 				break;
 		}
 	};

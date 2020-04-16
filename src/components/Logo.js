@@ -1,12 +1,26 @@
 import React from 'react';
 import { Image } from 'react-native';
 
-import lignem from '../../assets/lignem_small.png';
+import { useTheme } from '@react-navigation/native';
+
+import lignem from '../../assets/logos/lignem_small_logo.png';
+import lignemBlue from '../../assets/logos/lignem_small_logo_blue.png';
+import lignemDark from '../../assets/logos/lignem_small_logo_dark.png';
+import lignemRed from '../../assets/logos/lignem_small_logo_red.png';
+import lignemTomato from '../../assets/logos/lignem_small_logo_tomato.png';
 
 const Logo = () => {
+	const theme = useTheme();
+
 	return (
 		<Image
-			source={lignem}
+			source={(() => {
+				if (theme.name == 'light') return lignem;
+				if (theme.name == 'blue') return lignemBlue;
+				if (theme.name == 'dark') return lignemDark;
+				if (theme.name == 'red') return lignemRed;
+				if (theme.name == 'tomato') return lignemTomato;
+			})()}
 			style={{
 				width: 35,
 				height: 35,

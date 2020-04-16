@@ -3,9 +3,11 @@ import { Animated, View } from 'react-native';
 
 import styles from './styles';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import { useTheme } from '@react-navigation/native';
 
 export default Stats = ({ currentStats, oldValues }) => {
 	const [colors, setColors] = useState(new Array(4).fill('#e6cd7e'));
+	const theme = useTheme();
 
 	useEffect(() => {
 		let newColors = new Array(4).fill('#e6cd7e');
@@ -24,17 +26,21 @@ export default Stats = ({ currentStats, oldValues }) => {
 	return (
 		<View style={styles.statsContainer}>
 			{currentStats.map((stat, i) => {
-			
-				const statValue = new Animated.Value(oldValues[i])
+				const statValue = new Animated.Value(oldValues[i]);
 
 				Animated.timing(statValue, {
 					toValue: stat.value,
-					duration: 100
-				}).start()
+					duration: 100,
+				}).start();
 
 				return (
 					<View key={i} style={styles.stat}>
-						<View style={styles.statBar}>
+						<View
+							style={[
+								styles.statBar,
+								{ borderColor: theme.colors.primaryDarken },
+							]}
+						>
 							<Animated.View
 								style={{
 									width: '100%',
@@ -45,15 +51,24 @@ export default Stats = ({ currentStats, oldValues }) => {
 									}),
 									backgroundColor: statValue.interpolate({
 										inputRange: [0, stat.maxValue / 2, stat.maxValue],
-										outputRange: ['rgb(255, 0, 0)', 'rgb(230, 205, 126)', 'rgb(0, 255, 0)'],
+										outputRange: [
+											'rgb(255, 0, 0)',
+											'rgb(230, 205, 126)',
+											'rgb(0, 255, 0)',
+										],
 										extrapolate: 'clamp',
 									}),
 								}}
 							/>
 						</View>
-						<Icon name={stat.icon} size={32} color="#6048b0" />
+						<Icon
+							name={stat.icon}
+							size={32}
+							color={theme.colors.primaryDarken}
+						/>
 					</View>
-			)})}
+				);
+			})}
 		</View>
 	);
 };
