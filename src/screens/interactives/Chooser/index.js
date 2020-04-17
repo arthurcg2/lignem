@@ -1,27 +1,23 @@
-import React, { useState } from 'react';
-import {
-	Animated,
-	Text,
-	Image,
-	View,
-	TouchableOpacity,
-	AccessibilityInfo,
-} from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { Animated, Text, Image, View, TouchableOpacity } from 'react-native';
 import { PanGestureHandler, State } from 'react-native-gesture-handler';
-import Icon from 'react-native-vector-icons';
+import Icon from 'react-native-vector-icons/MaterialIcons';
 import { styles } from './styles';
 
 import questions from '../questions';
 import Card from '../Card';
 
 import backgroundImage from '../../../../assets/game/background.png';
-import { useEffect } from 'react';
 
-const Chooser = ({ onNewQuestion, onQuestionAnswered, tree }) => {
+const Chooser = ({
+	isScreenReaderEnabled,
+	onNewQuestion,
+	onQuestionAnswered,
+	tree,
+}) => {
 	const [currentQuestion, setCurrentQuestion] = useState(
 		questions[tree[0].id - 1],
 	);
-	const [isTalkBack, setIsTalkBack] = useState(false);
 	const [questionCount, setQuestionCount] = useState(0);
 	const [answers, setAnswers] = useState(new Array(tree.length).fill(null));
 
@@ -40,20 +36,19 @@ const Chooser = ({ onNewQuestion, onQuestionAnswered, tree }) => {
 	};
 
 	useEffect(() => {
-		AccessibilityInfo.isScreenReaderEnabled().then(isEnabled => {
-			setIsTalkBack(isEnabled);
-		});
-	}, []);
-
-	useEffect(() => {
+		if (info != '') onNewQuestion();
 		setInfo(agent[currentQuestion.char]);
-		onNewQuestion(currentQuestion, agent[currentQuestion.char]);
 	}, [currentQuestion]);
 
 	useEffect(() => {
 		if (questionCount <= tree.length - 1) updateQuestion();
 		else onQuestionAnswered([0, 0, 0, 0], questionCount);
 	}, [questionCount]);
+
+	useEffect(() => {
+		setCurrentQuestion(questions[tree[questionCount].id - 1]);
+		setAnswers(new Array(tree.length).fill(null));
+	}, [tree]);
 
 	function updateQuestion() {
 		setCurrentQuestion(questions[tree[questionCount].id - 1]);
@@ -76,11 +71,6 @@ const Chooser = ({ onNewQuestion, onQuestionAnswered, tree }) => {
 		}
 		return -1;
 	}
-
-	useEffect(() => {
-		setCurrentQuestion(questions[tree[questionCount].id - 1]);
-		setAnswers(new Array(tree.length).fill(null));
-	}, [tree]);
 
 	const animatedEvent = Animated.event(
 		[
@@ -152,97 +142,105 @@ const Chooser = ({ onNewQuestion, onQuestionAnswered, tree }) => {
 	};
 
 	return (
-		<PanGestureHandler
-			onGestureEvent={animatedEvent}
-			onHandlerStateChange={onHandlerStateChanged}
-		>
-			<Animated.View
-				style={styles.container}
-				importantForAccessibility="no-hide-descendants"
-			>
-				<Animated.View
-					style={{
-						elevation: elevationBrand.interpolate({
-							inputRange: [10, 20],
-							outputRange: [10, 20],
-							extrapolate: 'clamp',
-						}),
-						...styles.brand,
-					}}
+		<>
+			{!isScreenReaderEnabled && (
+				<PanGestureHandler
+					onGestureEvent={animatedEvent}
+					onHandlerStateChange={onHandlerStateChanged}
 				>
-					<Image
-						borderRadius={10}
-						source={backgroundImage}
-						style={styles.image}
-					/>
-				</Animated.View>
-				<Animated.View
-					style={{
-						transform: [
-							{
-								translateX: translateX.interpolate({
-									inputRange: [-450, -50, 50, 450],
-									outputRange: [-75, -50, 50, 75],
+					<Animated.View
+						style={styles.container}
+						importantForAccessibility="no-hide-descendants"
+					>
+						<Animated.View
+							style={{
+								elevation: elevationBrand.interpolate({
+									inputRange: [10, 20],
+									outputRange: [10, 20],
 									extrapolate: 'clamp',
 								}),
-								rotateY: translateX.interpolate({
-									inputRange: [-450, -50, 0, 50, 450],
-									outputRange: [-0.3, 0, 0, 0, 0.3],
+								...styles.brand,
+							}}
+						>
+							<Image
+								borderRadius={10}
+								source={backgroundImage}
+								style={styles.image}
+							/>
+						</Animated.View>
+						<Animated.View
+							style={{
+								transform: [
+									{
+										translateX: translateX.interpolate({
+											inputRange: [-450, -50, 50, 450],
+											outputRange: [-75, -50, 50, 75],
+											extrapolate: 'clamp',
+										}),
+										rotateY: translateX.interpolate({
+											inputRange: [-450, -50, 0, 50, 450],
+											outputRange: [-0.3, 0, 0, 0, 0.3],
+											extrapolate: 'clamp',
+										}),
+									},
+								],
+								elevation: elevationSwap.interpolate({
+									inputRange: [10, 20],
+									outputRange: [10, 20],
 									extrapolate: 'clamp',
 								}),
-							},
-						],
-						elevation: elevationSwap.interpolate({
-							inputRange: [10, 20],
-							outputRange: [10, 20],
-							extrapolate: 'clamp',
-						}),
-						...styles.swap,
-					}}
-				>
-					<Card
-						text={currentQuestion.statement}
-						character={currentQuestion.char}
-					/>
-					<Animated.View
-						style={{
-							opacity: translateX.interpolate({
-								inputRange: [-40, 0, 40],
-								outputRange: [0, 1, 0],
-								extrapolate: 'clamp',
-							}),
-							...styles.infoContainer,
-						}}
-					>
-						<Text style={styles.info}>{info}</Text>
+								...styles.swap,
+							}}
+						>
+							<Card
+								text={currentQuestion.statement}
+								character={currentQuestion.char}
+							/>
+							<Animated.View
+								style={{
+									opacity: translateX.interpolate({
+										inputRange: [-40, 0, 40],
+										outputRange: [0, 1, 0],
+										extrapolate: 'clamp',
+									}),
+									...styles.infoContainer,
+								}}
+							>
+								<Text style={styles.info}>{info}</Text>
+							</Animated.View>
+							<Animated.View
+								style={{
+									opacity: translateX.interpolate({
+										inputRange: [0, 20, 70],
+										outputRange: [0, 0.4, 0.8],
+										extrapolate: 'clamp',
+									}),
+									...styles.yes,
+								}}
+							>
+								<Text style={styles.optionText}>
+									{currentQuestion.yesOption}
+								</Text>
+							</Animated.View>
+							<Animated.View
+								style={{
+									opacity: translateX.interpolate({
+										inputRange: [-70, -20, 0],
+										outputRange: [0.8, 0.4, 0],
+										extrapolate: 'clamp',
+									}),
+									...styles.no,
+								}}
+							>
+								<Text style={styles.optionText}>
+									{currentQuestion.noOption}
+								</Text>
+							</Animated.View>
+						</Animated.View>
 					</Animated.View>
-					<Animated.View
-						style={{
-							opacity: translateX.interpolate({
-								inputRange: [0, 20, 70],
-								outputRange: [0, 0.4, 0.8],
-								extrapolate: 'clamp',
-							}),
-							...styles.yes,
-						}}
-					>
-						<Text style={styles.optionText}>{currentQuestion.yesOption}</Text>
-					</Animated.View>
-					<Animated.View
-						style={{
-							opacity: translateX.interpolate({
-								inputRange: [-70, -20, 0],
-								outputRange: [0.8, 0.4, 0],
-								extrapolate: 'clamp',
-							}),
-							...styles.no,
-						}}
-					>
-						<Text style={styles.optionText}>{currentQuestion.noOption}</Text>
-					</Animated.View>
-				</Animated.View>
-			</Animated.View>
-			{/* isTalkBack && (
+				</PanGestureHandler>
+			)}
+			{isScreenReaderEnabled && (
 				<View style={styles.accessibilityButtonsContainer}>
 					<TouchableOpacity
 						accessibilityLabel={`Esquerda,\n você diz: ${
@@ -257,7 +255,17 @@ const Chooser = ({ onNewQuestion, onQuestionAnswered, tree }) => {
 						}}
 						onPress={() => changeQuestion('no')}
 					>
-						<Icon name="times" size={50} color="white" />
+						<Icon name="cancel" size={50} color="white" />
+					</TouchableOpacity>
+					<TouchableOpacity
+						style={styles.centerAccessibilityButton}
+						accessible
+						accessibilityLabel={`${agent[currentQuestion.char]} diz:\n ${
+							currentQuestion.statement
+						}\n Clique abaixo para ver o estado atual de seus atributos!\nClique nas laterais centrais para tomar uma decisão!`}
+					>
+						<Text>{agent[currentQuestion.char]}</Text>
+						<Text>{currentQuestion.statement}</Text>
 					</TouchableOpacity>
 					<TouchableOpacity
 						accessibilityLabel={`Direita\n, você diz: ${
@@ -272,11 +280,12 @@ const Chooser = ({ onNewQuestion, onQuestionAnswered, tree }) => {
 						}}
 						onPress={() => changeQuestion('yes')}
 					>
-						<Icon name="check" size={50} color="white" />
+						<Icon name="check-circle" size={50} color="white" />
 					</TouchableOpacity>
 				</View>
-			) */}
-		</PanGestureHandler>
+			)}
+		</>
 	);
 };
+
 export default Chooser;

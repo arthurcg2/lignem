@@ -1,15 +1,13 @@
 /* eslint-disable react-native/no-inline-styles */
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import AsyncStorage from '@react-native-community/async-storage';
 
 import {
 	View,
 	Button,
 	Text,
-	TouchableOpacity,
 	StyleSheet,
 	AccessibilityInfo,
-	Dimensions,
 	Animated,
 	findNodeHandle,
 } from 'react-native';
@@ -32,9 +30,8 @@ const endStatements = [
 const GameMain = ({ navigation }) => {
 	const [stats, setStats] = useState(new Array(4).fill(0));
 	const [oldValues, setOldValues] = useState(new Array(4).fill(0));
-	const [questionText, setQuestionText] = useState('');
+	const [isScreenReaderEnabled, setScreenReaderEnabled] = useState(false);
 
-	const mainGameRef = useRef(null);
 	const [overlayVisible, setOverlayVisible] = useState(false);
 	const [overlayText, setOverlayText] = useState('');
 
@@ -73,11 +70,18 @@ const GameMain = ({ navigation }) => {
 	];
 
 	useEffect(() => {
+		const checkScreenReader = async () => {
+			const isEnabled = await AccessibilityInfo.isScreenReaderEnabled();
+			setScreenReaderEnabled(isEnabled);
+		};
+
 		const loadData = async () => {
 			const str = await AsyncStorage.getItem('isGameTutorialDone');
 			if (str !== 'true') navigation.navigate('Tutorial');
 		};
+
 		loadData();
+		checkScreenReader();
 
 		let newStats = new Array(gameStats.length).fill(0);
 		for (let i = 0; i < gameStats.length; i++) {
@@ -88,23 +92,7 @@ const GameMain = ({ navigation }) => {
 		AccessibilityInfo.announceForAccessibility(
 			'Página do jogo. Para mais informações, abra o tutorial do jogo no canto superior direito da tela.',
 		);
-
-		AccessibilityInfo.isScreenReaderEnabled().then(isEnabled => {
-			setIsTalkBack(isEnabled);
-		});
 	}, []);
-
-	useEffect(() => {
-		const unsubscribe = navigation.addListener('focus', () => {
-			if (mainGameRef.current)
-				AccessibilityInfo.setAccessibilityFocus(
-					findNodeHandle(mainGameRef.current),
-				);
-		});
-
-		// Return the function to unsubscribe from the event so it gets removed on unmount
-		return unsubscribe;
-	}, [navigation, mainGameRef]);
 
 	function checkEnd(questionCount, sts) {
 		if (sts.includes(0) && !oldValues.includes(0)) {
@@ -152,12 +140,11 @@ const GameMain = ({ navigation }) => {
 		return checkEnd(questionCount, newStats);
 	}
 
-	function handleNewQuestion(currentQuestion, info) {
-		setQuestionText(
-			`${info} diz:\n ${
-				currentQuestion.statement
-			}\n Clique nas laterais para tomar uma decisão!`,
-		);
+	function focusOnAccessibilityTouchable() {
+		// focar na pergunta do centro do Chooser
+		/*AccessibilityInfo.setAccessibilityFocus(
+			findNodeHandle(mainAccessibilityRef.current),
+		);*/
 	}
 
 	function formatMonths() {
@@ -192,17 +179,6 @@ const GameMain = ({ navigation }) => {
 						: theme.colors.background,
 				},
 			]}
-			accessible={!overlayVisible}
-			accessibilityLabel={`
-				\nEstado atual dos atributos:\n 
-				${gameStats[0].name}: ${(stats[0] * 100) / gameStats[0].maxValue}%;\n
-				${gameStats[1].name}: ${(stats[1] * 100) / gameStats[1].maxValue}%;\n
-				${gameStats[2].name}: ${(stats[2] * 100) / gameStats[2].maxValue}%;\n
-				${gameStats[3].name}: ${(stats[3] * 100) / gameStats[3].maxValue}%;\n
-				\n${questionText}
-			`}
-			accessibilityLiveRegion="polite"
-			ref={mainGameRef}
 		>
 			<Overlay
 				isVisible={overlayVisible}
@@ -293,33 +269,24 @@ const GameMain = ({ navigation }) => {
 							setOverlayVisible(false);
 						}}
 					/>
-					{/* <Button
-						title="Reiniciar com árvore diferente"
-						color={theme.colors.primary}
-						style={styles.button}
-						onPress={() => {
-							let newStats = new Array(gameStats.length).fill(0);
-							for (let i = 0; i < gameStats.length; i++) {
-								newStats[i] = gameStats[i].maxValue / 2;
-							}
-
-							updateTree(currentTreeIndex)
-							setStats(newStats);
-							setMonth(0)
-							setOverlayVisible(false);
-						}}
-					/> */}
 				</View>
 			</Overlay>
 			<Chooser
-				onNewQuestion={handleNewQuestion}
+				isScreenReaderEnabled={isScreenReaderEnabled}
+				onNewQuestion={focusOnAccessibilityTouchable}
 				onQuestionAnswered={handleQuestionAnswered}
 				tree={currentTree}
 			/>
-			<Text style={[styles.monthsText, { color: theme.colors.text }]}>
-				Tempo de governo: {formatMonths()}
-			</Text>
-			<Stats currentStats={gameStats} oldValues={oldValues} />
+			{!isScreenReaderEnabled && (
+				<Text style={[styles.monthsText, { color: theme.colors.text }]}>
+					Tempo de governo: {formatMonths()}
+				</Text>
+			)}
+			<Stats
+				currentStats={gameStats}
+				oldValues={oldValues}
+				months={formatMonths()}
+			/>
 		</View>
 	);
 };

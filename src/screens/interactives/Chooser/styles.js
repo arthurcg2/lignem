@@ -70,9 +70,8 @@ export const styles = StyleSheet.create({
 	},
 	accessibilityButtonsContainer: {
 		width: w,
-		position: 'absolute',
 		flexDirection: 'row',
-		justifyContent: 'space-between',
+		justifyContent: 'center',
 		alignItems: 'center',
 		padding: 10,
 	},
@@ -83,5 +82,13 @@ export const styles = StyleSheet.create({
 		elevation: 5,
 		justifyContent: 'center',
 		alignItems: 'center',
+	},
+	centerAccessibilityButton: {
+		flex: 1,
+		width: w - 2 * (70 + 10),
+		height: h <= 592 ? 280 : 320,
+		backgroundColor: '#BBB',
+		paddingHorizontal: 10,
+		justifyContent: 'space-around',
 	},
 });
