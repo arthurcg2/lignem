@@ -36,7 +36,7 @@ const GameMain = ({ navigation }) => {
 	const [overlayVisible, setOverlayVisible] = useState(false);
 	const [overlayTitle, setOverlayTitle] = useState('');
 	const [overlayText, setOverlayText] = useState('');
-	const [overlayImg, setOverlayImg] = useState()
+	const [overlayImg, setOverlayImg] = useState();
 
 	const randNum = Math.floor(Math.random() * trees.length);
 	const [currentTree, setCurrentTree] = useState(trees[randNum]);
@@ -110,24 +110,28 @@ const GameMain = ({ navigation }) => {
 			setOverlayVisible(true);
 			let i = 0;
 			for (i = 0; sts[i] != 0; i++);
-			setOverlayTitle('Fim de jogo')
+			setOverlayTitle('Fim de jogo');
 			setOverlayText(
 				`Você não soube administrar ${
 					endStatements[i]
 				} e terá que sair já do poder!`,
 			);
-			setOverlayImg(gameStats[i].image)
+			setOverlayImg(gameStats[i].image);
 			return true;
 		}
 		if (questionCount >= currentTree.length - 1) {
 			setOverlayVisible(true);
-			let maior = 0
-			for (i = 1; i < sts.length; i++){
-				if(sts[i] > sts[maior]) maior = i
+			let maior = 0;
+			for (i = 1; i < sts.length; i++) {
+				if (sts[i] > sts[maior]) maior = i;
 			}
-			setOverlayImg(gameStats[maior].winImage)
-			setOverlayTitle('Parabéns!')
-			setOverlayText(`Você chegou ao fim do seu mandato, e soube melhor administrar ${endStatements[maior]}!`);
+			setOverlayImg(gameStats[maior].winImage);
+			setOverlayTitle('Parabéns!');
+			setOverlayText(
+				`Você chegou ao fim do seu mandato, e soube melhor administrar ${
+					endStatements[maior]
+				}!`,
+			);
 			return true;
 		}
 		return false;
@@ -205,7 +209,7 @@ const GameMain = ({ navigation }) => {
 				height={550}
 				width={300}
 			>
-				<View 
+				<View
 					style={styles.overlayContainer}
 					accessible={true}
 					accessibilityLabel={`
@@ -222,38 +226,56 @@ const GameMain = ({ navigation }) => {
 						${media()}%\n
 					`}
 				>
-					<Text style={[styles.text, { color: theme.colors.text, fontWeight: 'bold', textAlign: 'center' }]}>
+					<Text
+						style={[
+							styles.text,
+							{
+								color: theme.colors.text,
+								fontWeight: 'bold',
+								textAlign: 'center',
+							},
+						]}
+					>
 						{overlayTitle}
 					</Text>
-					<View style={{
-						width: '100%',
-						height: 300,
-						borderRadius: 10,
-						alignItems: 'center',
-						justifyContent: 'flex-end',
-						backgroundColor: '#b79732',
-					}}>
-						<Image source={overlayImg} style={{
-							position: 'relative',
+					<View
+						style={{
 							width: '100%',
-							height: '100%',
+							height: 300,
 							borderRadius: 10,
-						}}/>
-						<View style={{
-							width: '100%',
-							alignSelf: 'flex-end',
-							position: 'absolute',
-							borderBottomLeftRadius: 10,
-							borderBottomRightRadius: 10,
-							backgroundColor: 'rgba(106, 66, 46, 0.6)',
-							padding: 10,
-						}}>
-							<Text style={{
-								textAlign: 'center',
-								fontFamily: 'Montserrat',
-								fontSize: 16,
-								color: '#DDD',
-							}}>
+							alignItems: 'center',
+							justifyContent: 'flex-end',
+							backgroundColor: '#b79732',
+						}}
+					>
+						<Image
+							source={overlayImg}
+							style={{
+								position: 'relative',
+								width: '100%',
+								height: '100%',
+								borderRadius: 10,
+							}}
+						/>
+						<View
+							style={{
+								width: '100%',
+								alignSelf: 'flex-end',
+								position: 'absolute',
+								borderBottomLeftRadius: 10,
+								borderBottomRightRadius: 10,
+								backgroundColor: 'rgba(106, 66, 46, 0.6)',
+								padding: 10,
+							}}
+						>
+							<Text
+								style={{
+									textAlign: 'center',
+									fontFamily: 'Montserrat',
+									fontSize: 16,
+									color: '#DDD',
+								}}
+							>
 								{overlayText}
 							</Text>
 						</View>
