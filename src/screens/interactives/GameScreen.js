@@ -10,6 +10,7 @@ import {
 	AccessibilityInfo,
 	Animated,
 	findNodeHandle,
+	Image,
 } from 'react-native';
 
 import { Overlay } from 'react-native-elements';
@@ -33,7 +34,9 @@ const GameMain = ({ navigation }) => {
 	const [isScreenReaderEnabled, setScreenReaderEnabled] = useState(false);
 
 	const [overlayVisible, setOverlayVisible] = useState(false);
+	const [overlayTitle, setOverlayTitle] = useState('');
 	const [overlayText, setOverlayText] = useState('');
+	const [overlayImg, setOverlayImg] = useState()
 
 	const randNum = Math.floor(Math.random() * trees.length);
 	const [currentTree, setCurrentTree] = useState(trees[randNum]);
@@ -48,24 +51,32 @@ const GameMain = ({ navigation }) => {
 			icon: 'leaf',
 			value: stats[0],
 			maxValue: 20,
+			image: require('../../../assets/game/end/sustentabilidade-end.png'),
+			winImage: require('../../../assets/game/end/sustentabilidade-win.png'),
 		},
 		{
 			name: 'Popularidade',
 			icon: 'group',
 			value: stats[1],
 			maxValue: 20,
+			image: require('../../../assets/game/end/popularidade-end.png'),
+			winImage: require('../../../assets/game/end/popularidade-win.png'),
 		},
 		{
 			name: 'Finanças',
 			icon: 'dollar',
 			value: stats[2],
 			maxValue: 20,
+			image: require('../../../assets/game/end/finanças-end.png'),
+			winImage: require('../../../assets/game/end/finanças-win.png'),
 		},
 		{
 			name: 'Energia',
 			icon: 'bolt',
 			value: stats[3],
 			maxValue: 20,
+			image: require('../../../assets/game/end/energia-end.png'),
+			winImage: require('../../../assets/game/end/energia-win.png'),
 		},
 	];
 
@@ -99,16 +110,24 @@ const GameMain = ({ navigation }) => {
 			setOverlayVisible(true);
 			let i = 0;
 			for (i = 0; sts[i] != 0; i++);
+			setOverlayTitle('Fim de jogo')
 			setOverlayText(
-				`Fim de jogo. Você não soube administrar ${
+				`Você não soube administrar ${
 					endStatements[i]
 				} e terá que sair já do poder!`,
 			);
+			setOverlayImg(gameStats[i].image)
 			return true;
 		}
 		if (questionCount >= currentTree.length - 1) {
 			setOverlayVisible(true);
-			setOverlayText(`Parabéns! Você chegou ao fim do seu mandato!`);
+			let maior = 0
+			for (i = 1; i < sts.length; i++){
+				if(sts[i] > sts[maior]) maior = i
+			}
+			setOverlayImg(gameStats[maior].winImage)
+			setOverlayTitle('Parabéns!')
+			setOverlayText(`Você chegou ao fim do seu mandato, e soube melhor administrar ${endStatements[maior]}!`);
 			return true;
 		}
 		return false;
@@ -183,13 +202,62 @@ const GameMain = ({ navigation }) => {
 			<Overlay
 				isVisible={overlayVisible}
 				overlayBackgroundColor={theme.colors.background}
-				height={350}
+				height={550}
 				width={300}
 			>
-				<View style={styles.overlayContainer}>
-					<Text style={[styles.text, { color: theme.colors.text }]}>
-						{overlayText}
+				<View 
+					style={styles.overlayContainer}
+					accessible={true}
+					accessibilityLabel={`
+						${overlayTitle}\n
+						${overlayText}\n
+						Tempo de governo:\n
+						${formatMonths()}\n
+						Estado final dos atributos:\n
+						${gameStats[0].name}: ${(stats[0] * 100) / gameStats[0].maxValue}%;\n
+						${gameStats[1].name}: ${(stats[1] * 100) / gameStats[1].maxValue}%;\n
+						${gameStats[2].name}: ${(stats[2] * 100) / gameStats[2].maxValue}%;\n
+						${gameStats[3].name}: ${(stats[3] * 100) / gameStats[3].maxValue}%;\n
+						Média final:\n
+						${media()}%\n
+					`}
+				>
+					<Text style={[styles.text, { color: theme.colors.text, fontWeight: 'bold', textAlign: 'center' }]}>
+						{overlayTitle}
 					</Text>
+					<View style={{
+						width: '100%',
+						height: 300,
+						borderRadius: 10,
+						alignItems: 'center',
+						justifyContent: 'flex-end',
+						backgroundColor: '#b79732',
+					}}>
+						<Image source={overlayImg} style={{
+							position: 'relative',
+							width: '100%',
+							height: '100%',
+							borderRadius: 10,
+						}}/>
+						<View style={{
+							width: '100%',
+							alignSelf: 'flex-end',
+							position: 'absolute',
+							borderBottomLeftRadius: 10,
+							borderBottomRightRadius: 10,
+							backgroundColor: 'rgba(106, 66, 46, 0.6)',
+							padding: 10,
+						}}>
+							<Text style={{
+								textAlign: 'center',
+								fontFamily: 'Montserrat',
+								fontSize: 16,
+								color: '#DDD',
+							}}>
+								{overlayText}
+							</Text>
+						</View>
+					</View>
 					<Text style={{ fontSize: 18, color: theme.colors.text }}>
 						Tempo de governo: {formatMonths()}
 					</Text>
