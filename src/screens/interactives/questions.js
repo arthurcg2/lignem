@@ -185,8 +185,8 @@ export default questions = [
 		statement: 'Pensei que tínhamos uma parceria! Removerei TODO o investimento que já havia feito na região!',
 		yesOption: 'Vá embora!',
 		noOption: 'Espere!',
-		yes: [, 2, -4, -4],
-		no: [, 2, -4, , 2, -4, -4],
+		yes: [2, 2, -4, -4],
+		no: [2, 2, -4, -4],
 	},
 	{
 		id: 22,
