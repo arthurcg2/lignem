@@ -20,6 +20,8 @@ const Chooser = ({
 	);
 	const [questionCount, setQuestionCount] = useState(0);
 	const [answers, setAnswers] = useState(new Array(tree.length).fill(null));
+	const [isFinal, setIsFinal] = useState(false)
+	let n = 0
 
 	const [info, setInfo] = useState('');
 	const elevationBrand = new Animated.Value(10);
@@ -42,7 +44,7 @@ const Chooser = ({
 
 	useEffect(() => {
 		if (questionCount <= tree.length - 1) updateQuestion();
-		else onQuestionAnswered([0, 0, 0, 0], questionCount);
+		else onQuestionAnswered([0, 0, 0, 0], questionCount, false);
 	}, [questionCount]);
 
 	useEffect(() => {
@@ -63,6 +65,13 @@ const Chooser = ({
 				}
 			}
 		}
+	}
+
+	function findQuestion(id){
+		for (let i = 0; i < questions.length; i++) {
+			if (questions[i].id == id) return i;
+		}
+		return -1
 	}
 
 	function findInTree(id) {
@@ -110,8 +119,14 @@ const Chooser = ({
 			let ans = answers;
 			ans[questionCount] = option == 'yes' ? true : false;
 			setAnswers(ans);
-			if (onQuestionAnswered(currentQuestion[option], questionCount)) {
-				setQuestionCount(0);
+			n = onQuestionAnswered(currentQuestion[option], questionCount, isFinal)
+			if (n == 0 && isFinal == true){
+				setIsFinal(false)
+				setQuestionCount(0)
+			}
+			else if (n != 0 && isFinal == false) {
+				setCurrentQuestion(questions[findQuestion(n)])
+				setIsFinal(true)
 			} else {
 				setQuestionCount(questionCount + 1);
 			}

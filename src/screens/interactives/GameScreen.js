@@ -105,11 +105,12 @@ const GameMain = ({ navigation }) => {
 		);
 	}, []);
 
-	function checkEnd(questionCount, sts) {
+	function checkEnd(questionCount, sts, isFinal) {
 		if (sts.includes(0) && !oldValues.includes(0)) {
-			setOverlayVisible(true);
 			let i = 0;
 			for (i = 0; sts[i] != 0; i++);
+			if(!isFinal) return (i * -1) - 5;
+			setOverlayVisible(true);
 			setOverlayTitle('Fim de jogo');
 			setOverlayText(
 				`Você não soube administrar ${
@@ -117,14 +118,14 @@ const GameMain = ({ navigation }) => {
 				} e terá que sair já do poder!`,
 			);
 			setOverlayImg(gameStats[i].image);
-			return true;
 		}
 		if (questionCount >= currentTree.length - 1) {
-			setOverlayVisible(true);
 			let maior = 0;
 			for (i = 1; i < sts.length; i++) {
 				if (sts[i] > sts[maior]) maior = i;
 			}
+			if(!isFinal) return (maior * -1) - 1;
+			setOverlayVisible(true);
 			setOverlayImg(gameStats[maior].winImage);
 			setOverlayTitle('Parabéns!');
 			setOverlayText(
@@ -132,9 +133,8 @@ const GameMain = ({ navigation }) => {
 					endStatements[maior]
 				}!`,
 			);
-			return true;
 		}
-		return false;
+		return 0;
 	}
 
 	function updateTree(not = -1) {
@@ -148,9 +148,8 @@ const GameMain = ({ navigation }) => {
 		setCurrentTree(trees[rand]);
 	}
 
-	function handleQuestionAnswered(optionStats, questionCount) {
+	function handleQuestionAnswered(optionStats, questionCount, isFinal) {
 		let newStats = new Array(4).fill(0);
-		setOldValues(stats);
 		newStats.map((stat, i) => {
 			const sum = stats[i] + optionStats[i];
 
@@ -158,9 +157,12 @@ const GameMain = ({ navigation }) => {
 			else if (sum < 0) newStats[i] = 0;
 			else newStats[i] = sum;
 		});
-		setMonth(month + 1);
-		setStats(newStats);
-		return checkEnd(questionCount, newStats);
+		if(!isFinal){
+			setMonth(month + 1);
+			setOldValues(stats);
+			setStats(newStats);
+		}
+		return checkEnd(questionCount, newStats, isFinal);
 	}
 
 	function focusOnAccessibilityTouchable() {
