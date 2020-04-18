@@ -5,12 +5,12 @@ import styles from './styles';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { useTheme } from '@react-navigation/native';
 
-export default function({ currentStats, oldValues, months }) {
+export default function({ containerStyle, currentStats, oldValues, months }) {
 	const theme = useTheme();
 
 	return (
 		<View
-			style={styles.statsContainer}
+			style={[styles.statsContainer, containerStyle]}
 			accessible
 			accessibilityLabel={`
 			\nEstado atual dos atributos:\n 

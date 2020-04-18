@@ -1,5 +1,5 @@
 /* eslint-disable react-native/no-inline-styles */
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import AsyncStorage from '@react-native-community/async-storage';
 
 import {
@@ -32,6 +32,7 @@ const GameMain = ({ navigation }) => {
 	const [stats, setStats] = useState(new Array(4).fill(0));
 	const [oldValues, setOldValues] = useState(new Array(4).fill(0));
 	const [isScreenReaderEnabled, setScreenReaderEnabled] = useState(false);
+	const gameAccessibilityRef = useRef(null);
 
 	const [overlayVisible, setOverlayVisible] = useState(false);
 	const [overlayTitle, setOverlayTitle] = useState('');
@@ -103,13 +104,25 @@ const GameMain = ({ navigation }) => {
 		AccessibilityInfo.announceForAccessibility(
 			'Página do jogo. Para mais informações, abra o tutorial do jogo no canto superior direito da tela.',
 		);
+
+		focusOnAccessibilityTouchable();
 	}, []);
+
+	// focar ao navegar
+	useEffect(() => {
+		const unsubscribe = navigation.addListener('focus', () => {
+			if (gameAccessibilityRef.current) focusOnAccessibilityTouchable();
+		});
+
+		// Return the function to unsubscribe from the event so it gets removed on unmount
+		return unsubscribe;
+	}, [navigation]);
 
 	function checkEnd(questionCount, sts, isFinal) {
 		if (sts.includes(0) && !oldValues.includes(0)) {
 			let i = 0;
 			for (i = 0; sts[i] != 0; i++);
-			if(!isFinal) return (i * -1) - 5;
+			if (!isFinal) return i * -1 - 5;
 			setOverlayVisible(true);
 			setOverlayTitle('Fim de jogo');
 			setOverlayText(
@@ -124,7 +137,7 @@ const GameMain = ({ navigation }) => {
 			for (i = 1; i < sts.length; i++) {
 				if (sts[i] > sts[maior]) maior = i;
 			}
-			if(!isFinal) return (maior * -1) - 1;
+			if (!isFinal) return maior * -1 - 1;
 			setOverlayVisible(true);
 			setOverlayImg(gameStats[maior].winImage);
 			setOverlayTitle('Parabéns!');
@@ -157,7 +170,7 @@ const GameMain = ({ navigation }) => {
 			else if (sum < 0) newStats[i] = 0;
 			else newStats[i] = sum;
 		});
-		if(!isFinal){
+		if (!isFinal) {
 			setMonth(month + 1);
 			setOldValues(stats);
 			setStats(newStats);
@@ -167,9 +180,10 @@ const GameMain = ({ navigation }) => {
 
 	function focusOnAccessibilityTouchable() {
 		// focar na pergunta do centro do Chooser
-		/*AccessibilityInfo.setAccessibilityFocus(
-			findNodeHandle(mainAccessibilityRef.current),
-		);*/
+		if (gameAccessibilityRef.current)
+			AccessibilityInfo.setAccessibilityFocus(
+				findNodeHandle(gameAccessibilityRef.current),
+			);
 	}
 
 	function formatMonths() {
@@ -368,6 +382,7 @@ const GameMain = ({ navigation }) => {
 				onNewQuestion={focusOnAccessibilityTouchable}
 				onQuestionAnswered={handleQuestionAnswered}
 				tree={currentTree}
+				ref={gameAccessibilityRef}
 			/>
 			{!isScreenReaderEnabled && (
 				<Text style={[styles.monthsText, { color: theme.colors.text }]}>
@@ -378,6 +393,7 @@ const GameMain = ({ navigation }) => {
 				currentStats={gameStats}
 				oldValues={oldValues}
 				months={formatMonths()}
+				containerStyle={{ flex: 1 }}
 			/>
 		</View>
 	);

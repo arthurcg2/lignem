@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, forwardRef } from 'react';
 import { Animated, Text, Image, View, TouchableOpacity } from 'react-native';
 import { PanGestureHandler, State } from 'react-native-gesture-handler';
 import Icon from 'react-native-vector-icons/MaterialIcons';
@@ -9,19 +9,20 @@ import Card from '../Card';
 
 import backgroundImage from '../../../../assets/game/background.png';
 
-const Chooser = ({
-	isScreenReaderEnabled,
-	onNewQuestion,
-	onQuestionAnswered,
-	tree,
-}) => {
+const Chooser = forwardRef((props, ref) => {
+	const {
+		isScreenReaderEnabled,
+		onNewQuestion,
+		onQuestionAnswered,
+		tree,
+	} = props;
 	const [currentQuestion, setCurrentQuestion] = useState(
 		questions[tree[0].id - 1],
 	);
 	const [questionCount, setQuestionCount] = useState(0);
 	const [answers, setAnswers] = useState(new Array(tree.length).fill(null));
-	const [isFinal, setIsFinal] = useState(false)
-	let n = 0
+	const [isFinal, setIsFinal] = useState(false);
+	let n = 0;
 
 	const [info, setInfo] = useState('');
 	const elevationBrand = new Animated.Value(10);
@@ -67,11 +68,11 @@ const Chooser = ({
 		}
 	}
 
-	function findQuestion(id){
+	function findQuestion(id) {
 		for (let i = 0; i < questions.length; i++) {
 			if (questions[i].id == id) return i;
 		}
-		return -1
+		return -1;
 	}
 
 	function findInTree(id) {
@@ -119,14 +120,13 @@ const Chooser = ({
 			let ans = answers;
 			ans[questionCount] = option == 'yes' ? true : false;
 			setAnswers(ans);
-			n = onQuestionAnswered(currentQuestion[option], questionCount, isFinal)
-			if (n == 0 && isFinal == true){
-				setIsFinal(false)
-				setQuestionCount(0)
-			}
-			else if (n != 0 && isFinal == false) {
-				setCurrentQuestion(questions[findQuestion(n)])
-				setIsFinal(true)
+			n = onQuestionAnswered(currentQuestion[option], questionCount, isFinal);
+			if (n == 0 && isFinal == true) {
+				setIsFinal(false);
+				setQuestionCount(0);
+			} else if (n != 0 && isFinal == false) {
+				setCurrentQuestion(questions[findQuestion(n)]);
+				setIsFinal(true);
 			} else {
 				setQuestionCount(questionCount + 1);
 			}
@@ -273,6 +273,7 @@ const Chooser = ({
 						<Icon name="cancel" size={50} color="white" />
 					</TouchableOpacity>
 					<TouchableOpacity
+						ref={ref}
 						style={styles.centerAccessibilityButton}
 						accessible
 						accessibilityLabel={`${agent[currentQuestion.char]} diz:\n ${
@@ -301,6 +302,6 @@ const Chooser = ({
 			)}
 		</>
 	);
-};
+});
 
 export default Chooser;
