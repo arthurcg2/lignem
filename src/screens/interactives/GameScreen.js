@@ -393,7 +393,9 @@ const GameMain = ({ navigation }) => {
 				currentStats={gameStats}
 				oldValues={oldValues}
 				months={formatMonths()}
-				containerStyle={{ flex: 1 }}
+				containerStyle={
+					isScreenReaderEnabled ? { flex: 1, justifyContent: 'center' } : {}
+				}
 			/>
 		</View>
 	);

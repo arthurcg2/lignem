@@ -87,8 +87,8 @@ export const styles = StyleSheet.create({
 		flex: 1,
 		width: w - 2 * (70 + 10),
 		height: h <= 592 ? 280 : 320,
-		backgroundColor: '#BBB',
-		paddingHorizontal: 10,
-		justifyContent: 'space-around',
+		backgroundColor: '#DDD',
+		paddingHorizontal: 15,
+		justifyContent: 'space-evenly',
 	},
 });

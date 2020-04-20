@@ -278,13 +278,21 @@ const Chooser = forwardRef((props, ref) => {
 						accessible
 						accessibilityLabel={`${agent[currentQuestion.char]} diz:\n ${
 							currentQuestion.statement
-						}\n Clique abaixo para ver o estado atual de seus atributos!\nClique nas laterais centrais para tomar uma decisão!`}
+						}\n ${
+							isFinal
+								? 'Fim de jogo, toque em qualquer uma das laterais para responder.'
+								: 'Clique abaixo para ver o estado atual de seus atributos!\nClique nas laterais centrais para tomar uma decisão!'
+						}`}
 					>
-						<Text>{agent[currentQuestion.char]}</Text>
-						<Text>{currentQuestion.statement}</Text>
+						<Text style={{ textAlign: 'center', fontWeight: 'bold' }}>
+							{agent[currentQuestion.char]}
+						</Text>
+						<Text style={{ textAlign: 'center' }}>
+							{currentQuestion.statement}
+						</Text>
 					</TouchableOpacity>
 					<TouchableOpacity
-						accessibilityLabel={`Direita\n, você diz: ${
+						accessibilityLabel={`Direita,\n você diz: ${
 							currentQuestion.yesOption
 						}`}
 						style={{
