@@ -53,7 +53,7 @@ const GameMain = ({ navigation }) => {
 			value: stats[0],
 			maxValue: 20,
 			image: require('../../../assets/game/end/sustentabilidade-end.png'),
-			winImage: require('../../../assets/game/end/sustentabilidade-win.png'),
+			winImage: require('../../../assets/game/end/sustentabilidade-win.jpg'),
 		},
 		{
 			name: 'Popularidade',
@@ -61,7 +61,7 @@ const GameMain = ({ navigation }) => {
 			value: stats[1],
 			maxValue: 20,
 			image: require('../../../assets/game/end/popularidade-end.png'),
-			winImage: require('../../../assets/game/end/popularidade-win.png'),
+			winImage: require('../../../assets/game/end/popularidade-win.jpg'),
 		},
 		{
 			name: 'Finanças',
