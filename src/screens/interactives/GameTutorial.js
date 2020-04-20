@@ -20,20 +20,13 @@ import AsyncStorage from '@react-native-community/async-storage';
 
 const GameTutorial = ({ navigation }) => {
 	const initialElement = useRef(null);
-	const [isScreenReaderEnabled, setScreenReaderEnabled] = useState();
 	const [styles, setStyles] = useState({});
 	const [current, setCurrent] = useState(0);
 	const theme = useTheme();
 	const isLargeScreen = Dimensions.get('window').height > 592;
 
 	useEffect(() => {
-		async function checkScreenReader() {
-			const isEnabled = await AccessibilityInfo.isScreenReaderEnabled();
-			setScreenReaderEnabled(isEnabled);
-		}
-
 		hideNavigationBar();
-		checkScreenReader();
 		setStyles(generateStyles(theme));
 		AccessibilityInfo.setAccessibilityFocus(
 			findNodeHandle(initialElement.current),
@@ -92,7 +85,6 @@ const GameTutorial = ({ navigation }) => {
 								return (
 									<Image
 										source={require('../../../assets/tutorial/tg-1.jpg')}
-										styles={{ height: 350, width: 350 }}
 									/>
 								);
 							} else {
@@ -108,29 +100,6 @@ const GameTutorial = ({ navigation }) => {
 							'Arraste o quadrado central para a esquerda para rejeitar e para a direita para aceitar a proposta da pergunta. Cada escolha terá suas próprias consequências.',
 						subTitleStyles: { color: theme.colors.background },
 					},
-					isScreenReaderEnabled && {
-						backgroundColor: theme.colors.primary,
-						image: (() => {
-							if (isLargeScreen) {
-								return (
-									<Image
-										source={require('../../../assets/tutorial/tg-1.jpg')}
-										styles={{ height: 350, width: 350 }}
-									/>
-								);
-							} else {
-								return <Image />;
-							}
-						})(),
-						title: (
-							<Text style={styles.text}>
-								Ações para <Text style={styles.bold}>acessibilidade</Text>
-							</Text>
-						),
-						subtitle:
-							'Caso estiver usando um leitor de tela, arraste com dois dedos na parte central da tela (sem localização específica) para fazer suas escolhas. Isso deixará sua experiência mais prática.',
-						subTitleStyles: { color: theme.colors.background },
-					},
 					{
 						backgroundColor: theme.colors.primary,
 						image: (() => {
@@ -138,7 +107,6 @@ const GameTutorial = ({ navigation }) => {
 								return (
 									<Image
 										source={require('../../../assets/tutorial/tg-2.jpg')}
-										styles={{ height: 267, width: 350 }}
 									/>
 								);
 							} else {
@@ -161,7 +129,6 @@ const GameTutorial = ({ navigation }) => {
 								return (
 									<Image
 										source={require('../../../assets/tutorial/tg-3.jpg')}
-										styles={{ height: 370, width: 323 }}
 									/>
 								);
 							} else {
@@ -175,6 +142,28 @@ const GameTutorial = ({ navigation }) => {
 						),
 						subtitle:
 							'Quando algum de seus atributos chegar a 0, você perderá. Portanto, seja cauteloso!',
+						subTitleStyles: { color: theme.colors.background },
+					},
+					{
+						backgroundColor: theme.colors.primary,
+						image: (() => {
+							if (isLargeScreen) {
+								return (
+									<Image
+										source={require('../../../assets/tutorial/tg-4.jpg')}
+									/>
+								);
+							} else {
+								return <Image />;
+							}
+						})(),
+						title: (
+							<Text style={styles.text}>
+								Ações para <Text style={styles.bold}>acessibilidade</Text>
+							</Text>
+						),
+						subtitle:
+							'Caso estiver usando um leitor de tela, clique nos botões localizados na direita e na esquerda da parte central da tela para fazer suas escolhas. Isso deixará sua experiência mais prática.',
 						subTitleStyles: { color: theme.colors.background },
 					},
 					{
@@ -200,7 +189,7 @@ const GameTutorial = ({ navigation }) => {
 							'Nenhum nome/localização utilizada nesse jogo é real. Qualquer semelhança é mera coincidência.',
 						subTitleStyles: { color: theme.colors.background },
 					},
-				].filter(Boolean)}
+				]}
 				NextButtonComponent={props => (
 					<Icon
 						accessibilityLabel="Ir para a próxima página do tutorial."
