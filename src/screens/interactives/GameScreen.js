@@ -33,6 +33,7 @@ const GameMain = ({ navigation }) => {
 	const [oldValues, setOldValues] = useState(new Array(4).fill(0));
 	const [isScreenReaderEnabled, setScreenReaderEnabled] = useState(false);
 	const gameAccessibilityRef = useRef(null);
+	const overlayRef = useRef(null);
 
 	const [overlayVisible, setOverlayVisible] = useState(false);
 	const [overlayTitle, setOverlayTitle] = useState('');
@@ -107,6 +108,18 @@ const GameMain = ({ navigation }) => {
 
 		focusOnAccessibilityTouchable();
 	}, []);
+
+	// focar ao abrir overlay
+	useEffect(() => {
+		if (overlayVisible) {
+			AccessibilityInfo.announceForAccessibility(
+				'Fim de jogo. Os detalhes são mostrados a seguir:',
+			);
+			AccessibilityInfo.setAccessibilityFocus(
+				findNodeHandle(overlayRef.current),
+			);
+		}
+	}, [overlayVisible]);
 
 	// focar ao navegar
 	useEffect(() => {
@@ -222,25 +235,28 @@ const GameMain = ({ navigation }) => {
 			<Overlay
 				isVisible={overlayVisible}
 				overlayBackgroundColor={theme.colors.background}
+				borderRadius={5}
 				height={550}
 				width={300}
 			>
 				<View
 					style={styles.overlayContainer}
+					ref={overlayRef}
+					importantForAccessibility="yes"
 					accessible={true}
 					accessibilityLabel={`
-						${overlayTitle}\n
-						${overlayText}\n
-						Tempo de governo:\n
-						${formatMonths()}\n
-						Estado final dos atributos:\n
-						${gameStats[0].name}: ${(stats[0] * 100) / gameStats[0].maxValue}%;\n
-						${gameStats[1].name}: ${(stats[1] * 100) / gameStats[1].maxValue}%;\n
-						${gameStats[2].name}: ${(stats[2] * 100) / gameStats[2].maxValue}%;\n
-						${gameStats[3].name}: ${(stats[3] * 100) / gameStats[3].maxValue}%;\n
-						Média final:\n
-						${media()}%\n
-					`}
+					${overlayTitle}\n
+					${overlayText}\n
+					Tempo de governo:\n
+					${formatMonths()}\n
+					Estado final dos atributos:\n
+					${gameStats[0].name}: ${(stats[0] * 100) / gameStats[0].maxValue}%;\n
+					${gameStats[1].name}: ${(stats[1] * 100) / gameStats[1].maxValue}%;\n
+					${gameStats[2].name}: ${(stats[2] * 100) / gameStats[2].maxValue}%;\n
+					${gameStats[3].name}: ${(stats[3] * 100) / gameStats[3].maxValue}%;\n
+					Média final:\n
+					${media()}%\n
+				`}
 				>
 					<Text
 						style={[
@@ -360,6 +376,7 @@ const GameMain = ({ navigation }) => {
 						</Animated.Text>
 					</View>
 					<Button
+						importantForAccessibility="yes"
 						title="Reiniciar"
 						color={theme.colors.primary}
 						style={styles.button}
