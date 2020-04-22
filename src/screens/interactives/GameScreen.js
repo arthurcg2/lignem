@@ -124,6 +124,12 @@ const GameMain = ({ navigation }) => {
 	// focar ao navegar
 	useEffect(() => {
 		const unsubscribe = navigation.addListener('focus', () => {
+			const checkScreenReader = async () => {
+				const isEnabled = await AccessibilityInfo.isScreenReaderEnabled();
+				setScreenReaderEnabled(isEnabled);
+			};
+
+			checkScreenReader();
 			if (gameAccessibilityRef.current) focusOnAccessibilityTouchable();
 		});
 
