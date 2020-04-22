@@ -1,30 +1,30 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { Animated, View } from 'react-native';
 
 import styles from './styles';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { useTheme } from '@react-navigation/native';
 
-export default Stats = ({ currentStats, oldValues }) => {
-	const [colors, setColors] = useState(new Array(4).fill('#e6cd7e'));
+export default function({ containerStyle, currentStats, oldValues, months }) {
 	const theme = useTheme();
 
-	useEffect(() => {
-		let newColors = new Array(4).fill('#e6cd7e');
-
-		newColors.map((color, i) => {
-			if (currentStats[i].value > (2 * currentStats[i].maxValue) / 3)
-				newColors[i] = '#42f55d';
-			else if (currentStats[i].value < currentStats[i].maxValue / 3)
-				newColors[i] = '#f54242';
-			else newColors[i] = '#e6cd7e';
-		});
-
-		setColors(newColors);
-	}, [currentStats]);
-
 	return (
-		<View style={styles.statsContainer}>
+		<View
+			style={[styles.statsContainer, containerStyle]}
+			accessible
+			accessibilityLabel={`
+			\nEstado atual dos atributos:\n 
+			${currentStats[0].name}: ${(currentStats[0].value * 100) /
+				currentStats[0].maxValue}%;\n
+			${currentStats[1].name}: ${(currentStats[1].value * 100) /
+				currentStats[1].maxValue}%;\n
+			${currentStats[2].name}: ${(currentStats[2].value * 100) /
+				currentStats[2].maxValue}%;\n
+			${currentStats[3].name}: ${(currentStats[3].value * 100) /
+				currentStats[3].maxValue}%;\n
+			Tempo de governo até o momento: ${months}
+		`}
+		>
 			{currentStats.map((stat, i) => {
 				const statValue = new Animated.Value(oldValues[i]);
 
@@ -71,4 +71,4 @@ export default Stats = ({ currentStats, oldValues }) => {
 			})}
 		</View>
 	);
-};
+}

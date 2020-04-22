@@ -1,9 +1,9 @@
 export default {
-	name: 'red',
+	name: 'darkblue',
 	dark: false,
 	colors: {
-		primary: '#E60023',
-		primaryDarken: '#B8001C',
+		primary: '#3d4bea',
+		primaryDarken: '#303cbb',
 		background: '#FFF',
 		backgroundDarken: '#EFEFEF',
 		card: '#FFF',

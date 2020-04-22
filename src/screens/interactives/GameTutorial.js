@@ -84,7 +84,7 @@ const GameTutorial = ({ navigation }) => {
 							if (isLargeScreen) {
 								return (
 									<Image
-										source={require('../../../assets/tutorial/tg-1.png')}
+										source={require('../../../assets/tutorial/tg-1.jpg')}
 									/>
 								);
 							} else {
@@ -106,7 +106,7 @@ const GameTutorial = ({ navigation }) => {
 							if (isLargeScreen) {
 								return (
 									<Image
-										source={require('../../../assets/tutorial/tg-2.png')}
+										source={require('../../../assets/tutorial/tg-2.jpg')}
 									/>
 								);
 							} else {
@@ -128,7 +128,7 @@ const GameTutorial = ({ navigation }) => {
 							if (isLargeScreen) {
 								return (
 									<Image
-										source={require('../../../assets/tutorial/tg-3.png')}
+										source={require('../../../assets/tutorial/tg-3.jpg')}
 									/>
 								);
 							} else {
@@ -142,6 +142,28 @@ const GameTutorial = ({ navigation }) => {
 						),
 						subtitle:
 							'Quando algum de seus atributos chegar a 0, você perderá. Portanto, seja cauteloso!',
+						subTitleStyles: { color: theme.colors.background },
+					},
+					{
+						backgroundColor: theme.colors.primary,
+						image: (() => {
+							if (isLargeScreen) {
+								return (
+									<Image
+										source={require('../../../assets/tutorial/tg-4.jpg')}
+									/>
+								);
+							} else {
+								return <Image />;
+							}
+						})(),
+						title: (
+							<Text style={styles.text}>
+								Ações para <Text style={styles.bold}>acessibilidade</Text>
+							</Text>
+						),
+						subtitle:
+							'Caso estiver usando um leitor de tela, clique nos botões localizados na direita e na esquerda da parte central da tela para fazer suas escolhas. Isso deixará sua experiência mais prática.',
 						subTitleStyles: { color: theme.colors.background },
 					},
 					{
