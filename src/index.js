@@ -8,7 +8,7 @@ import lightTheme from './themes/default';
 import darkTheme from './themes/dark';
 import tomatoTheme from './themes/tomato';
 import blueTheme from './themes/blueTheme';
-import redTheme from './themes/redTheme';
+import darkBlueTheme from './themes/darkBlueTheme';
 
 import App from './App';
 
@@ -47,7 +47,7 @@ export default function Index() {
 				break;
 			case 'deuteranopia':
 			case 'deuteranomalia':
-				setTheme(redTheme);
+				setTheme(darkBlueTheme);
 				changeNavigationBarColor('#FFFFFF', true);
 				break;
 			default:

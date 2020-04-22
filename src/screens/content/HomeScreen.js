@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import {
 	View,
 	Text,
@@ -6,6 +6,7 @@ import {
 	Button,
 	ScrollView,
 	AccessibilityInfo,
+	findNodeHandle,
 } from 'react-native';
 import { Card } from 'react-native-elements';
 import { useTheme } from '@react-navigation/native';
@@ -16,11 +17,24 @@ import AsyncStorage from '@react-native-community/async-storage';
 
 const Home = ({ navigation }) => {
 	const [styles, setStyles] = useState({});
+	const firstCardRef = useRef(null);
 	const theme = useTheme();
 
 	useEffect(() => {
 		setStyles(generateStyles(theme));
 	}, [theme]);
+
+	useEffect(() => {
+		const unsubscribe = navigation.addListener('focus', () => {
+			if (firstCardRef.current)
+				AccessibilityInfo.setAccessibilityFocus(
+					findNodeHandle(firstCardRef.current),
+				);
+		});
+
+		// Return the function to unsubscribe from the event so it gets removed on unmount
+		return unsubscribe;
+	}, [navigation, firstCardRef]);
 
 	useEffect(() => {
 		const loadData = async () => {
@@ -37,8 +51,9 @@ const Home = ({ navigation }) => {
 	return (
 		<View style={styles.container}>
 			<ScrollView style={styles.cardsList}>
-				{cards.map(card => (
+				{cards.map((card, i) => (
 					<View
+						ref={i == 0 ? firstCardRef : null}
 						key={card.id}
 						accessible
 						accessibilityLabel={`Card de ${card.title}. O conteúdo aborda ${
