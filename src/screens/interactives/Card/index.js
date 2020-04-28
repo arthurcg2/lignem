@@ -3,7 +3,7 @@ import { View, Text, TouchableWithoutFeedback, Image } from 'react-native';
 
 import styles from './styles';
 
-export default function Card({ text, character }) {
+export default function Card({ text, character, borderRadius = 10 }) {
 	const [characterImage, setCharacterImage] = useState();
 
 	useEffect(() => {
@@ -36,9 +36,21 @@ export default function Card({ text, character }) {
 
 	return (
 		<View style={styles.container}>
-			<Image style={styles.image} source={characterImage} borderRadius={10} />
+			<Image
+				style={styles.image}
+				source={characterImage}
+				borderRadius={borderRadius}
+			/>
 			<TouchableWithoutFeedback>
-				<View style={styles.labelContainer}>
+				<View
+					style={[
+						styles.labelContainer,
+						{
+							borderBottomLeftRadius: borderRadius,
+							borderBottomRightRadius: borderRadius,
+						},
+					]}
+				>
 					<Text style={styles.label}>{text}</Text>
 				</View>
 			</TouchableWithoutFeedback>

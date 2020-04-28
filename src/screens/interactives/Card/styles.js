@@ -1,6 +1,6 @@
 import { StyleSheet, Dimensions } from 'react-native';
 
-const h = Dimensions.get('window').height
+const h = Dimensions.get('window').height;
 
 export default StyleSheet.create({
 	container: {
@@ -19,8 +19,6 @@ export default StyleSheet.create({
 		width: '100%',
 		alignSelf: 'flex-end',
 		position: 'absolute',
-		borderBottomLeftRadius: 10,
-		borderBottomRightRadius: 10,
 		backgroundColor: 'rgba(106, 66, 46, 0.6)',
 		padding: 10,
 	},

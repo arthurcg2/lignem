@@ -32,6 +32,9 @@ const GameMain = ({ navigation }) => {
 	const [stats, setStats] = useState(new Array(4).fill(0));
 	const [oldValues, setOldValues] = useState(new Array(4).fill(0));
 	const [isScreenReaderEnabled, setScreenReaderEnabled] = useState(false);
+	const [isMotorAccessibilityEnabled, setMotorAccessibilityEnabled] = useState(
+		false,
+	);
 	const gameAccessibilityRef = useRef(null);
 	const overlayRef = useRef(null);
 
@@ -88,6 +91,12 @@ const GameMain = ({ navigation }) => {
 			setScreenReaderEnabled(isEnabled);
 		};
 
+		const checkMotorAccessibility = async () => {
+			const boolStr = await AsyncStorage.getItem('isMotorAccessibilityEnabled');
+			if (boolStr === 'true') setMotorAccessibilityEnabled(true);
+			else setMotorAccessibilityEnabled(false);
+		};
+
 		const loadData = async () => {
 			const str = await AsyncStorage.getItem('isGameTutorialDone');
 			if (str !== 'true') navigation.navigate('Tutorial');
@@ -95,6 +104,7 @@ const GameMain = ({ navigation }) => {
 
 		loadData();
 		checkScreenReader();
+		checkMotorAccessibility();
 
 		let newStats = new Array(gameStats.length).fill(0);
 		for (let i = 0; i < gameStats.length; i++) {
@@ -129,7 +139,16 @@ const GameMain = ({ navigation }) => {
 				setScreenReaderEnabled(isEnabled);
 			};
 
+			const checkMotorAccessibility = async () => {
+				const boolStr = await AsyncStorage.getItem(
+					'isMotorAccessibilityEnabled',
+				);
+				if (boolStr === 'true') setMotorAccessibilityEnabled(true);
+				else setMotorAccessibilityEnabled(false);
+			};
+
 			checkScreenReader();
+			checkMotorAccessibility();
 			if (gameAccessibilityRef.current) focusOnAccessibilityTouchable();
 		});
 
@@ -402,6 +421,7 @@ const GameMain = ({ navigation }) => {
 			</Overlay>
 			<Chooser
 				isScreenReaderEnabled={isScreenReaderEnabled}
+				isMotorAccessibilityEnabled={isMotorAccessibilityEnabled}
 				onNewQuestion={focusOnAccessibilityTouchable}
 				onQuestionAnswered={handleQuestionAnswered}
 				tree={currentTree}

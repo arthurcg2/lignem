@@ -91,4 +91,9 @@ export const styles = StyleSheet.create({
 		paddingHorizontal: 15,
 		justifyContent: 'space-evenly',
 	},
+	centerMotorAccessibilityButton: {
+		flex: 1,
+		width: w - 2 * (70 + 10),
+		height: h <= 592 ? 280 : 320,
+	},
 });
