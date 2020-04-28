@@ -170,7 +170,7 @@ const GameMain = ({ navigation }) => {
 				} e terá que sair já do poder!`,
 			);
 			setOverlayImg(gameStats[i].image);
-			Vibration.vibrate([0, 350, 50, 350]);
+			Vibration.vibrate([0, 600]);
 		}
 		if (questionCount >= currentTree.length - 1) {
 			let maior = 0;
@@ -186,7 +186,7 @@ const GameMain = ({ navigation }) => {
 					endStatements[maior]
 				}!`,
 			);
-			Vibration.vibrate([0, 600]);
+			Vibration.vibrate([0, 350, 50, 350]);
 		}
 		return 0;
 	}
