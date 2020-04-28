@@ -1,9 +1,11 @@
 import { StyleSheet } from 'react-native';
 
+import { widthPercentToDP, heightPercentToDP } from '../../../utils/dimensionsFunctions'
+
 export default StyleSheet.create({
 	statsContainer: {
-		height: '25%',
-		width: '100%',
+		height: heightPercentToDP('25%'),
+		width: widthPercentToDP('80%'),
 		flexDirection: 'row',
 		justifyContent: 'space-around',
 	},
@@ -13,8 +15,8 @@ export default StyleSheet.create({
 		alignItems: 'center',
 	},
 	statBar: {
-		width: 30,
-		height: 75,
+		width: heightPercentToDP('5%'),
+		height: widthPercentToDP('20%'),
 		marginBottom: 10,
 		borderWidth: 2,
 		padding: 2,
