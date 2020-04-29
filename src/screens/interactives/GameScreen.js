@@ -29,6 +29,8 @@ const endStatements = [
 	'sua reserva de energia',
 ];
 
+import { widthPercentToDP, heightPercentToDP } from '../../utils/dimensionsFunctions'
+
 const GameMain = ({ navigation }) => {
 	const [stats, setStats] = useState(new Array(4).fill(0));
 	const [oldValues, setOldValues] = useState(new Array(4).fill(0));
@@ -264,8 +266,8 @@ const GameMain = ({ navigation }) => {
 				isVisible={overlayVisible}
 				overlayBackgroundColor={theme.colors.background}
 				borderRadius={5}
-				height={550}
-				width={300}
+				height={heightPercentToDP('90%')}
+				width={widthPercentToDP('80%')}
 			>
 				<View
 					style={styles.overlayContainer}
@@ -301,7 +303,7 @@ const GameMain = ({ navigation }) => {
 					<View
 						style={{
 							width: '100%',
-							height: 300,
+							height: '50%',
 							borderRadius: 10,
 							alignItems: 'center',
 							justifyContent: 'flex-end',
@@ -439,9 +441,6 @@ const GameMain = ({ navigation }) => {
 				currentStats={gameStats}
 				oldValues={oldValues}
 				months={formatMonths()}
-				containerStyle={
-					isScreenReaderEnabled ? { flex: 1, justifyContent: 'center' } : {}
-				}
 			/>
 		</View>
 	);

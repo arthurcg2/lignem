@@ -1,5 +1,7 @@
 import { StyleSheet, Dimensions } from 'react-native';
 
+import { widthPercentToDP, heightPercentToDP } from '../../../utils/dimensionsFunctions'
+
 export const generateStyles = theme => {
     return StyleSheet.create({
         view: {
@@ -59,7 +61,7 @@ export const generateStyles = theme => {
             color: theme.colors.text,
             paddingHorizontal: 10,
             marginVertical: 10,
-            width: '100%',
+            width: widthPercentToDP('100%'),
         },
         heading3: {
             fontSize: 20,

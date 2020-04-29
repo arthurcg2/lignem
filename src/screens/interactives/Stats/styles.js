@@ -7,11 +7,11 @@ export default StyleSheet.create({
 		height: heightPercentToDP('25%'),
 		width: widthPercentToDP('80%'),
 		flexDirection: 'row',
+		alignItems: 'center',
 		justifyContent: 'space-around',
 	},
 	stat: {
 		width: '30%',
-		height: '100%',
 		alignItems: 'center',
 	},
 	statBar: {

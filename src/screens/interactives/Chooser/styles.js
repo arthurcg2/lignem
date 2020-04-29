@@ -70,7 +70,7 @@ export const styles = StyleSheet.create({
 		fontFamily: 'Montserrat',
 	},
 	accessibilityButtonsContainer: {
-		width: widthPercentToDP('90%'),
+		width: widthPercentToDP('95%'),
 		height: heightPercentToDP('45%'),
 		flexDirection: 'row',
 		justifyContent: 'center',
@@ -86,8 +86,7 @@ export const styles = StyleSheet.create({
 	},
 	centerAccessibilityButton: {
 		flex: 1,
-		width: '100%',
-		height: '45%',
+		height: '100%',
 		backgroundColor: '#DDD',
 		paddingHorizontal: 15,
 		justifyContent: 'space-evenly',
