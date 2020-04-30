@@ -29,7 +29,10 @@ const endStatements = [
 	'sua reserva de energia',
 ];
 
-import { widthPercentToDP, heightPercentToDP } from '../../utils/dimensionsFunctions'
+import {
+	widthPercentToDP,
+	heightPercentToDP,
+} from '../../utils/dimensionsFunctions';
 
 const GameMain = ({ navigation }) => {
 	const [stats, setStats] = useState(new Array(4).fill(0));
@@ -142,9 +145,6 @@ const GameMain = ({ navigation }) => {
 				setScreenReaderEnabled(isEnabled);
 			};
 
-<<<<<<< HEAD
-			checkScreenReader();
-=======
 			const checkMotorAccessibility = async () => {
 				const boolStr = await AsyncStorage.getItem(
 					'isMotorAccessibilityEnabled',
@@ -155,7 +155,6 @@ const GameMain = ({ navigation }) => {
 
 			checkScreenReader();
 			checkMotorAccessibility();
->>>>>>> master
 			if (gameAccessibilityRef.current) focusOnAccessibilityTouchable();
 		});
 
