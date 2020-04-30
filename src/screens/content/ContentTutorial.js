@@ -193,8 +193,9 @@ const generateStyles = theme => {
 			fontWeight: 'bold',
 		},
 		icon: {
-			height: heightPercentToDP('40%'), 
-			width: widthPercentToDP('40%'), 
+			height: heightPercentToDP('55%'), 
+			width: widthPercentToDP('70%'), 
+			resizeMode: 'contain'
 		},
 		image: {
 			height: heightPercentToDP('45%'), 
