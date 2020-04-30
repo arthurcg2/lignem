@@ -8,6 +8,7 @@ import {
 	AccessibilityInfo,
 	findNodeHandle,
 } from 'react-native';
+import AsyncStorage from '@react-native-community/async-storage';
 import { ListItem, Divider } from 'react-native-elements';
 
 import { useTheme } from '@react-navigation/native';
@@ -37,6 +38,9 @@ const Settings = ({ navigation }) => {
 	const [styles, setStyles] = useState({});
 	const initialFocus = useRef(null);
 	const [darkmode, setDarkmode] = useState(false);
+	const [isMotorAccessibilityEnabled, setMotorAccessibilityEnabled] = useState(
+		false,
+	);
 	const switchTheme = useSwitchTheme();
 	const isSwitchDisabled = false;
 	const theme = useTheme();
@@ -68,7 +72,16 @@ const Settings = ({ navigation }) => {
 			setDarkmode(false);
 		}
 
+		async function getMotorAccessibilityState() {
+			const motorAcessibilityState = await AsyncStorage.getItem(
+				'isMotorAccessibilityEnabled',
+			);
+			if (motorAcessibilityState === 'true') setMotorAccessibilityEnabled(true);
+			else setMotorAccessibilityEnabled(false);
+		}
+
 		getInitialState();
+		getMotorAccessibilityState();
 	}, [theme]);
 
 	function handleChange() {
@@ -76,6 +89,13 @@ const Settings = ({ navigation }) => {
 			type: !darkmode ? 'dark' : 'light',
 		});
 		setDarkmode(!darkmode);
+	}
+
+	async function handleMotorAccessibilityChange() {
+		if (isMotorAccessibilityEnabled)
+			await AsyncStorage.setItem('isMotorAccessibilityEnabled', 'false');
+		else await AsyncStorage.setItem('isMotorAccessibilityEnabled', 'true');
+		setMotorAccessibilityEnabled(!isMotorAccessibilityEnabled);
 	}
 
 	return (
@@ -145,6 +165,31 @@ const Settings = ({ navigation }) => {
 			</Text>
 			<View>
 				{!theme.dark && <Divider />}
+				<ListItem
+					title="Modo de deficiência motora"
+					subtitle="Assistência de deficiência motora do jogo"
+					containerStyle={{ backgroundColor: theme.colors.background }}
+					titleStyle={{ color: theme.colors.text }}
+					subtitleStyle={{ color: theme.colors.text }}
+					accessible
+					accessibilityLabel="Opção: ativar o modo de deficiência motora para o jogo."
+					accessibilityState={{ selected: isMotorAccessibilityEnabled }}
+					leftIcon={{ name: 'accessibility', color: theme.colors.text }}
+					onPress={handleMotorAccessibilityChange}
+					rightElement={
+						<Switch
+							importantForAccessibility="no"
+							value={isMotorAccessibilityEnabled}
+							onValueChange={handleMotorAccessibilityChange}
+							trackColor={{ true: theme.colors.primary }}
+							thumbColor="#FFF"
+						/>
+					}
+					bottomDivider={!theme.dark}
+				/>
+				{theme.dark && (
+					<Divider style={{ height: 0.5, backgroundColor: '#5A5C5F' }} />
+				)}
 				{accessibilityOptions.map((item, i) => (
 					<ListItem
 						title={item.title}

@@ -11,6 +11,7 @@ import {
 	Animated,
 	findNodeHandle,
 	Image,
+	Vibration,
 } from 'react-native';
 
 import { Overlay } from 'react-native-elements';
@@ -28,10 +29,15 @@ const endStatements = [
 	'sua reserva de energia',
 ];
 
+import { widthPercentToDP, heightPercentToDP } from '../../utils/dimensionsFunctions'
+
 const GameMain = ({ navigation }) => {
 	const [stats, setStats] = useState(new Array(4).fill(0));
 	const [oldValues, setOldValues] = useState(new Array(4).fill(0));
 	const [isScreenReaderEnabled, setScreenReaderEnabled] = useState(false);
+	const [isMotorAccessibilityEnabled, setMotorAccessibilityEnabled] = useState(
+		false,
+	);
 	const gameAccessibilityRef = useRef(null);
 	const overlayRef = useRef(null);
 
@@ -88,6 +94,12 @@ const GameMain = ({ navigation }) => {
 			setScreenReaderEnabled(isEnabled);
 		};
 
+		const checkMotorAccessibility = async () => {
+			const boolStr = await AsyncStorage.getItem('isMotorAccessibilityEnabled');
+			if (boolStr === 'true') setMotorAccessibilityEnabled(true);
+			else setMotorAccessibilityEnabled(false);
+		};
+
 		const loadData = async () => {
 			const str = await AsyncStorage.getItem('isGameTutorialDone');
 			if (str !== 'true') navigation.navigate('Tutorial');
@@ -95,6 +107,7 @@ const GameMain = ({ navigation }) => {
 
 		loadData();
 		checkScreenReader();
+		checkMotorAccessibility();
 
 		let newStats = new Array(gameStats.length).fill(0);
 		for (let i = 0; i < gameStats.length; i++) {
@@ -129,7 +142,20 @@ const GameMain = ({ navigation }) => {
 				setScreenReaderEnabled(isEnabled);
 			};
 
+<<<<<<< HEAD
 			checkScreenReader();
+=======
+			const checkMotorAccessibility = async () => {
+				const boolStr = await AsyncStorage.getItem(
+					'isMotorAccessibilityEnabled',
+				);
+				if (boolStr === 'true') setMotorAccessibilityEnabled(true);
+				else setMotorAccessibilityEnabled(false);
+			};
+
+			checkScreenReader();
+			checkMotorAccessibility();
+>>>>>>> master
 			if (gameAccessibilityRef.current) focusOnAccessibilityTouchable();
 		});
 
@@ -150,6 +176,7 @@ const GameMain = ({ navigation }) => {
 				} e terá que sair já do poder!`,
 			);
 			setOverlayImg(gameStats[i].image);
+			Vibration.vibrate([0, 600]);
 		}
 		if (questionCount >= currentTree.length - 1) {
 			let maior = 0;
@@ -165,6 +192,7 @@ const GameMain = ({ navigation }) => {
 					endStatements[maior]
 				}!`,
 			);
+			Vibration.vibrate([0, 350, 50, 350]);
 		}
 		return 0;
 	}
@@ -242,8 +270,8 @@ const GameMain = ({ navigation }) => {
 				isVisible={overlayVisible}
 				overlayBackgroundColor={theme.colors.background}
 				borderRadius={5}
-				height={550}
-				width={300}
+				height={heightPercentToDP('90%')}
+				width={widthPercentToDP('80%')}
 			>
 				<View
 					style={styles.overlayContainer}
@@ -279,7 +307,7 @@ const GameMain = ({ navigation }) => {
 					<View
 						style={{
 							width: '100%',
-							height: 300,
+							height: '50%',
 							borderRadius: 10,
 							alignItems: 'center',
 							justifyContent: 'flex-end',
@@ -402,6 +430,7 @@ const GameMain = ({ navigation }) => {
 			</Overlay>
 			<Chooser
 				isScreenReaderEnabled={isScreenReaderEnabled}
+				isMotorAccessibilityEnabled={isMotorAccessibilityEnabled}
 				onNewQuestion={focusOnAccessibilityTouchable}
 				onQuestionAnswered={handleQuestionAnswered}
 				tree={currentTree}
@@ -416,9 +445,6 @@ const GameMain = ({ navigation }) => {
 				currentStats={gameStats}
 				oldValues={oldValues}
 				months={formatMonths()}
-				containerStyle={
-					isScreenReaderEnabled ? { flex: 1, justifyContent: 'center' } : {}
-				}
 			/>
 		</View>
 	);

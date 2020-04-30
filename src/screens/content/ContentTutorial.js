@@ -18,12 +18,13 @@ import AsyncStorage from '@react-native-community/async-storage';
 import { useTheme } from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
+import { widthPercentToDP, heightPercentToDP } from '../../utils/dimensionsFunctions'
+
 const ContentTutorial = ({ navigation }) => {
 	const initialElement = useRef(null);
 	const [styles, setStyles] = useState({});
 	const [current, setCurrent] = useState(0);
 	const theme = useTheme();
-	const isLargeScreen = Dimensions.get('window').height > 592;
 
 	useEffect(() => {
 		hideNavigationBar();
@@ -66,7 +67,7 @@ const ContentTutorial = ({ navigation }) => {
 						image: (
 							<Image
 								source={require('../../../assets/tutorial/lignem_white.png')}
-								style={styles.image}
+								style={styles.icon}
 							/>
 						),
 						title: (
@@ -80,18 +81,10 @@ const ContentTutorial = ({ navigation }) => {
 					},
 					{
 						backgroundColor: theme.colors.primary,
-						image: (() => {
-							if (isLargeScreen) {
-								return (
-									<Image
-										source={require('../../../assets/tutorial/tc-1.jpg')}
-										style={{ height: 229, width: 350 }}
-									/>
-								);
-							} else {
-								return <Image />;
-							}
-						})(),
+						image: <Image
+							source={require('../../../assets/tutorial/tc-1.jpg')}
+							style={styles.image}
+						/>,
 						title: (
 							<Text style={styles.text}>
 								<Text style={styles.bold}>Navegação</Text>
@@ -103,18 +96,10 @@ const ContentTutorial = ({ navigation }) => {
 					},
 					{
 						backgroundColor: theme.colors.primary,
-						image: (() => {
-							if (isLargeScreen) {
-								return (
-									<Image
-										source={require('../../../assets/tutorial/tc-2.jpg')}
-										style={{ height: 367, width: 350 }}
-									/>
-								);
-							} else {
-								return <Image />;
-							}
-						})(),
+						image: <Image
+							source={require('../../../assets/tutorial/tc-2.jpg')}
+							style={styles.image}
+						/>,
 						title: (
 							<Text style={styles.text}>
 								Tela de <Text style={styles.bold}>Conteúdos</Text>
@@ -126,18 +111,10 @@ const ContentTutorial = ({ navigation }) => {
 					},
 					{
 						backgroundColor: theme.colors.primary,
-						image: (() => {
-							if (isLargeScreen) {
-								return (
-									<Image
-										source={require('../../../assets/tutorial/tc-3.jpg')}
-										style={{ height: 221, width: 350 }}
-									/>
-								);
-							} else {
-								return <Image />;
-							}
-						})(),
+						image: <Image
+							source={require('../../../assets/tutorial/tc-3.jpg')}
+							style={styles.image}
+						/>,
 						title: (
 							<Text style={styles.text}>
 								Tela de <Text style={styles.bold}>Jogo</Text>
@@ -149,18 +126,10 @@ const ContentTutorial = ({ navigation }) => {
 					},
 					{
 						backgroundColor: theme.colors.primary,
-						image: (() => {
-							if (isLargeScreen) {
-								return (
-									<Image
-										source={require('../../../assets/tutorial/tc-4.jpg')}
-										style={{ height: 341, width: 350 }}
-									/>
-								);
-							} else {
-								return <Image />;
-							}
-						})(),
+						image: <Image
+							source={require('../../../assets/tutorial/tc-4.jpg')}
+							style={styles.image}
+						/>,
 						title: (
 							<Text style={styles.text}>
 								Tela de <Text style={styles.bold}>Configurações</Text>
@@ -223,11 +192,16 @@ const generateStyles = theme => {
 			color: theme.colors.background,
 			fontWeight: 'bold',
 		},
-		image: {
-			height: 175,
-			width: 175,
+		icon: {
+			height: heightPercentToDP('55%'), 
+			width: widthPercentToDP('70%'), 
+			resizeMode: 'contain'
 		},
-
+		image: {
+			height: heightPercentToDP('45%'), 
+			width: widthPercentToDP('70%'), 
+			resizeMode: 'stretch'
+		},
 		imgTutorialConfig: {
 			height: 500,
 			width: 340,

@@ -12,6 +12,7 @@ import backgroundImage from '../../../../assets/game/background.png';
 const Chooser = forwardRef((props, ref) => {
 	const {
 		isScreenReaderEnabled,
+		isMotorAccessibilityEnabled,
 		onNewQuestion,
 		onQuestionAnswered,
 		tree,
@@ -158,7 +159,7 @@ const Chooser = forwardRef((props, ref) => {
 
 	return (
 		<>
-			{!isScreenReaderEnabled && (
+			{!isScreenReaderEnabled && !isMotorAccessibilityEnabled && (
 				<PanGestureHandler
 					onGestureEvent={animatedEvent}
 					onHandlerStateChange={onHandlerStateChanged}
@@ -291,6 +292,60 @@ const Chooser = forwardRef((props, ref) => {
 							{currentQuestion.statement}
 						</Text>
 					</TouchableOpacity>
+					<TouchableOpacity
+						accessibilityLabel={`Direita,\n você diz: ${
+							currentQuestion.yesOption
+						}`}
+						style={{
+							...styles.accessibilityButton,
+							backgroundColor: 'green',
+							borderTopLeftRadius: 0,
+							borderBottomLeftRadius: 0,
+							paddingLeft: 10,
+						}}
+						onPress={() => changeQuestion('yes')}
+					>
+						<Icon name="check-circle" size={50} color="white" />
+					</TouchableOpacity>
+				</View>
+			)}
+			{!isScreenReaderEnabled && isMotorAccessibilityEnabled && (
+				<View style={styles.accessibilityButtonsContainer}>
+					<TouchableOpacity
+						accessibilityLabel={`Esquerda,\n você diz: ${
+							currentQuestion.noOption
+						}`}
+						style={{
+							...styles.accessibilityButton,
+							backgroundColor: 'red',
+							borderTopRightRadius: 0,
+							borderBottomRightRadius: 0,
+							paddingRight: 10,
+						}}
+						onPress={() => changeQuestion('no')}
+					>
+						<Icon name="cancel" size={50} color="white" />
+					</TouchableOpacity>
+					<View
+						style={styles.centerMotorAccessibilityButton}
+						accessible
+						accessibilityLabel={`${agent[currentQuestion.char]} diz:\n ${
+							currentQuestion.statement
+						}\n ${
+							isFinal
+								? 'Fim de jogo, toque em qualquer uma das laterais para responder.'
+								: 'Clique abaixo para ver o estado atual de seus atributos!\nClique nas laterais centrais para tomar uma decisão!'
+						}`}
+					>
+						<Card
+							text={currentQuestion.statement}
+							character={currentQuestion.char}
+							borderRadius={0}
+						/>
+						<Animated.View style={styles.infoContainer}>
+							<Text style={styles.info}>{info}</Text>
+						</Animated.View>
+					</View>
 					<TouchableOpacity
 						accessibilityLabel={`Direita,\n você diz: ${
 							currentQuestion.yesOption

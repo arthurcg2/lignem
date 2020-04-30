@@ -74,14 +74,6 @@ export default trees = [
             },
         },
         {
-            id: 26,
-            condition: {
-                qIndex: 13,
-                qAnswer: false,
-                elseDo: 'jump',
-            },
-        },
-        {
             id: 17,
             condition: {
                 qIndex: 16,
@@ -116,6 +108,14 @@ export default trees = [
             condition: {
                 qIndex: 18,
                 qAnswer: true,
+                elseDo: 'jump',
+            },
+        },
+        {
+            id: 26,
+            condition: {
+                qIndex: 14,
+                qAnswer: false,
                 elseDo: 'jump',
             },
         },

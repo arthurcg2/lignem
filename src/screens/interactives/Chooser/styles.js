@@ -1,35 +1,36 @@
-import { StyleSheet, Dimensions } from 'react-native';
+import { StyleSheet } from 'react-native';
 
-const h = Dimensions.get('window').height;
-const w = Dimensions.get('window').width;
+import { widthPercentToDP, heightPercentToDP } from '../../../utils/dimensionsFunctions'
 
 export const styles = StyleSheet.create({
 	container: {
 		alignItems: 'center',
 		justifyContent: 'center',
-		width: '100%',
+		width: widthPercentToDP('100%'),
+		height: heightPercentToDP('45%'),
 		margin: 0,
 	},
 	brand: {
-		height: h <= 592 ? 280 : 320,
+		height: '100%',
 		borderRadius: 10,
-		width: 280,
+		width: '80%',
 		margin: 'auto',
 		position: 'absolute',
 	},
 	image: {
-		height: h <= 592 ? 280 : 320,
+		height: '100%',
+		width: '100%',
 	},
 	swap: {
-		height: h <= 592 ? 280 : 320,
+		height: '100%',
 		borderRadius: 10,
-		width: 280,
+		width: widthPercentToDP('80%'),
 		margin: 'auto',
 		flexDirection: 'row',
 	},
 	no: {
 		paddingVertical: 10,
-		width: 280,
+		width: '100%',
 		backgroundColor: 'red',
 		borderTopLeftRadius: 10,
 		borderTopRightRadius: 10,
@@ -39,7 +40,7 @@ export const styles = StyleSheet.create({
 	},
 	yes: {
 		paddingVertical: 10,
-		width: 280,
+		width: '100%',
 		backgroundColor: 'green',
 		borderTopLeftRadius: 10,
 		borderTopRightRadius: 10,
@@ -69,15 +70,15 @@ export const styles = StyleSheet.create({
 		fontFamily: 'Montserrat',
 	},
 	accessibilityButtonsContainer: {
-		width: w,
+		width: widthPercentToDP('95%'),
+		height: heightPercentToDP('45%'),
 		flexDirection: 'row',
 		justifyContent: 'center',
 		alignItems: 'center',
-		padding: 10,
 	},
 	accessibilityButton: {
-		width: 70,
-		height: h <= 592 ? 280 : 320,
+		width: widthPercentToDP('18%'),
+		height: '100%',
 		borderRadius: 12,
 		elevation: 5,
 		justifyContent: 'center',
@@ -85,10 +86,14 @@ export const styles = StyleSheet.create({
 	},
 	centerAccessibilityButton: {
 		flex: 1,
-		width: w - 2 * (70 + 10),
-		height: h <= 592 ? 280 : 320,
+		height: '100%',
 		backgroundColor: '#DDD',
 		paddingHorizontal: 15,
 		justifyContent: 'space-evenly',
+	},
+	centerMotorAccessibilityButton: {
+		flex: 1,
+		width: '100%',
+		height: '100%',
 	},
 });
