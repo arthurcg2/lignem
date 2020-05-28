@@ -122,7 +122,7 @@ export default questions = [
 		statement: 'SENHOR!! A barragem da usina hidrelétrica de São Pedro se rompeu! Temos que reconstruí-la ou suspendê-la!',
 		yesOption: 'Reconstrua já!',
 		noOption: 'Suspenda agora!',
-		yes: [-2, -2, -4, 4],
+		yes: [1, -2, -4, 4],
 		no: [2, 2, 2, -4],
 	},
 	{
