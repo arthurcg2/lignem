@@ -49,13 +49,38 @@ const ContentsScreen = ({ navigation, route }) => {
 						},
 						paragraph: {
 							react: (node, output, state) => {
+								let currentText = '',
+									newNodeContent = [];
+
+								node.content.forEach((element, i) => {
+									if (element.type === 'text') {
+										currentText += element.content;
+									} else {
+										if (currentText) {
+											newNodeContent.push({
+												content: currentText,
+												type: 'text',
+											});
+											currentText = '';
+										}
+										newNodeContent.push(element);
+									}
+								});
+
+								if (currentText) {
+									newNodeContent.push({
+										content: currentText,
+										type: 'text',
+									});
+								}
+
 								return (
 									<View
 										accessible
 										key={state.key}
 										style={markdownStyles.paragraph}
 									>
-										{output(node.content, state)}
+										{output(newNodeContent, state)}
 									</View>
 								);
 							},
