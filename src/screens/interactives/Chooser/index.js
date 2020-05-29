@@ -25,7 +25,7 @@ const Chooser = forwardRef((props, ref) => {
 	const [isFinal, setIsFinal] = useState(false);
 	let n = 0;
 
-	const [canAnswer, setCanAnswer] = useState(true)
+	const [canAnswer, setCanAnswer] = useState(true);
 
 	const [info, setInfo] = useState('');
 	const elevationBrand = new Animated.Value(10);
@@ -97,8 +97,8 @@ const Chooser = forwardRef((props, ref) => {
 	);
 
 	const changeQuestion = option => {
-		console.log(canAnswer)
-		if(canAnswer){
+		console.log(canAnswer);
+		if (canAnswer) {
 			Animated.timing(elevationSwap, {
 				toValue: 15,
 				duration: 2,
@@ -109,7 +109,7 @@ const Chooser = forwardRef((props, ref) => {
 				duration: 200,
 				useNativeDriver: true,
 			}).start();
-	
+
 			setTimeout(() => {
 				Animated.timing(elevationSwap, {
 					toValue: 20,
@@ -121,11 +121,11 @@ const Chooser = forwardRef((props, ref) => {
 					duration: 250,
 					useNativeDriver: true,
 				}).start();
-	
-				setCanAnswer(false)
+
+				setCanAnswer(false);
 				setTimeout(() => {
-					setCanAnswer(true)
-				}, 800)
+					setCanAnswer(true);
+				}, 800);
 
 				let ans = answers;
 				ans[questionCount] = option == 'yes' ? true : false;
@@ -140,7 +140,7 @@ const Chooser = forwardRef((props, ref) => {
 				} else {
 					setQuestionCount(questionCount + 1);
 				}
-			}, 300);
+			}, 400);
 		}
 	};
 

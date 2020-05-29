@@ -1,9 +1,10 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Animated, View } from 'react-native';
 
 import styles from './styles';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { useTheme } from '@react-navigation/native';
+import { heightPercentToDP } from '../../../utils/dimensionsFunctions';
 
 export default function({ currentStats, oldValues, months }) {
 	const theme = useTheme();
@@ -27,18 +28,28 @@ export default function({ currentStats, oldValues, months }) {
 		>
 			{currentStats.map((stat, i) => {
 				const statValue = new Animated.Value(oldValues[i]);
+				const arrowDownPosition = new Animated.Value(0);
+				const arrowUpPosition = new Animated.Value(heightPercentToDP('20%'));
 
-				if(oldValues[i] > stat.value){
+				if (oldValues[i] > stat.value) {
 					setTimeout(() => {
 						Animated.timing(statValue, {
 							toValue: stat.value,
 							duration: 400,
 						}).start();
-					}, 400)
-				} else if(oldValues[i] < stat.value){
+						Animated.timing(arrowDownPosition, {
+							toValue: heightPercentToDP('20%'),
+							duration: 450,
+						}).start();
+					}, 500);
+				} else if (oldValues[i] < stat.value) {
 					Animated.timing(statValue, {
 						toValue: stat.value,
 						duration: 400,
+					}).start();
+					Animated.timing(arrowUpPosition, {
+						toValue: 0,
+						duration: 450,
 					}).start();
 				}
 
@@ -75,6 +86,62 @@ export default function({ currentStats, oldValues, months }) {
 							size={32}
 							color={theme.colors.primaryDarken}
 						/>
+						<Animated.View
+							style={{
+								opacity: arrowUpPosition.interpolate({
+									inputRange: [
+										0,
+										heightPercentToDP('10%'),
+										heightPercentToDP('20%'),
+									],
+									outputRange: [0, 1, 0],
+									extrapolate: 'clamp',
+								}),
+								top: arrowUpPosition.interpolate({
+									inputRange: [0, heightPercentToDP('20%')],
+									outputRange: [
+										heightPercentToDP('2%'),
+										heightPercentToDP('5%'),
+									],
+									extrapolate: 'clamp',
+								}),
+								...styles.arrowContainer,
+							}}
+						>
+							<Icon
+								name={'arrow-up'}
+								size={30}
+								color={theme.colors.primaryDarken}
+							/>
+						</Animated.View>
+						<Animated.View
+							style={{
+								opacity: arrowDownPosition.interpolate({
+									inputRange: [
+										0,
+										heightPercentToDP('10%'),
+										heightPercentToDP('20%'),
+									],
+									outputRange: [0, 1, 0],
+									extrapolate: 'clamp',
+								}),
+								top: arrowDownPosition.interpolate({
+									inputRange: [0, heightPercentToDP('20%')],
+									outputRange: [
+										heightPercentToDP('2%'),
+										heightPercentToDP('5%'),
+									],
+									extrapolate: 'clamp',
+								}),
+								...styles.arrowContainer,
+							}}
+						>
+							<Icon
+								name={'arrow-down'}
+								size={30}
+								color={theme.colors.primaryDarken}
+							/>
+						</Animated.View>
 					</View>
 				);
 			})}

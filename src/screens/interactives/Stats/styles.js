@@ -1,6 +1,9 @@
 import { StyleSheet } from 'react-native';
 
-import { widthPercentToDP, heightPercentToDP } from '../../../utils/dimensionsFunctions'
+import {
+	widthPercentToDP,
+	heightPercentToDP,
+} from '../../../utils/dimensionsFunctions';
 
 export default StyleSheet.create({
 	statsContainer: {
@@ -22,5 +25,8 @@ export default StyleSheet.create({
 		padding: 2,
 		alignItems: 'center',
 		justifyContent: 'flex-end',
+	},
+	arrowContainer: {
+		position: 'absolute',
 	},
 });
