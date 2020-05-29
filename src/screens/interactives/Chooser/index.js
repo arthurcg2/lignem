@@ -97,7 +97,6 @@ const Chooser = forwardRef((props, ref) => {
 	);
 
 	const changeQuestion = option => {
-		console.log(canAnswer);
 		if (canAnswer) {
 			Animated.timing(elevationSwap, {
 				toValue: 15,
