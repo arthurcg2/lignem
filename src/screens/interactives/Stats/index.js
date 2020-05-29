@@ -28,10 +28,19 @@ export default function({ currentStats, oldValues, months }) {
 			{currentStats.map((stat, i) => {
 				const statValue = new Animated.Value(oldValues[i]);
 
-				Animated.timing(statValue, {
-					toValue: stat.value,
-					duration: 100,
-				}).start();
+				if(oldValues[i] > stat.value){
+					setTimeout(() => {
+						Animated.timing(statValue, {
+							toValue: stat.value,
+							duration: 400,
+						}).start();
+					}, 400)
+				} else if(oldValues[i] < stat.value){
+					Animated.timing(statValue, {
+						toValue: stat.value,
+						duration: 400,
+					}).start();
+				}
 
 				return (
 					<View key={i} style={styles.stat}>
