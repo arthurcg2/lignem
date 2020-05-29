@@ -18,7 +18,10 @@ import AsyncStorage from '@react-native-community/async-storage';
 import { useTheme } from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
-import { widthPercentToDP, heightPercentToDP } from '../../utils/dimensionsFunctions'
+import {
+	widthPercentToDP,
+	heightPercentToDP,
+} from '../../utils/dimensionsFunctions';
 
 const ContentTutorial = ({ navigation }) => {
 	const initialElement = useRef(null);
@@ -81,10 +84,12 @@ const ContentTutorial = ({ navigation }) => {
 					},
 					{
 						backgroundColor: theme.colors.primary,
-						image: <Image
-							source={require('../../../assets/tutorial/tc-1.jpg')}
-							style={styles.image}
-						/>,
+						image: (
+							<Image
+								source={require('../../../assets/tutorial/tc-1.jpg')}
+								style={styles.image}
+							/>
+						),
 						title: (
 							<Text style={styles.text}>
 								<Text style={styles.bold}>Navegação</Text>
@@ -96,10 +101,12 @@ const ContentTutorial = ({ navigation }) => {
 					},
 					{
 						backgroundColor: theme.colors.primary,
-						image: <Image
-							source={require('../../../assets/tutorial/tc-2.jpg')}
-							style={styles.image}
-						/>,
+						image: (
+							<Image
+								source={require('../../../assets/tutorial/tc-2.jpg')}
+								style={styles.image}
+							/>
+						),
 						title: (
 							<Text style={styles.text}>
 								Tela de <Text style={styles.bold}>Conteúdos</Text>
@@ -111,10 +118,12 @@ const ContentTutorial = ({ navigation }) => {
 					},
 					{
 						backgroundColor: theme.colors.primary,
-						image: <Image
-							source={require('../../../assets/tutorial/tc-3.jpg')}
-							style={styles.image}
-						/>,
+						image: (
+							<Image
+								source={require('../../../assets/tutorial/tc-3.jpg')}
+								style={styles.image}
+							/>
+						),
 						title: (
 							<Text style={styles.text}>
 								Tela de <Text style={styles.bold}>Jogo</Text>
@@ -126,10 +135,12 @@ const ContentTutorial = ({ navigation }) => {
 					},
 					{
 						backgroundColor: theme.colors.primary,
-						image: <Image
-							source={require('../../../assets/tutorial/tc-4.jpg')}
-							style={styles.image}
-						/>,
+						image: (
+							<Image
+								source={require('../../../assets/tutorial/tc-4.jpg')}
+								style={styles.image}
+							/>
+						),
 						title: (
 							<Text style={styles.text}>
 								Tela de <Text style={styles.bold}>Configurações</Text>
@@ -193,14 +204,14 @@ const generateStyles = theme => {
 			fontWeight: 'bold',
 		},
 		icon: {
-			height: heightPercentToDP('55%'), 
-			width: widthPercentToDP('70%'), 
-			resizeMode: 'contain'
+			height: heightPercentToDP('55%'),
+			width: widthPercentToDP('70%'),
+			resizeMode: 'contain',
 		},
 		image: {
-			height: heightPercentToDP('45%'), 
-			width: widthPercentToDP('70%'), 
-			resizeMode: 'stretch'
+			height: heightPercentToDP('45%'),
+			width: widthPercentToDP('70%'),
+			resizeMode: 'stretch',
 		},
 		imgTutorialConfig: {
 			height: 500,
