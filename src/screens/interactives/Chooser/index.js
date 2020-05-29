@@ -25,6 +25,8 @@ const Chooser = forwardRef((props, ref) => {
 	const [isFinal, setIsFinal] = useState(false);
 	let n = 0;
 
+	const [canAnswer, setCanAnswer] = useState(true)
+
 	const [info, setInfo] = useState('');
 	const elevationBrand = new Animated.Value(10);
 	const elevationSwap = new Animated.Value(20);
@@ -95,43 +97,51 @@ const Chooser = forwardRef((props, ref) => {
 	);
 
 	const changeQuestion = option => {
-		Animated.timing(elevationSwap, {
-			toValue: 15,
-			duration: 2,
-			useNativeDriver: true,
-		}).start();
-		Animated.timing(elevationBrand, {
-			toValue: 16,
-			duration: 200,
-			useNativeDriver: true,
-		}).start();
-
-		setTimeout(() => {
+		console.log(canAnswer)
+		if(canAnswer){
 			Animated.timing(elevationSwap, {
-				toValue: 20,
-				duration: 250,
+				toValue: 15,
+				duration: 2,
 				useNativeDriver: true,
 			}).start();
 			Animated.timing(elevationBrand, {
-				toValue: 10,
-				duration: 250,
+				toValue: 16,
+				duration: 200,
 				useNativeDriver: true,
 			}).start();
+	
+			setTimeout(() => {
+				Animated.timing(elevationSwap, {
+					toValue: 20,
+					duration: 250,
+					useNativeDriver: true,
+				}).start();
+				Animated.timing(elevationBrand, {
+					toValue: 10,
+					duration: 250,
+					useNativeDriver: true,
+				}).start();
+	
+				setCanAnswer(false)
+				setTimeout(() => {
+					setCanAnswer(true)
+				}, 800)
 
-			let ans = answers;
-			ans[questionCount] = option == 'yes' ? true : false;
-			setAnswers(ans);
-			n = onQuestionAnswered(currentQuestion[option], questionCount, isFinal);
-			if (n == 0 && isFinal == true) {
-				setIsFinal(false);
-				setQuestionCount(0);
-			} else if (n != 0 && isFinal == false) {
-				setCurrentQuestion(questions[findQuestion(n)]);
-				setIsFinal(true);
-			} else {
-				setQuestionCount(questionCount + 1);
-			}
-		}, 300);
+				let ans = answers;
+				ans[questionCount] = option == 'yes' ? true : false;
+				setAnswers(ans);
+				n = onQuestionAnswered(currentQuestion[option], questionCount, isFinal);
+				if (n == 0 && isFinal == true) {
+					setIsFinal(false);
+					setQuestionCount(0);
+				} else if (n != 0 && isFinal == false) {
+					setCurrentQuestion(questions[findQuestion(n)]);
+					setIsFinal(true);
+				} else {
+					setQuestionCount(questionCount + 1);
+				}
+			}, 300);
+		}
 	};
 
 	const onHandlerStateChanged = event => {
