@@ -1,0 +1,175 @@
+[
+	{
+		"content": "Eficiência Energética",
+		"fonts": [
+			{
+				"site": "Way 2: Eficiência energética para empresas",
+				"url": "https://www.way2.com.br/blog/eficiencia-energetica-para-empresas"
+			},
+			{
+				"site": "Abesco: O que é eficiência energética",
+				"url": "http://www.abesco.com.br/pt/o-que-e-eficiencia-energetica-ee/"
+			},
+			{
+				"site": "EPE.gov: Eficiência energética",
+				"url": "http://www.epe.gov.br/pt/abcdenergia/eficiencia-energetica"
+			},
+			{
+				"site": "Cubi Energia: Eficiência energética: O que é? Qual a importância",
+				"url": "https://www.cubienergia.com/eficiencia-energetica/"
+			}
+		]
+	},
+	{
+		"content": "Energia Eólica",
+		"fonts": [
+			{
+				"site": "Toda Matéria: Energia Eólica",
+				"url": "https://www.todamateria.com.br/energia-eolica/"
+			},
+			{
+				"site": "Ecycle: O que é energia eólica?",
+				"url": "https://www.ecycle.com.br/2899-energia-eolica"
+			},
+			{
+				"site": "Portal Energia: Energia eólica",
+				"url": "https://www.portal-energia.com/energia-eolica/"
+			},
+			{
+				"site": "Aerogerador: Tipos de sistemas eólicos",
+				"url": "https://sites.google.com/site/aerogeradorturbinas/tipos-de-sistemas-eolicos"
+			},
+			{
+				"site": "Passei Direto Arquivos: Conceitos físicos aplicados na energia eólica",
+				"url": "https://www.passeidireto.com/arquivo/51357043/conceitos-fisicos-aplicados-na-energia-eolica"
+			},
+			{
+				"site": "Canal Energia: Energia eólica no Brasil",
+				"url": "https://www.canalenergia.com.br/noticias/53096013/energia-eolica-atinge-15-gw-em-capacidade-instalada-no-brasil"
+			}
+		]
+	},
+	{
+		"content": "Energia Hidrelétrica",
+		"fonts": [
+			{
+				"site": "Toda Matéria: Usinas hidrelétricas",
+				"url": "https://www.todamateria.com.br/usina-hidreletrica/"
+			},
+			{
+				"site": "Brasil Escola: Energia hidrelétrica",
+				"url": "https://brasilescola.uol.com.br/geografia/energia-hidreletrica.htm"
+			},
+			{
+				"site": "Wikipédia: Usinas hidrelétricas",
+				"url": "https://pt.wikipedia.org/wiki/Usina_hidrel%C3%A9trica#Tipos"
+			},
+
+			{
+				"site": "Mundo Educação: Energia hidrelétrica",
+				"url": "https://mundoeducacao.uol.com.br/geografia/hidreletrica.htm"
+			},
+			{
+				"site": "Pensamento Verde: Usinas fio d'água",
+				"url": "https://www.pensamentoverde.com.br/economia-verde/usina-fio-dagua/"
+			},
+			{
+				"site": "Canal Energia: Energia hidrelétrica no Brasil",
+				"url": "https://www.canalenergia.com.br/noticias/53086126/itaipu-mantem-recorde-mundial-de-geracao"
+			}
+		]
+	},
+	{
+		"content": "Energia Maremotriz",
+		"fonts": [
+			{
+				"site": "InfoEscola: Energia das marés",
+				"url": "https://www.infoescola.com/fisica/energia-das-mares/"
+			},
+			{
+				"site": "Portal da Energia: Energia maremotriz",
+				"url": "https://portaldaenergia.com/energia-maremotriz/"
+			},
+			{
+				"site": "Fragmaq: Como funciona a energia maremotriz",
+				"url": "https://www.fragmaq.com.br/blog/entenda-como-funciona-energia-maremotriz-suas-principais-vantagens-e-desvantagens/"
+			}
+		]
+	},
+	{
+		"content": "Energia Nuclear",
+		"fonts": [
+			{
+				"site": "Toda Matéria: Energia nuclear",
+				"url": "https://www.todamateria.com.br/energia-nuclear/"
+			},
+			{
+				"site": "Wikipédia: Tipos de reações nucleares",
+				"url": "https://pt.wikipedia.org/wiki/Energia_nuclear#Tipos_de_rea%C3%A7%C3%B5es_nucleares"
+			},
+			{
+				"site": "Indústria Hoje: Como funciona um grupo gerador de energia",
+				"url": "https://industriahoje.com.br/como-funciona-um-grupo-gerador-de-energia"
+			},
+			{
+				"site": "Wikipedia: Programa nuclear brasileiro",
+				"url": "https://pt.wikipedia.org/wiki/Programa_nuclear_brasileiro"
+			},
+			{
+				"site": "InfoEscola: Energia nuclear no Brasil",
+				"url": "https://www.infoescola.com/geografia/energia-nuclear-no-brasil/"
+			},
+
+			{
+				"site": "Instituto de Pesquisas Energéticas e Nucleares: Energia nuclear no mundo",
+				"url": "https://www.ipen.br/portal_por/portal/interna.php?secao_id=40&campo=10988"
+			}
+		]
+	},
+	{
+		"content": "Energia Solar",
+		"fonts": [
+			{
+				"site": "Brasil Escola: Energia solar",
+				"url": "https://brasilescola.uol.com.br/geografia/energia-solar.htm"
+			},
+			{
+				"site": "Sua pesquisa: Energia solar no Brasil",
+				"url": "https://www.suapesquisa.com/energia/solar_brasil.htm"
+			},
+			{
+				"site": "Ideal Energia Solar: Energia solar no mundo",
+				"url": "https://idealenergiasolar.com.br/energia-solar-no-mundo-exemplos-de-economia-energetica-e-sustentabilidade/"
+			}
+		]
+	},
+	{
+		"content": "Energia Termoeletrica",
+		"fonts": [
+			{
+				"site": "Brasil Escola: Energia termoelétrica",
+				"url": "https://brasilescola.uol.com.br/geografia/energia-termoeletrica.htm"
+			},
+			{
+				"site": "Toda Matéria: Energia termoelétrica",
+				"url": "https://www.todamateria.com.br/energia-termoeletrica/"
+			},
+			{
+				"site": "Wikipédia: Usina termoelétrica",
+				"url": "https://pt.wikipedia.org/wiki/Usina_termoel%C3%A9trica"
+			},
+			{
+				"site": "Wikipédia: Impactos da energia termoelétrica no Brasil ",
+				"url": "https://pt.wikipedia.org/wiki/Energia_termel%C3%A9trica_no_Brasil#Impacto_ambiental"
+			},
+			{
+				"site": "Akatu ORG: Usina termoelétrica insalada no Brasil",
+				"url": "https://www.akatu.org.br/noticia/maior-termeletrica-com-combustivel-renovavel-e-inaugurada-em-sao-paulo/"
+			},
+			{
+				"site": "Mundo Educação: Usina Termoelétrica",
+				"url": "https://mundoeducacao.bol.uol.com.br/geografia/usina-termeletrica.htm"
+			}
+		]
+	}
+]

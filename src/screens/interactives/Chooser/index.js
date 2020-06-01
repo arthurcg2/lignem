@@ -13,6 +13,7 @@ const Chooser = forwardRef((props, ref) => {
 	const {
 		isScreenReaderEnabled,
 		isMotorAccessibilityEnabled,
+		statsAcessibilityLabel,
 		onNewQuestion,
 		onQuestionAnswered,
 		tree,
@@ -24,6 +25,8 @@ const Chooser = forwardRef((props, ref) => {
 	const [answers, setAnswers] = useState(new Array(tree.length).fill(null));
 	const [isFinal, setIsFinal] = useState(false);
 	let n = 0;
+
+	const [canAnswer, setCanAnswer] = useState(true);
 
 	const [info, setInfo] = useState('');
 	const elevationBrand = new Animated.Value(10);
@@ -95,43 +98,50 @@ const Chooser = forwardRef((props, ref) => {
 	);
 
 	const changeQuestion = option => {
-		Animated.timing(elevationSwap, {
-			toValue: 15,
-			duration: 2,
-			useNativeDriver: true,
-		}).start();
-		Animated.timing(elevationBrand, {
-			toValue: 16,
-			duration: 200,
-			useNativeDriver: true,
-		}).start();
-
-		setTimeout(() => {
+		if (canAnswer) {
 			Animated.timing(elevationSwap, {
-				toValue: 20,
-				duration: 250,
+				toValue: 15,
+				duration: 2,
 				useNativeDriver: true,
 			}).start();
 			Animated.timing(elevationBrand, {
-				toValue: 10,
-				duration: 250,
+				toValue: 16,
+				duration: 200,
 				useNativeDriver: true,
 			}).start();
 
-			let ans = answers;
-			ans[questionCount] = option == 'yes' ? true : false;
-			setAnswers(ans);
-			n = onQuestionAnswered(currentQuestion[option], questionCount, isFinal);
-			if (n == 0 && isFinal == true) {
-				setIsFinal(false);
-				setQuestionCount(0);
-			} else if (n != 0 && isFinal == false) {
-				setCurrentQuestion(questions[findQuestion(n)]);
-				setIsFinal(true);
-			} else {
-				setQuestionCount(questionCount + 1);
-			}
-		}, 300);
+			setTimeout(() => {
+				Animated.timing(elevationSwap, {
+					toValue: 20,
+					duration: 250,
+					useNativeDriver: true,
+				}).start();
+				Animated.timing(elevationBrand, {
+					toValue: 10,
+					duration: 250,
+					useNativeDriver: true,
+				}).start();
+
+				setCanAnswer(false);
+				setTimeout(() => {
+					setCanAnswer(true);
+				}, 800);
+
+				let ans = answers;
+				ans[questionCount] = option == 'yes' ? true : false;
+				setAnswers(ans);
+				n = onQuestionAnswered(currentQuestion[option], questionCount, isFinal);
+				if (n == 0 && isFinal == true) {
+					setIsFinal(false);
+					setQuestionCount(0);
+				} else if (n != 0 && isFinal == false) {
+					setCurrentQuestion(questions[findQuestion(n)]);
+					setIsFinal(true);
+				} else {
+					setQuestionCount(questionCount + 1);
+				}
+			}, 400);
+		}
 	};
 
 	const onHandlerStateChanged = event => {
@@ -277,12 +287,12 @@ const Chooser = forwardRef((props, ref) => {
 						ref={ref}
 						style={styles.centerAccessibilityButton}
 						accessible
-						accessibilityLabel={`${agent[currentQuestion.char]} diz:\n ${
-							currentQuestion.statement
-						}\n ${
+						accessibilityLabel={`Estado atual dos atributos: ${statsAcessibilityLabel}\n
+						${agent[currentQuestion.char]} diz:\n ${currentQuestion.statement}\n
+						${
 							isFinal
-								? 'Fim de jogo, toque em qualquer uma das laterais para responder.'
-								: 'Clique abaixo para ver o estado atual de seus atributos!\nClique nas laterais centrais para tomar uma decisão!'
+								? 'Fim de jogo, toque em qualquer uma das laterais para finalizar.'
+								: 'Para tomar uma decisão, clique nas laterais centrais! Clique abaixo para ver novamente o estado atual de seus atributos!'
 						}`}
 					>
 						<Text style={{ textAlign: 'center', fontWeight: 'bold' }}>
@@ -329,12 +339,12 @@ const Chooser = forwardRef((props, ref) => {
 					<View
 						style={styles.centerMotorAccessibilityButton}
 						accessible
-						accessibilityLabel={`${agent[currentQuestion.char]} diz:\n ${
-							currentQuestion.statement
-						}\n ${
+						accessibilityLabel={`Estado atual dos atributos: ${statsAcessibilityLabel}\n
+						${agent[currentQuestion.char]} diz:\n ${currentQuestion.statement}\n
+						${
 							isFinal
-								? 'Fim de jogo, toque em qualquer uma das laterais para responder.'
-								: 'Clique abaixo para ver o estado atual de seus atributos!\nClique nas laterais centrais para tomar uma decisão!'
+								? 'Fim de jogo, toque em qualquer uma das laterais para finalizar.'
+								: 'Para tomar uma decisão, clique nas laterais centrais! Clique abaixo para ver novamente o estado atual de seus atributos!'
 						}`}
 					>
 						<Card

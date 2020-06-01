@@ -97,11 +97,8 @@ const list = [
 		name: 'Arthur Carvalho Guerra',
 		avatar: require('../../../assets/sobre/guerra.jpg'),
 		sites: {
-			types: ['instagram', 'github'],
-			urls: [
-				'https://instagram.com/arthur_cg2',
-				'https://github.com/arthurcg2',
-			],
+			types: ['github'],
+			urls: ['https://github.com/arthurcg2'],
 		},
 	},
 	{
@@ -116,11 +113,8 @@ const list = [
 		name: 'Iago Gabino Gonçalves',
 		avatar: require('../../../assets/sobre/iagogabino.jpg'),
 		sites: {
-			types: ['instagram', 'github'],
-			urls: [
-				'https://instagram.com/iagogabino',
-				'https://github.com/IagoGabino',
-			],
+			types: ['github'],
+			urls: ['https://github.com/IagoGabino'],
 		},
 	},
 	{

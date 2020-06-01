@@ -6,6 +6,7 @@ import Logo from '../../components/Logo';
 import Settings from './SettingsScreen';
 import Daltonismo from './DaltonismoScreen';
 import Sobre from './SobreScreen';
+import Fontes from './FontesScreen';
 import { useTheme } from '@react-navigation/native';
 
 const Stack = createStackNavigator();
@@ -46,6 +47,15 @@ const Router = () => {
 				component={Sobre}
 				options={{
 					headerTitle: 'Sobre',
+					headerBackTitle: 'Voltar para a página de configurações.',
+					headerBackTitleVisible: false,
+				}}
+			/>
+			<Stack.Screen
+				name="Fontes"
+				component={Fontes}
+				options={{
+					headerTitle: 'Fontes e Referências',
 					headerBackTitle: 'Voltar para a página de configurações.',
 					headerBackTitleVisible: false,
 				}}

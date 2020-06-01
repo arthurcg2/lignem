@@ -22,6 +22,13 @@ const options = [
 		navigate: 'Sobre',
 		chevron: true,
 	},
+	{
+		title: 'Fontes e Referências',
+		sub: 'Fontes dos conteúdos',
+		icon: 'book',
+		navigate: 'Fontes',
+		chevron: true,
+	},
 ];
 
 const accessibilityOptions = [
