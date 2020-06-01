@@ -13,6 +13,7 @@ const Chooser = forwardRef((props, ref) => {
 	const {
 		isScreenReaderEnabled,
 		isMotorAccessibilityEnabled,
+		statsAcessibilityLabel,
 		onNewQuestion,
 		onQuestionAnswered,
 		tree,
@@ -286,12 +287,12 @@ const Chooser = forwardRef((props, ref) => {
 						ref={ref}
 						style={styles.centerAccessibilityButton}
 						accessible
-						accessibilityLabel={`${agent[currentQuestion.char]} diz:\n ${
-							currentQuestion.statement
-						}\n ${
+						accessibilityLabel={`Estado atual dos atributos: ${statsAcessibilityLabel}\n
+						${agent[currentQuestion.char]} diz:\n ${currentQuestion.statement}\n
+						${
 							isFinal
-								? 'Fim de jogo, toque em qualquer uma das laterais para responder.'
-								: 'Clique abaixo para ver o estado atual de seus atributos!\nClique nas laterais centrais para tomar uma decisão!'
+								? 'Fim de jogo, toque em qualquer uma das laterais para finalizar.'
+								: 'Para tomar uma decisão, clique nas laterais centrais! Clique abaixo para ver novamente o estado atual de seus atributos!'
 						}`}
 					>
 						<Text style={{ textAlign: 'center', fontWeight: 'bold' }}>
@@ -338,12 +339,12 @@ const Chooser = forwardRef((props, ref) => {
 					<View
 						style={styles.centerMotorAccessibilityButton}
 						accessible
-						accessibilityLabel={`${agent[currentQuestion.char]} diz:\n ${
-							currentQuestion.statement
-						}\n ${
+						accessibilityLabel={`Estado atual dos atributos: ${statsAcessibilityLabel}\n
+						${agent[currentQuestion.char]} diz:\n ${currentQuestion.statement}\n
+						${
 							isFinal
-								? 'Fim de jogo, toque em qualquer uma das laterais para responder.'
-								: 'Clique abaixo para ver o estado atual de seus atributos!\nClique nas laterais centrais para tomar uma decisão!'
+								? 'Fim de jogo, toque em qualquer uma das laterais para finalizar.'
+								: 'Para tomar uma decisão, clique nas laterais centrais! Clique abaixo para ver novamente o estado atual de seus atributos!'
 						}`}
 					>
 						<Card

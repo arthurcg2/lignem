@@ -430,6 +430,12 @@ const GameMain = ({ navigation }) => {
 			<Chooser
 				isScreenReaderEnabled={isScreenReaderEnabled}
 				isMotorAccessibilityEnabled={isMotorAccessibilityEnabled}
+				statsAcessibilityLabel={`
+					${gameStats[0].name}: ${(stats[0] * 100) / gameStats[0].maxValue}%;\n
+					${gameStats[1].name}: ${(stats[1] * 100) / gameStats[1].maxValue}%;\n
+					${gameStats[2].name}: ${(stats[2] * 100) / gameStats[2].maxValue}%;\n
+					${gameStats[3].name}: ${(stats[3] * 100) / gameStats[3].maxValue}%;\n
+				`}
 				onNewQuestion={focusOnAccessibilityTouchable}
 				onQuestionAnswered={handleQuestionAnswered}
 				tree={currentTree}
