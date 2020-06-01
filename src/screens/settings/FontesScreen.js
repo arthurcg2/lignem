@@ -7,17 +7,30 @@ import { useTheme } from '@react-navigation/native';
 
 const Fontes = () => {
 	const theme = useTheme();
+
 	return (
-		<ScrollView>
+		<ScrollView style={{ backgroundColor: theme.colors.background }}>
 			{fontes.map((item, i) => (
-				<View key={i} style={styles.view}>
-					<Text style={[styles.title, { color: theme.colors.text }]}>
+				<View key={i} style={[styles.section, { marginTop: i == 0 ? 10 : 0 }]}>
+					<Text
+						accessible
+						accessibilityLabel={`Fontes do conteúdo de ${item.content}`}
+						style={[styles.title, { color: theme.colors.primary }]}
+					>
 						{item.content}
 					</Text>
 					{item.fonts.map((font, i) => (
 						<View key={i}>
 							<Text
-								style={[styles.fontes, { color: theme.colors.text }]}
+								accessible
+								accessibilityLabel={`Site: ${font.site}`}
+								style={[
+									styles.fontes,
+									{
+										color: theme.colors.text,
+										paddingBottom: i == item.fonts.length - 1 ? 20 : 3,
+									},
+								]}
 								onPress={() => Linking.openURL(font.url)}
 							>
 								{font.site}
@@ -34,15 +47,17 @@ const styles = StyleSheet.create({
 	title: {
 		fontSize: 25,
 		fontWeight: 'bold',
-		marginLeft: 7,
-		marginTop: 10,
+		paddingBottom: 5,
+		paddingTop: 15,
 	},
 	fontes: {
 		fontSize: 17,
-		marginLeft: 7,
 	},
-	view: {
+	section: {
 		marginBottom: 10,
+		paddingHorizontal: 12,
+		elevation: 3,
+		borderRadius: 0,
 	},
 });
 
